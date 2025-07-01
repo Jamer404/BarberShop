@@ -28,7 +28,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { title: "Dashboard", href: "/", icon: <Home className="h-5 w-5" /> },
+  // { title: "Dashboard", href: "/", icon: <Home className="h-5 w-5" /> },
   {
     title: "Localização",
     href: "#",
@@ -45,7 +45,7 @@ const navItems: NavItem[] = [
   { title: "Fornecedores", href: "/fornecedores", icon: <ShoppingBag className="h-5 w-5" /> },
   { title: "Condições de Pagamento", href: "/condicoes-pagamento", icon: <CreditCard className="h-5 w-5" /> },
   { title: "Formas de Pagamento", href: "/formas-pagamento", icon: <Wallet className="h-5 w-5" /> },
-  { title: "Configurações", href: "/configuracoes", icon: <Settings className="h-5 w-5" /> },
+  // { title: "Configurações", href: "/configuracoes", icon: <Settings className="h-5 w-5" /> },
 ]
 
 export function Sidebar({ isOpen }: SidebarProps) {

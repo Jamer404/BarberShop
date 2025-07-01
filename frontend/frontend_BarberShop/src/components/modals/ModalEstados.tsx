@@ -14,6 +14,8 @@ import { useEffect, useState } from "react"
 import { Estado, criarEstado, atualizarEstado } from "@/services/estadoService"
 import { Pais, getPaises } from "@/services/paisService"
 import { ModalPaises } from "@/components/modals/ModalPaises"
+import { toast } from "react-toastify"
+import { EstadoSchema } from "@/validations/localizacao"
 
 interface ModalEstadosProps {
   isOpen: boolean
@@ -61,11 +63,21 @@ export function ModalEstados({
   }
 
   async function handleSubmit() {
-    if (readOnly) return
-    if (estado) await atualizarEstado(estado.id, formData)
-    else await criarEstado(formData)
-    onOpenChange(false)
-    onSave()
+    try {
+      if (readOnly) return
+
+      const parsed = EstadoSchema.safeParse(formData)
+      if (!parsed.success) {
+        toast.error('Preencha todos os campos corretamente')
+        return
+      }
+      if (estado) await atualizarEstado(estado.id, formData)
+      else await criarEstado(formData)
+      onOpenChange(false)
+      onSave()
+    } catch (e) {
+      toast.error('Erro ao salvar Estado')
+    }
   }
 
   return (
@@ -90,7 +102,7 @@ export function ModalEstados({
 
           <div className="grid gap-4 py-4">
             <Input
-              placeholder="Nome"
+              placeholder="Nome*"
               disabled={readOnly}
               className="uppercase"
               value={formData.nome}
@@ -99,7 +111,7 @@ export function ModalEstados({
               }
             />
             <Input
-              placeholder="UF"
+              placeholder="UF*"
               maxLength={2}
               disabled={readOnly}
               className="uppercase"
@@ -110,7 +122,7 @@ export function ModalEstados({
             />
 
             <div>
-              <label className="block text-sm mb-1">País</label>
+              <label className="block text-sm mb-1">País*</label>
               <Dialog open={selectorOpen} onOpenChange={setSelectorOpen}>
                 <DialogTrigger asChild>
                   <Button

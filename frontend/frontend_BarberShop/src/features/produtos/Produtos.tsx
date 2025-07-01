@@ -17,6 +17,8 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog"
+import { toast } from "react-toastify"
+import { ProdutoSchema } from "@/validations/produto"
 
 type Produto = {
   id: number
@@ -104,22 +106,32 @@ export default function Produtos() {
   function carregar() { setLoading(false) }
 
   function salvar() {
-    if (editing) {
-      setProdutos((prev) =>
-        prev.map((p) =>
-          p.id === editing.id ? { ...p, ...form, dataAtualizacao: new Date().toISOString() } : p,
-        ),
-      )
-    } else {
-      const novo: Produto = {
-        ...form,
-        id: produtos.length ? Math.max(...produtos.map((p) => p.id)) + 1 : 1,
-        dataCriacao: new Date().toISOString(),
-        dataAtualizacao: new Date().toISOString(),
+    const parsed = ProdutoSchema.safeParse(form);
+    console.log(parsed.error, form)
+      if (!parsed.success) {
+        toast.error("Preencha todos os campos corretamente");
+        return;
       }
-      setProdutos((prev) => [...prev, novo])
+    try {
+      if (editing) {
+        setProdutos((prev) =>
+          prev.map((p) =>
+            p.id === editing.id ? { ...p, ...form, dataAtualizacao: new Date().toISOString() } : p,
+          ),
+        )
+      } else {
+        const novo: Produto = {
+          ...form,
+          id: produtos.length ? Math.max(...produtos.map((p) => p.id)) + 1 : 1,
+          dataCriacao: new Date().toISOString(),
+          dataAtualizacao: new Date().toISOString(),
+        }
+        setProdutos((prev) => [...prev, novo])
+      }
+      setModalOpen(false)
+    } catch (error) {
+      toast.error("Erro ao salvar o produto. Verifique os dados e tente novamente.")
     }
-    setModalOpen(false)
   }
 
   function remover(id: number) {
@@ -171,12 +183,12 @@ export default function Produtos() {
           <CardDescription>Buscar, incluir, alterar ou excluir produtos.</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center gap-2 pb-4">
+          {/* <div className="flex items-center gap-2 pb-4">
             <div className="relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input placeholder="Buscar..." className="pl-8 w-[300px]" />
             </div>
-          </div>
+          </div> */}
           {loading ? (
             <p>Carregando...</p>
           ) : (
@@ -259,43 +271,43 @@ export default function Produtos() {
               </div>
             </div>
             <div className="col-span-2 flex flex-col">
-              <label>Produto</label>
+              <label>Produto*</label>
               <Input value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} />
             </div>
             <div className="col-span-1 flex flex-col">
-              <label>UN</label>
+              <label>Un. de medida*</label>
               <Input value={form.unidade} onChange={(e) => setForm({ ...form, unidade: e.target.value.toUpperCase() })} />
             </div>
             <div className="col-span-1 flex flex-col">
-              <label>Cód. Modelo</label>
+              <label>Cód. Modelo*</label>
               <Input type="number" value={form.modeloId} onChange={(e) => setForm({ ...form, modeloId: Number(e.target.value) })} />
             </div>
             <div className="col-span-1 flex flex-col">
-              <label>Modelo</label>
+              <label>Modelo*</label>
               <Input value={form.modeloNome} onChange={(e) => setForm({ ...form, modeloNome: e.target.value })} />
             </div>
             <div className="col-span-1 flex flex-col">
-              <label>Marca</label>
+              <label>Marca*</label>
               <Input value={form.marca} onChange={(e) => setForm({ ...form, marca: e.target.value })} />
             </div>
             <div className="col-span-1 flex flex-col">
-              <label>Cód. Fornecedor</label>
+              <label>Cód. Fornecedor*</label>
               <Input type="number" value={form.fornecedorId} onChange={(e) => setForm({ ...form, fornecedorId: Number(e.target.value) })} />
             </div>
             <div className="col-span-3 flex flex-col">
-              <label>Fornecedor</label>
+              <label>Fornecedor*</label>
               <Input value={form.fornecedorNome} onChange={(e) => setForm({ ...form, fornecedorNome: e.target.value })} />
             </div>
             <div className="col-span-1 flex flex-col">
-              <label>Saldo</label>
+              <label>Saldo*</label>
               <Input type="number" value={form.saldo} onChange={(e) => setForm({ ...form, saldo: Number(e.target.value) })} />
             </div>
             <div className="col-span-1 flex flex-col">
-              <label>Custo Médio</label>
+              <label>Custo Médio*</label>
               <Input type="number" value={form.custoMedio} onChange={(e) => setForm({ ...form, custoMedio: Number(e.target.value) })} />
             </div>
             <div className="col-span-1 flex flex-col">
-              <label>Preço Venda</label>
+              <label>Preço Venda*</label>
               <Input type="number" value={form.precoVenda} onChange={(e) => setForm({ ...form, precoVenda: Number(e.target.value) })} />
             </div>
             <div className="col-span-1 flex flex-col">

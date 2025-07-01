@@ -10,10 +10,15 @@ import CondicoesPagamento from "@/features/condicaoPagamento/CondicaoPagamento"
 import Fornecedores from "@/features/fornecedores/Fornecedores"
 import Clientes from "@/features/clientes/Clientes"
 import Produtos from "@/features/produtos/Produtos"
+import { ToastContainer, toast } from 'react-toastify';
+
 
 export default function App() {
   return (
+    <>
+    <ToastContainer position="bottom-right" autoClose={3000} aria-label="Notification container" />
     <Router>
+      
       <RootLayout>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -29,5 +34,6 @@ export default function App() {
         </Routes>
       </RootLayout>
     </Router>
+    </>
   )
 }

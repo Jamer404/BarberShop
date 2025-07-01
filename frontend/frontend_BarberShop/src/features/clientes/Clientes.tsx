@@ -21,6 +21,7 @@ import { Cidade, getCidades } from "@/services/cidadeService"
 import { Estado, getEstados } from "@/services/estadoService"
 
 import { ModalClientes } from "@/components/modals/ModalClientes"
+// import { toast } from "react-toastify"
 
 export default function Clientes() {
   const [clientes, setClientes] = useState<Cliente[]>([])
@@ -39,11 +40,19 @@ export default function Clientes() {
   }
 
   async function carregar() {
-    const [cli, cid, est] = await Promise.all([getClientes(), getCidades(), getEstados()])
-    setClientes(cli)
-    setCidades(cid)
-    setEstados(est)
-    setLoading(false)
+    try {
+      const cli = await getClientes()
+      const cid = await getCidades()
+      const est = await getEstados()
+     
+      setClientes(cli)
+      setCidades(cid)
+      setEstados(est)
+      setLoading(false)
+    } catch (error) {
+      console.error('Erro ao carregar dados:', error)
+      // toast.error('Erro ao carregar dados')
+    }
   }
 
   async function remover(id: number) {
@@ -95,12 +104,12 @@ export default function Clientes() {
           <CardDescription>CADASTRE, EDITE OU REMOVA CLIENTES.</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center gap-2 pb-4">
+         {/*  <div className="flex items-center gap-2 pb-4">
             <div className="relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input placeholder="BUSCAR..." className="pl-8 w-[300px]" />
             </div>
-          </div>
+          </div> */}
 
           {loading ? (
             <p>CARREGANDO...</p>

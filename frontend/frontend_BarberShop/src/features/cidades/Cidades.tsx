@@ -162,7 +162,7 @@ export default function CidadesPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="mb-4">
+         {/*  <div className="mb-4">
             <div className="relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
@@ -171,7 +171,7 @@ export default function CidadesPage() {
                 className="pl-8 w-[300px]"
               />
             </div>
-          </div>
+          </div> */}
 
           {loading ? (
             <p>Carregando...</p>

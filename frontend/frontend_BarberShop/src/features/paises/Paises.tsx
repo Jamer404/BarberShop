@@ -118,7 +118,7 @@ export default function PaisesPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center mb-4">
+         {/*  <div className="flex items-center mb-4">
             <div className="relative">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
@@ -127,7 +127,7 @@ export default function PaisesPage() {
                 className="pl-10 w-72"
               />
             </div>
-          </div>
+          </div> */}
 
           {loading ? (
             <p>Carregando...</p>
