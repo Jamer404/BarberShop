@@ -32,6 +32,7 @@ builder.Services.AddScoped<FuncionarioRepository>();
 builder.Services.AddScoped<ClienteRepository>();
 builder.Services.AddScoped<FornecedorRepository>();
 builder.Services.AddScoped<FormaPagamentoRepository>();
+builder.Services.AddScoped<CondicaoPagamentoRepository>();
 
 var app = builder.Build();
 

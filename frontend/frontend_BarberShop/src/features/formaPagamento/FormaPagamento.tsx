@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -36,44 +36,31 @@ import {
 import { ModalFormaPagamento } from "@/components/modals/ModalFormaPagamento"
 
 export default function FormasPagamento() {
-  const mockFormas: FormaPagamento[] = [
-    {
-      id: 1,
-      descricao: "DINHEIRO",
-      ativo: true,
-      dataCriacao: "",
-      dataAtualizacao: "",
-    },
-    {
-      id: 2,
-      descricao: "CARTÃO DE CRÉDITO",
-      ativo: true,
-      dataCriacao: "",
-      dataAtualizacao: "",
-    },
-    {
-      id: 3,
-      descricao: "PIX",
-      ativo: true,
-      dataCriacao: "",
-      dataAtualizacao: "",
-    },
-  ]
-
-  const [formas, setFormas] = useState<FormaPagamento[]>(mockFormas)
+  const [formas, setFormas] = useState<FormaPagamento[]>([])
   const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
   const [editing, setEditing] = useState<FormaPagamento | null>(null)
   const [viewOnly, setViewOnly] = useState(false)
+  const [searchTerm, setSearchTerm] = useState("")
+
+  const filteredFormas = useMemo(() => {
+    const term = searchTerm.toLowerCase()
+    return formas.filter(forma =>
+      forma.descricao.toLowerCase().includes(term)
+    )
+  }, [formas, searchTerm])
 
   async function carregar() {
+    setLoading(true)
     try {
-      const res = await getFormasPagamento()
-      setFormas(res.length ? res : mockFormas)
-    } catch {
-      setFormas(mockFormas)
+      const data = await getFormasPagamento()
+      setFormas(data)
+    } catch (error) {
+      console.error("Erro ao carregar formas de pagamento:", error)
+      setFormas([])
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   async function remover(id: number) {
@@ -131,7 +118,12 @@ export default function FormasPagamento() {
           <div className="flex items-center gap-2 pb-4">
             <div className="relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input placeholder="Buscar..." className="pl-8 w-[300px]" />
+              <Input
+                placeholder="Buscar por descrição..."
+                className="pl-8 w-[300px]"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
           </div>
           {loading ? (
@@ -141,17 +133,21 @@ export default function FormasPagamento() {
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
-                  <TableHead>DESCRIÇÃO</TableHead>
-                  <TableHead>ATIVO</TableHead>
-                  <TableHead className="text-center">AÇÕES</TableHead>
+                  <TableHead>Descrição</TableHead>
+                  <TableHead>Situação</TableHead>
+                  <TableHead className="text-center">Ações</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {formas.map((fp) => (
+                {filteredFormas.map((fp) => (
                   <TableRow key={fp.id}>
                     <TableCell>{fp.id}</TableCell>
-                    <TableCell>{fp.descricao}</TableCell>
-                    <TableCell>{fp.ativo ? "SIM" : "NÃO"}</TableCell>
+                    <TableCell>{fp.descricao.toUpperCase()}</TableCell>
+                    <TableCell>
+                      <span className={`px-2 py-1 rounded-full text-xs font-semibold ${fp.ativo ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
+                        {fp.ativo ? "ATIVO" : "INATIVO"}
+                      </span>
+                    </TableCell>
                     <TableCell className="flex justify-center items-center gap-2">
                       <Button variant="outline" size="icon" onClick={() => openView(fp)}>
                         <Eye className="h-4 w-4" />
@@ -167,16 +163,16 @@ export default function FormasPagamento() {
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                           <AlertDialogHeader>
-                            <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
+                            <AlertDialogTitle>Confirmar Exclusão</AlertDialogTitle>
                             <AlertDialogDescription>
-                              Excluir {fp.descricao}?
+                              Deseja realmente excluir a forma de pagamento <span className="font-bold uppercase">{fp.descricao}</span>?
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
                             <AlertDialogCancel>Cancelar</AlertDialogCancel>
                             <AlertDialogAction
                               onClick={() => remover(fp.id)}
-                              className="bg-destructive text-white hover:bg-destructive/90"
+                              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                             >
                               Confirmar
                             </AlertDialogAction>
