@@ -5,14 +5,18 @@ export interface Cliente {
   nome: string
   cpfCnpj: string
   pf: boolean
-  email: string
-  telefone: string
-  endereco: string
-  numero: string
-  complemento: string
-  bairro: string
-  cep: string
-  cidadeId: number
+  sexo: "M" | "F"
+  dataNascimento: string
+  email: string | null
+  telefone: string | null
+  rua: string | null
+  numero: string | null
+  complemento: string | null
+  bairro: string | null
+  cep: string | null
+  idCidade: number
+  idCondicaoPagamento: number
+  limiteCredito: number
   ativo: boolean
   dataCriacao: string
   dataAtualizacao: string
@@ -22,51 +26,45 @@ export interface CreateClienteDto {
   nome: string
   cpfCnpj: string
   pf: boolean
-  email: string
-  telefone: string
-  endereco: string
-  numero: string
-  complemento: string
-  bairro: string
-  cep: string
-  cidadeId: number
+  sexo: "M" | "F"
+  dataNascimento: string
+  email: string | null
+  telefone: string | null
+  rua: string | null
+  numero: string | null
+  complemento: string | null
+  bairro: string | null
+  cep: string | null
+  idCidade: number
+  idCondicaoPagamento: number
+  limiteCredito: number
   ativo: boolean
 }
 
-export interface UpdateClienteDto {
-  nome: string
-  cpfCnpj: string
-  pf: boolean
-  email: string
-  telefone: string
-  endereco: string
-  numero: string
-  complemento: string
-  bairro: string
-  cep: string
-  cidadeId: number
-  ativo: boolean
-}
+export interface UpdateClienteDto extends Omit<CreateClienteDto, "cpfCnpj"> {}
 
 const BASE_URL = "https://localhost:7145/api/Cliente"
 
 export async function getClientes(): Promise<Cliente[]> {
-  const response = await axios.get<Cliente[]>(BASE_URL)
-  return response.data
+  const { data } = await axios.get<Cliente[]>(BASE_URL)
+  return data
 }
 
 export async function getClienteById(id: number): Promise<Cliente> {
-  const response = await axios.get<Cliente>(`${BASE_URL}/${id}`)
-  return response.data
+  const { data } = await axios.get<Cliente>(`${BASE_URL}/${id}`)
+  return data
 }
 
-export async function criarCliente(data: CreateClienteDto): Promise<Cliente> {
-  const response = await axios.post<Cliente>(BASE_URL, data)
-  return response.data
+export async function criarCliente(dto: CreateClienteDto): Promise<Cliente> {
+  const { data } = await axios.post<Cliente>(BASE_URL, dto)
+  return data
 }
 
-export async function atualizarCliente(id: number, data: UpdateClienteDto): Promise<void> {
-  await axios.put(`${BASE_URL}/${id}`, data)
+export async function atualizarCliente(
+  id: number,
+  dto: UpdateClienteDto,
+): Promise<void> {
+  await axios.put(`${BASE_URL}/${id}`, dto)
 }
 
 export async function deletarCliente(id: number): Promise<void> {

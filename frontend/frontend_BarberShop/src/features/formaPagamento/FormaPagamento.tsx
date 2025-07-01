@@ -1,54 +1,79 @@
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
-  Card, CardContent, CardDescription, CardHeader, CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table"
-import { Plus, Search, Edit, Trash } from "lucide-react"
+import { Plus, Search, Edit, Trash, Eye } from "lucide-react"
 import {
-  AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
-  AlertDialogTitle, AlertDialogDescription, AlertDialogFooter,
-  AlertDialogCancel, AlertDialogAction,
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
 } from "@/components/ui/alert-dialog"
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
-  DialogClose,
-} from "@/components/ui/dialog"
-import { Switch } from "@/components/ui/switch"
-
-import {
-  FormaPagamento, getFormasPagamento, criarFormaPagamento,
-  atualizarFormaPagamento, deletarFormaPagamento,
+  FormaPagamento,
+  getFormasPagamento,
+  deletarFormaPagamento,
 } from "@/services/formaPagamentoService"
+import { ModalFormaPagamento } from "@/components/modals/ModalFormaPagamento"
 
 export default function FormasPagamento() {
-  const [formas, setFormas] = useState<FormaPagamento[]>([])
-  const [loading, setLoading] = useState(true)
+  const mockFormas: FormaPagamento[] = [
+    {
+      id: 1,
+      descricao: "DINHEIRO",
+      ativo: true,
+      dataCriacao: "",
+      dataAtualizacao: "",
+    },
+    {
+      id: 2,
+      descricao: "CARTÃO DE CRÉDITO",
+      ativo: true,
+      dataCriacao: "",
+      dataAtualizacao: "",
+    },
+    {
+      id: 3,
+      descricao: "PIX",
+      ativo: true,
+      dataCriacao: "",
+      dataAtualizacao: "",
+    },
+  ]
 
+  const [formas, setFormas] = useState<FormaPagamento[]>(mockFormas)
+  const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
   const [editing, setEditing] = useState<FormaPagamento | null>(null)
-  const [form, setForm] = useState({
-    descricao: "",
-    ativo: true,
-  })
+  const [viewOnly, setViewOnly] = useState(false)
 
   async function carregar() {
-    const data = await getFormasPagamento()
-    setFormas(data)
-    setLoading(false)
-  }
-
-  async function salvar() {
-    if (editing) {
-      await atualizarFormaPagamento(editing.id, form)
-    } else {
-      await criarFormaPagamento(form)
+    try {
+      const res = await getFormasPagamento()
+      setFormas(res.length ? res : mockFormas)
+    } catch {
+      setFormas(mockFormas)
     }
-    setModalOpen(false)
-    await carregar()
+    setLoading(false)
   }
 
   async function remover(id: number) {
@@ -58,20 +83,38 @@ export default function FormasPagamento() {
 
   const openCreate = () => {
     setEditing(null)
-    setForm({ descricao: "", ativo: true })
+    setViewOnly(false)
     setModalOpen(true)
   }
 
   const openEdit = (fp: FormaPagamento) => {
     setEditing(fp)
-    setForm({ descricao: fp.descricao, ativo: fp.ativo })
+    setViewOnly(false)
     setModalOpen(true)
   }
 
-  useEffect(() => { carregar() }, [])
+  const openView = (fp: FormaPagamento) => {
+    setEditing(fp)
+    setViewOnly(true)
+    setModalOpen(true)
+  }
+
+  useEffect(() => {
+    carregar()
+  }, [])
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
+      <ModalFormaPagamento
+        isOpen={modalOpen}
+        onOpenChange={(o) => {
+          setModalOpen(o)
+          if (!o) setViewOnly(false)
+        }}
+        forma={editing}
+        onSave={carregar}
+        readOnly={viewOnly}
+      />
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold tracking-tight">Formas de Pagamento</h2>
         <Button onClick={openCreate}>
@@ -79,7 +122,6 @@ export default function FormasPagamento() {
           Nova Forma
         </Button>
       </div>
-
       <Card>
         <CardHeader>
           <CardTitle>Gerenciar Formas de Pagamento</CardTitle>
@@ -92,7 +134,6 @@ export default function FormasPagamento() {
               <Input placeholder="Buscar..." className="pl-8 w-[300px]" />
             </div>
           </div>
-
           {loading ? (
             <p>Carregando...</p>
           ) : (
@@ -100,9 +141,9 @@ export default function FormasPagamento() {
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
-                  <TableHead>Descrição</TableHead>
-                  <TableHead>Ativo</TableHead>
-                  <TableHead>Ações</TableHead>
+                  <TableHead>DESCRIÇÃO</TableHead>
+                  <TableHead>ATIVO</TableHead>
+                  <TableHead className="text-center">AÇÕES</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -110,12 +151,14 @@ export default function FormasPagamento() {
                   <TableRow key={fp.id}>
                     <TableCell>{fp.id}</TableCell>
                     <TableCell>{fp.descricao}</TableCell>
-                    <TableCell>{fp.ativo ? "Sim" : "Não"}</TableCell>
-                    <TableCell className="flex gap-2">
+                    <TableCell>{fp.ativo ? "SIM" : "NÃO"}</TableCell>
+                    <TableCell className="flex justify-center items-center gap-2">
+                      <Button variant="outline" size="icon" onClick={() => openView(fp)}>
+                        <Eye className="h-4 w-4" />
+                      </Button>
                       <Button variant="outline" size="icon" onClick={() => openEdit(fp)}>
                         <Edit className="h-4 w-4" />
                       </Button>
-
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
                           <Button variant="outline" size="icon">
@@ -126,7 +169,7 @@ export default function FormasPagamento() {
                           <AlertDialogHeader>
                             <AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
                             <AlertDialogDescription>
-                              Excluir <strong>{fp.descricao}</strong>?
+                              Excluir {fp.descricao}?
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
@@ -148,42 +191,6 @@ export default function FormasPagamento() {
           )}
         </CardContent>
       </Card>
-
-      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="max-w-xl">
-          <DialogHeader>
-            <DialogTitle>{editing ? "Editar Forma de Pagamento" : "Nova Forma de Pagamento"}</DialogTitle>
-          </DialogHeader>
-
-          <div className="space-y-4 py-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Descrição</label>
-              <Input
-                placeholder="Nome da forma"
-                value={form.descricao}
-                onChange={(e) => setForm({ ...form, descricao: e.target.value })}
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <Switch
-                id="ativo"
-                checked={form.ativo}
-                onCheckedChange={(v) => setForm({ ...form, ativo: v })}
-              />
-              <label htmlFor="ativo" className="text-sm">Ativo</label>
-            </div>
-          </div>
-
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancelar</Button>
-            </DialogClose>
-            <Button onClick={salvar}>
-              {editing ? "Atualizar" : "Salvar"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }

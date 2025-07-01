@@ -19,28 +19,28 @@ export function Header() {
           <span className="text-xl font-bold">Barbearia Dashboard</span>
         </div>
         <form className="flex-1 md:flex-initial">
-          <div className="relative">
+          {/* <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Pesquisar..."
               className="w-full rounded-lg bg-background pl-8 md:w-[300px] lg:w-[400px]"
             />
-          </div>
+          </div> */}
         </form>
       </div>
       <div className="flex items-center gap-2">
         <ThemeToggle />
-        <Button variant="outline" size="icon" className="rounded-full">
+        {/* <Button variant="outline" size="icon" className="rounded-full">
           <Bell className="h-4 w-4" />
           <span className="sr-only">Notificações</span>
-        </Button>
+        </Button> */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon" className="rounded-full">
+            {/* <Button variant="outline" size="icon" className="rounded-full">
               <User className="h-4 w-4" />
               <span className="sr-only">Perfil</span>
-            </Button>
+            </Button> */}
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>

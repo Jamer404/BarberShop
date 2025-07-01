@@ -212,17 +212,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateClienteDto"
+                "$ref": "#/components/schemas/CreateClienteDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateClienteDto"
+                "$ref": "#/components/schemas/CreateClienteDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateClienteDto"
+                "$ref": "#/components/schemas/CreateClienteDto"
               }
             }
           }
@@ -1029,16 +1029,29 @@
       "CreateClienteDto": {
         "type": "object",
         "properties": {
-          "nome": {
+          "tipoPessoa": {
             "type": "string",
             "nullable": true
+          },
+          "nomeRazaoSocial": {
+            "type": "string",
+            "nullable": true
+          },
+          "apelidoNomeFantasia": {
+            "type": "string",
+            "nullable": true
+          },
+          "dataNascimentoCriacao": {
+            "type": "string",
+            "format": "date-time"
           },
           "cpfCnpj": {
             "type": "string",
             "nullable": true
           },
-          "pf": {
-            "type": "boolean"
+          "rgInscricaoEstadual": {
+            "type": "string",
+            "nullable": true
           },
           "email": {
             "type": "string",
@@ -1048,15 +1061,11 @@
             "type": "string",
             "nullable": true
           },
-          "endereco": {
+          "rua": {
             "type": "string",
             "nullable": true
           },
           "numero": {
-            "type": "string",
-            "nullable": true
-          },
-          "complemento": {
             "type": "string",
             "nullable": true
           },
@@ -1068,9 +1077,32 @@
             "type": "string",
             "nullable": true
           },
+          "complemento": {
+            "type": "string",
+            "nullable": true
+          },
+          "classificacao": {
+            "type": "string",
+            "nullable": true
+          },
+          "pf": {
+            "type": "boolean"
+          },
+          "sexo": {
+            "type": "string",
+            "nullable": true
+          },
           "idCidade": {
             "type": "integer",
             "format": "int32"
+          },
+          "idCondicaoPagamento": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "limiteCredito": {
+            "type": "number",
+            "format": "double"
           },
           "ativo": {
             "type": "boolean"
@@ -1092,6 +1124,17 @@
           "multa": {
             "type": "number",
             "format": "double"
+          },
+          "desconto": {
+            "type": "number",
+            "format": "double"
+          },
+          "parcelas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ParcelaDto"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1316,6 +1359,28 @@
         },
         "additionalProperties": false
       },
+      "ParcelaDto": {
+        "type": "object",
+        "properties": {
+          "numero": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dias": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "percentual": {
+            "type": "number",
+            "format": "double"
+          },
+          "formaPagamentoId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateCidadeDto": {
         "type": "object",
         "properties": {
@@ -1334,58 +1399,6 @@
         },
         "additionalProperties": false
       },
-      "UpdateClienteDto": {
-        "type": "object",
-        "properties": {
-          "nome": {
-            "type": "string",
-            "nullable": true
-          },
-          "cpfCnpj": {
-            "type": "string",
-            "nullable": true
-          },
-          "pf": {
-            "type": "boolean"
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "telefone": {
-            "type": "string",
-            "nullable": true
-          },
-          "endereco": {
-            "type": "string",
-            "nullable": true
-          },
-          "numero": {
-            "type": "string",
-            "nullable": true
-          },
-          "complemento": {
-            "type": "string",
-            "nullable": true
-          },
-          "bairro": {
-            "type": "string",
-            "nullable": true
-          },
-          "cep": {
-            "type": "string",
-            "nullable": true
-          },
-          "idCidade": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "ativo": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
       "UpdateCondicaoPagamentoDto": {
         "type": "object",
         "properties": {
@@ -1400,6 +1413,17 @@
           "multa": {
             "type": "number",
             "format": "double"
+          },
+          "desconto": {
+            "type": "number",
+            "format": "double"
+          },
+          "parcelas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ParcelaDto"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false

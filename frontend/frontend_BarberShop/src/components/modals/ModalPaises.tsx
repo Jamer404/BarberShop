@@ -15,6 +15,8 @@ import {
   Pais,
   UpdatePaisDto,
 } from "@/services/paisService"
+import { toast } from "react-toastify"
+import { Paischema } from "@/validations/localizacao"
 
 interface ModalPaisesProps {
   isOpen: boolean
@@ -46,10 +48,19 @@ export function ModalPaises({
   }, [pais])
 
   async function handleSubmit() {
-    if (pais?.id) await atualizarPais(pais.id, formData)
-    else await criarPais(formData)
-    onOpenChange(false)
-    await carregarPaises()
+    try {
+      const parsed = Paischema.safeParse(formData)
+      if (!parsed.success) {
+        toast.error('Preencha todos os campos corretamente')
+        return
+      }
+      if (pais?.id) await atualizarPais(pais.id, formData)
+      else await criarPais(formData)
+      onOpenChange(false)
+      await carregarPaises()
+    } catch(e) {
+      toast.error('Erro ao salvar país')
+    }
   }
 
   return (
@@ -67,7 +78,7 @@ export function ModalPaises({
 
         <div className="grid gap-4 py-4">
           <Input
-            placeholder="Nome do país"
+            placeholder="Nome do país*"
             disabled={readOnly}
             className="uppercase"
             value={formData.nome}
@@ -76,7 +87,7 @@ export function ModalPaises({
             }
           />
           <Input
-            placeholder="Sigla (2 letras)"
+            placeholder="Sigla (2 letras)*"
             maxLength={2}
             disabled={readOnly}
             className="uppercase"
@@ -89,7 +100,7 @@ export function ModalPaises({
             }
           />
           <Input
-            placeholder="DDI"
+            placeholder="DDI*"
             disabled={readOnly}
             value={formData.ddi}
             onChange={(e) =>

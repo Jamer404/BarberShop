@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from "react"
 import {
   Dialog,
   DialogContent,
@@ -9,18 +10,18 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ChevronDown } from "lucide-react"
-import { useEffect, useState } from "react"
+import { ChevronDown, Search } from "lucide-react"
 import { Cidade, criarCidade, atualizarCidade } from "@/services/cidadeService"
-import { Estado, getEstados } from "@/services/estadoService"
+import { Estado } from "@/services/estadoService"
 import { ModalEstados } from "@/components/modals/ModalEstados"
 
-interface ModalCidadesProps {
+type Props = {
   isOpen: boolean
-  onOpenChange: (open: boolean) => void
+  onOpenChange: (o: boolean) => void
   cidade?: Cidade | null
-  onSave: () => void
+  onSave: () => Promise<void> 
   readOnly?: boolean
+  estados: Estado[] 
 }
 
 export function ModalCidades({
@@ -29,34 +30,35 @@ export function ModalCidades({
   cidade,
   onSave,
   readOnly = false,
-}: ModalCidadesProps) {
-  const [formData, setFormData] = useState({ nome: "", ddd: "", idEstado: 0 })
-  const [estados, setEstados] = useState<Estado[]>([])
+  estados,
+}: Props) {
+  const [form, setForm] = useState({ nome: "", ddd: "", idEstado: 0 })
   const [modalEstadoOpen, setModalEstadoOpen] = useState(false)
   const [selectorOpen, setSelectorOpen] = useState(false)
+  const [searchEstado, setSearchEstado] = useState("")
 
-  useEffect(() => {
-    ;(async () => setEstados(await getEstados()))()
-  }, [])
 
   useEffect(() => {
     if (cidade) {
-      setFormData({
-        nome: cidade.nome,
-        ddd: cidade.ddd,
-        idEstado: cidade.idEstado,
-      })
+      setForm({ nome: cidade.nome, ddd: cidade.ddd, idEstado: cidade.idEstado })
     } else {
-      setFormData({ nome: "", ddd: "", idEstado: 0 })
+      setForm({ nome: "", ddd: "", idEstado: 0 })
     }
-  }, [cidade])
+  }, [cidade, isOpen])
+
+  const estadosFiltrados = useMemo(() => {
+    const t = searchEstado.toLowerCase()
+    return estados
+      .filter((e) => `${e.nome} ${e.uf}`.toLowerCase().includes(t))
+      .sort((a, b) => a.nome.localeCompare(b.nome))
+  }, [estados, searchEstado])
 
   const getNomeEstado = (id: number) => {
     const e = estados.find((x) => x.id === id)
     return e ? `${e.nome.toUpperCase()} - ${e.uf}` : "SELECIONE..."
   }
 
-  const formatDateUTC3 = (s?: string) => {
+  const formatDate = (s?: string) => {
     if (!s) return ""
     const d = new Date(s)
     d.setHours(d.getHours() - 3)
@@ -65,10 +67,13 @@ export function ModalCidades({
 
   async function handleSubmit() {
     if (readOnly) return
-    if (cidade) await atualizarCidade(cidade.id, formData)
-    else await criarCidade(formData)
+    if (cidade) {
+      await atualizarCidade(cidade.id, form)
+    } else {
+      await criarCidade(form)
+    }
+    await onSave() 
     onOpenChange(false)
-    onSave()
   }
 
   return (
@@ -76,69 +81,68 @@ export function ModalCidades({
       <ModalEstados
         isOpen={modalEstadoOpen}
         onOpenChange={setModalEstadoOpen}
-        onSave={async () => setEstados(await getEstados())}
+        onSave={onSave} 
       />
 
       <Dialog open={isOpen} onOpenChange={onOpenChange}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
             <DialogTitle>
-              {readOnly
-                ? "Visualizar Cidade"
-                : cidade
-                ? "Editar Cidade"
-                : "Nova Cidade"}
+              {readOnly ? "VISUALIZAR CIDADE" : cidade ? "EDITAR CIDADE" : "NOVA CIDADE"}
             </DialogTitle>
           </DialogHeader>
 
           <div className="grid gap-4 py-4">
             <Input
-              placeholder="Nome"
+              placeholder="NOME"
               disabled={readOnly}
               className="uppercase"
-              value={formData.nome}
-              onChange={(e) =>
-                setFormData({ ...formData, nome: e.target.value.toUpperCase() })
-              }
+              value={form.nome}
+              onChange={(e) => setForm({ ...form, nome: e.target.value.toUpperCase() })}
             />
             <Input
               placeholder="DDD"
               disabled={readOnly}
-              value={formData.ddd}
-              onChange={(e) =>
-                setFormData({ ...formData, ddd: e.target.value })
-              }
+              value={form.ddd}
+              onChange={(e) => setForm({ ...form, ddd: e.target.value })}
             />
 
             <div>
-              <label className="block text-sm mb-1">Estado</label>
+              <label className="block text-sm mb-1">ESTADO</label>
               <Dialog open={selectorOpen} onOpenChange={setSelectorOpen}>
                 <DialogTrigger asChild>
                   <Button
                     variant="outline"
                     disabled={readOnly}
-                    className="w-full justify-between font-normal uppercase"
+                    className="w-full justify-between uppercase font-normal"
                   >
-                    {getNomeEstado(formData.idEstado)}
+                    {getNomeEstado(form.idEstado)}
                     {!readOnly && <ChevronDown className="ml-2 h-4 w-4" />}
                   </Button>
                 </DialogTrigger>
 
                 <DialogContent className="max-w-5xl">
                   <DialogHeader>
-                    <DialogTitle>Selecionar Estado</DialogTitle>
+                    <DialogTitle>SELECIONAR ESTADO</DialogTitle>
                   </DialogHeader>
 
+                  <div className="flex items-center gap-2 pb-2">
+                    <Search className="h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="BUSCAR..."
+                      value={searchEstado}
+                      onChange={(e) => setSearchEstado(e.target.value)}
+                    />
+                  </div>
+
                   <div className="space-y-2 max-h-[300px] overflow-auto">
-                    {estados.map((e) => (
+                    {estadosFiltrados.map((e) => (
                       <Button
                         key={e.id}
-                        variant={
-                          formData.idEstado === e.id ? "default" : "outline"
-                        }
+                        variant={form.idEstado === e.id ? "default" : "outline"}
                         className="w-full justify-start font-normal uppercase"
                         onDoubleClick={() => {
-                          setFormData({ ...formData, idEstado: e.id })
+                          setForm({ ...form, idEstado: e.id })
                           setSelectorOpen(false)
                         }}
                       >
@@ -148,20 +152,11 @@ export function ModalCidades({
                   </div>
 
                   <div className="pt-4 flex justify-end gap-2">
-                    <Button
-                      variant="secondary"
-                      onClick={() => {
-                        setSelectorOpen(false)
-                        setModalEstadoOpen(true)
-                      }}
-                    >
-                      Cadastrar novo estado
+                    <Button variant="secondary" onClick={() => { setSelectorOpen(false); setModalEstadoOpen(true) }}>
+                      CADASTRAR NOVO ESTADO
                     </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => setSelectorOpen(false)}
-                    >
-                      Voltar
+                    <Button variant="outline" onClick={() => setSelectorOpen(false)}>
+                      VOLTAR
                     </Button>
                   </div>
                 </DialogContent>
@@ -173,19 +168,19 @@ export function ModalCidades({
             <div className="text-xs text-muted-foreground mr-auto pl-1 space-y-0.5">
               {cidade && (
                 <>
-                  <div>Data Criação: {formatDateUTC3(cidade.dataCriacao)}</div>
-                  <div>Data Atualização: {formatDateUTC3(cidade.dataAtualizacao)}</div>
+                  <div>DATA CRIAÇÃO: {formatDate(cidade.dataCriacao)}</div>
+                  <div>DATA ATUALIZAÇÃO: {formatDate(cidade.dataAtualizacao)}</div>
                 </>
               )}
             </div>
 
             {!readOnly && (
               <Button onClick={handleSubmit}>
-                {cidade ? "Atualizar" : "Cadastrar"}
+                {cidade ? "ATUALIZAR" : "CADASTRAR"}
               </Button>
             )}
             <DialogClose asChild>
-              <Button variant="outline">Voltar</Button>
+              <Button variant="outline">VOLTAR</Button>
             </DialogClose>
           </DialogFooter>
         </DialogContent>

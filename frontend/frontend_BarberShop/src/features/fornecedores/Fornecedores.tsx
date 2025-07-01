@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Card, CardContent, CardDescription, CardHeader, CardTitle,
@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table"
-import { Plus, Search, Edit, Trash, ChevronDown } from "lucide-react"
+import { Plus, Search, Edit, Trash, Eye, ChevronDown } from "lucide-react"
 import {
   AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
   AlertDialogTitle, AlertDialogDescription, AlertDialogFooter,
@@ -22,81 +22,89 @@ import {
   Fornecedor, getFornecedores, criarFornecedor,
   atualizarFornecedor, deletarFornecedor,
 } from "@/services/fornecedorService"
-import { Cidade, getCidades, criarCidade } from "@/services/cidadeService"
-import { Estado, getEstados, criarEstado } from "@/services/estadoService"
-import { Pais, getPaises, criarPais } from "@/services/paisService"
+import { Cidade, getCidades } from "@/services/cidadeService"
+import { Estado, getEstados } from "@/services/estadoService"
+import { Pais, getPaises } from "@/services/paisService"
+import {
+  CondicaoPagamento, getCondicoesPagamento,
+} from "@/services/condicaoPagamentoService"
 
 export default function Fornecedores() {
   const [fornecedores, setFornecedores] = useState<Fornecedor[]>([])
   const [cidades, setCidades] = useState<Cidade[]>([])
   const [estados, setEstados] = useState<Estado[]>([])
   const [paises, setPaises] = useState<Pais[]>([])
+  const [condicoes, setCondicoes] = useState<CondicaoPagamento[]>([])
   const [loading, setLoading] = useState(true)
 
   const [modalOpen, setModalOpen] = useState(false)
   const [editing, setEditing] = useState<Fornecedor | null>(null)
-
-  const [cidadeSelectorOpen, setCidadeSelectorOpen] = useState(false)
-  const [novoCidadeModal, setNovoCidadeModal] = useState(false)
-  const [estadoSelectorNovoCidade, setEstadoSelectorNovoCidade] = useState(false)
-  const [novoEstadoModal, setNovoEstadoModal] = useState(false)
-  const [paisSelectorNovoEstado, setPaisSelectorNovoEstado] = useState(false)
-  const [novoPaisModal, setNovoPaisModal] = useState(false)
+  const [citySelector, setCitySelector] = useState(false)
+  const [condSelector, setCondSelector] = useState(false)
+  const [searchCidade, setSearchCidade] = useState("")
 
   const [form, setForm] = useState({
+    pessoaFisica: false,
+    ativo: true,
     nomeRazaoSocial: "",
-    cpfCnpj: "",
-    telefone: "",
+    apelido: "",
+    sexo: "",
     email: "",
+    telefone: "",
+    celular: "",
+    cep: "",
+    endereco: "",
+    numero: "",
+    complemento: "",
+    bairro: "",
+    idCidade: 0,
+    cpfCnpj: "",
+    rg: "",
+    dataNascimento: "",
     formaPagamentoId: 0,
     condicaoPagamentoId: 0,
-    idCidade: 0,
     valorMinimoPedido: 0,
   })
 
-  const [formNovoCidade, setFormNovoCidade] = useState({
-    nome: "",
-    ddd: "",
-    idEstado: 0,
-  })
-  const [formNovoEstado, setFormNovoEstado] = useState({
-    nome: "",
-    uf: "",
-    idPais: 0,
-  })
-  const [formNovoPais, setFormNovoPais] = useState({
-    nome: "",
-    sigla: "",
-    ddi: "",
-  })
+  const getCidade = (id: number) => cidades.find((c) => c.id === id)
+  const getEstado = (id: number) => estados.find((e) => e.id === getCidade(id)?.idEstado)
+  const getPais   = (id: number) => paises.find((p) => p.id === getEstado(id)?.idPais)
+  const getNomeCidadeUf = (id: number) => {
+    const cid = getCidade(id)
+    const est = cid ? getEstado(id) : undefined
+    return cid && est ? `${cid.nome} - ${est.uf}` : "-"
+  }
+  const getNomeCondicao = (id: number) =>
+    condicoes.find((c) => c.id === id)?.descricao.toUpperCase() || "-"
 
-  const getNomeCidade = (id: number) =>
-    cidades.find((c) => c.id === id)?.nome || "-"
-  const getNomeEstado = (id: number) =>
-    estados.find((e) => e.id === id)?.nome || "-"
-  const getNomePais = (id: number) =>
-    paises.find((p) => p.id === id)?.nome || "-"
+  const cidadesFiltradas = useMemo(() => {
+    const txt = searchCidade.toLowerCase()
+    return cidades
+      .filter((c) => getNomeCidadeUf(c.id).toLowerCase().includes(txt))
+      .sort((a, b) => getNomeCidadeUf(a.id).localeCompare(getNomeCidadeUf(b.id)))
+  }, [cidades, estados, searchCidade])
 
   async function carregar() {
-    const [f, c, e, p] = await Promise.all([
+    const [
+      f, c, e, p, cp,
+    ] = await Promise.all([
       getFornecedores(),
       getCidades(),
       getEstados(),
       getPaises(),
+      getCondicoesPagamento(),
     ])
     setFornecedores(f)
     setCidades(c)
     setEstados(e)
     setPaises(p)
+    setCondicoes(cp)
     setLoading(false)
   }
 
   async function salvarFornecedor() {
-    if (editing) {
-      await atualizarFornecedor(editing.id, form)
-    } else {
-      await criarFornecedor(form)
-    }
+    if (editing) await atualizarFornecedor(editing.id, form)
+    else await criarFornecedor(form)
     setModalOpen(false)
     await carregar()
   }
@@ -106,58 +114,55 @@ export default function Fornecedores() {
     setFornecedores((prev) => prev.filter((f) => f.id !== id))
   }
 
-  async function salvarCidade() {
-    const novo = await criarCidade(formNovoCidade)
-    const novas = await getCidades()
-    setCidades(novas)
-    setForm({ ...form, idCidade: novo.id })
-    setNovoCidadeModal(false)
-    setFormNovoCidade({ nome: "", ddd: "", idEstado: estados[0]?.id || 0 })
-  }
-
-  async function salvarEstado() {
-    const novo = await criarEstado(formNovoEstado)
-    const novos = await getEstados()
-    setEstados(novos)
-    setFormNovoCidade({ ...formNovoCidade, idEstado: novo.id })
-    setNovoEstadoModal(false)
-    setFormNovoEstado({ nome: "", uf: "", idPais: paises[0]?.id || 0 })
-  }
-
-  async function salvarPais() {
-    const novo = await criarPais(formNovoPais)
-    const novos = await getPaises()
-    setPaises(novos)
-    setFormNovoEstado({ ...formNovoEstado, idPais: novo.id })
-    setNovoPaisModal(false)
-    setFormNovoPais({ nome: "", sigla: "", ddi: "" })
-  }
-
-  const openCreate = () => {
+  function openCreate() {
     setEditing(null)
     setForm({
+      pessoaFisica: false,
+      ativo: true,
       nomeRazaoSocial: "",
-      cpfCnpj: "",
-      telefone: "",
+      apelido: "",
+      sexo: "",
       email: "",
+      telefone: "",
+      celular: "",
+      cep: "",
+      endereco: "",
+      numero: "",
+      complemento: "",
+      bairro: "",
+      idCidade: 0,
+      cpfCnpj: "",
+      rg: "",
+      dataNascimento: "",
       formaPagamentoId: 0,
       condicaoPagamentoId: 0,
-      idCidade: cidades[0]?.id || 0,
       valorMinimoPedido: 0,
     })
     setModalOpen(true)
   }
 
-  const openEdit = (f: Fornecedor) => {
+  function openEdit(f: Fornecedor) {
     setEditing(f)
     setForm({
+      pessoaFisica: f.pessoaFisica ?? false,
+      ativo: f.ativo ?? true,
       nomeRazaoSocial: f.nomeRazaoSocial,
-      cpfCnpj: f.cpfCnpj,
-      telefone: f.telefone,
+      apelido: f.apelido ?? "",
+      sexo: f.sexo ?? "",
       email: f.email,
+      telefone: f.telefone,
+      celular: f.celular ?? "",
+      cep: f.cep ?? "",
+      endereco: f.endereco ?? "",
+      numero: f.numero ?? "",
+      complemento: f.complemento ?? "",
+      bairro: f.bairro ?? "",
+      idCidade: f.idCidade,
+      cpfCnpj: f.cpfCnpj,
+      rg: f.rg ?? "",
+      dataNascimento: f.dataNascimento ?? "",
       formaPagamentoId: f.formaPagamentoId,
       condicaoPagamentoId: f.condicaoPagamentoId,
-      idCidade: f.idCidade,
       valorMinimoPedido: f.valorMinimoPedido ?? 0,
     })
     setModalOpen(true)
@@ -181,13 +186,6 @@ export default function Fornecedores() {
           <CardDescription>Cadastre, edite ou remova fornecedores.</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center gap-2 pb-4">
-            <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input placeholder="Buscar..." className="pl-8 w-[300px]" />
-            </div>
-          </div>
-
           {loading ? (
             <p>Carregando...</p>
           ) : (
@@ -195,11 +193,11 @@ export default function Fornecedores() {
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
-                  <TableHead>Nome / Razão Social</TableHead>
+                  <TableHead>NOME / RAZÃO SOCIAL</TableHead>
                   <TableHead>CNPJ</TableHead>
-                  <TableHead>Telefone</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Ações</TableHead>
+                  <TableHead>TELEFONE</TableHead>
+                  <TableHead>EMAIL</TableHead>
+                  <TableHead className="text-center">AÇÕES</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -210,11 +208,10 @@ export default function Fornecedores() {
                     <TableCell>{f.cpfCnpj}</TableCell>
                     <TableCell>{f.telefone}</TableCell>
                     <TableCell>{f.email}</TableCell>
-                    <TableCell className="flex gap-2">
+                    <TableCell className="flex gap-2 justify-center">
                       <Button variant="outline" size="icon" onClick={() => openEdit(f)}>
                         <Edit className="h-4 w-4" />
                       </Button>
-
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
                           <Button variant="outline" size="icon">
@@ -248,54 +245,161 @@ export default function Fornecedores() {
         </CardContent>
       </Card>
 
-      {/* modal fornecedor */}
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="max-w-3xl">
+        <DialogContent className="max-w-7xl w-full">
           <DialogHeader>
             <DialogTitle>{editing ? "Editar Fornecedor" : "Novo Fornecedor"}</DialogTitle>
           </DialogHeader>
 
-          <div className="grid gap-4 py-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Nome / Razão Social</label>
-              <Input value={form.nomeRazaoSocial}
-                     onChange={(e) => setForm({ ...form, nomeRazaoSocial: e.target.value })}/>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">CNPJ</label>
-              <Input value={form.cpfCnpj}
-                     onChange={(e) => setForm({ ...form, cpfCnpj: e.target.value })}/>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Telefone</label>
-              <Input value={form.telefone}
-                     onChange={(e) => setForm({ ...form, telefone: e.target.value })}/>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Email</label>
-              <Input value={form.email}
-                     onChange={(e) => setForm({ ...form, email: e.target.value })}/>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">ID Forma de Pagamento</label>
-              <Input type="number" value={form.formaPagamentoId}
-                     onChange={(e) =>
-                       setForm({ ...form, formaPagamentoId: Number(e.target.value) })}/>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">ID Condição de Pagamento</label>
-              <Input type="number" value={form.condicaoPagamentoId}
-                     onChange={(e) =>
-                       setForm({ ...form, condicaoPagamentoId: Number(e.target.value) })}/>
+          <div className="grid grid-cols-4 gap-4 py-4 text-sm">
+            <div className="col-span-1 flex flex-col">
+              <label>Código</label>
+              <Input value={editing ? editing.id : "0"} disabled />
             </div>
 
-            {/* seletor / cadastro de cidade */}
-            <div>
-              <label className="block text-sm font-medium mb-1">Cidade</label>
-              <Dialog open={cidadeSelectorOpen} onOpenChange={setCidadeSelectorOpen}>
+            <div className="col-span-1 flex flex-col">
+              <label>Pessoa</label>
+              <div className="flex gap-4 border rounded px-2 py-1">
+                <label className="flex items-center gap-1">
+                  <input
+                    type="radio"
+                    checked={form.pessoaFisica}
+                    onChange={() => setForm({ ...form, pessoaFisica: true })}
+                  />
+                  Física
+                </label>
+                <label className="flex items-center gap-1">
+                  <input
+                    type="radio"
+                    checked={!form.pessoaFisica}
+                    onChange={() => setForm({ ...form, pessoaFisica: false })}
+                  />
+                  Jurídica
+                </label>
+              </div>
+            </div>
+
+            <div className="col-span-1 flex flex-col">
+              <label>Status</label>
+              <div className="flex gap-4 border rounded px-2 py-1">
+                <label className="flex items-center gap-1">
+                  <input
+                    type="radio"
+                    checked={form.ativo}
+                    onChange={() => setForm({ ...form, ativo: true })}
+                  />
+                  Ativo
+                </label>
+                <label className="flex items-center gap-1">
+                  <input
+                    type="radio"
+                    checked={!form.ativo}
+                    onChange={() => setForm({ ...form, ativo: false })}
+                  />
+                  Inativo
+                </label>
+              </div>
+            </div>
+
+            <div className="col-span-1 flex flex-col">
+              <label>Sexo</label>
+              <select
+                className="border rounded px-2 py-1"
+                value={form.sexo}
+                onChange={(e) => setForm({ ...form, sexo: e.target.value })}
+              >
+                <option value="">Selecione</option>
+                <option value="M">MASCULINO</option>
+                <option value="F">FEMININO</option>
+              </select>
+            </div>
+
+            <div className="col-span-2 flex flex-col">
+              <label>Fornecedor</label>
+              <Input
+                value={form.nomeRazaoSocial}
+                onChange={(e) => setForm({ ...form, nomeRazaoSocial: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-2 flex flex-col">
+              <label>Apelido</label>
+              <Input
+                value={form.apelido}
+                onChange={(e) => setForm({ ...form, apelido: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-2 flex flex-col">
+              <label>Email</label>
+              <Input
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-1 flex flex-col">
+              <label>Telefone</label>
+              <Input
+                value={form.telefone}
+                onChange={(e) => setForm({ ...form, telefone: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-1 flex flex-col">
+              <label>Celular</label>
+              <Input
+                value={form.celular}
+                onChange={(e) => setForm({ ...form, celular: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-1 flex flex-col">
+              <label>CEP</label>
+              <Input
+                value={form.cep}
+                onChange={(e) => setForm({ ...form, cep: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-2 flex flex-col">
+              <label>Endereço</label>
+              <Input
+                value={form.endereco}
+                onChange={(e) => setForm({ ...form, endereco: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-1 flex flex-col">
+              <label>Número</label>
+              <Input
+                value={form.numero}
+                onChange={(e) => setForm({ ...form, numero: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-2 flex flex-col">
+              <label>Complemento</label>
+              <Input
+                value={form.complemento}
+                onChange={(e) => setForm({ ...form, complemento: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-2 flex flex-col">
+              <label>Bairro</label>
+              <Input
+                value={form.bairro}
+                onChange={(e) => setForm({ ...form, bairro: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-2 flex flex-col">
+              <label>Cidade</label>
+              <Dialog open={citySelector} onOpenChange={setCitySelector}>
                 <DialogTrigger asChild>
                   <Button variant="outline" className="w-full justify-between">
-                    {getNomeCidade(form.idCidade)}
+                    {getNomeCidadeUf(form.idCidade)}
                     <ChevronDown className="ml-2 h-4 w-4" />
                   </Button>
                 </DialogTrigger>
@@ -303,197 +407,138 @@ export default function Fornecedores() {
                   <DialogHeader>
                     <DialogTitle>Selecionar Cidade</DialogTitle>
                   </DialogHeader>
+                  <div className="flex gap-2 pb-2">
+                    <Input
+                      placeholder="Buscar..."
+                      value={searchCidade}
+                      onChange={(e) => setSearchCidade(e.target.value)}
+                    />
+                  </div>
                   <div className="max-h-[300px] overflow-auto space-y-1">
-                    {cidades.map((c) => (
-                      <Button key={c.id}
-                              variant={form.idCidade === c.id ? "default" : "outline"}
-                              className="w-full justify-start"
-                              onDoubleClick={() => {
-                                setForm({ ...form, idCidade: c.id })
-                                setCidadeSelectorOpen(false)
-                              }}>
-                        {c.nome}
+                    {cidadesFiltradas.map((c) => (
+                      <Button
+                        key={c.id}
+                        variant={form.idCidade === c.id ? "default" : "outline"}
+                        className="w-full justify-start"
+                        onDoubleClick={() => {
+                          setForm({ ...form, idCidade: c.id })
+                          setCitySelector(false)
+                        }}
+                      >
+                        {getNomeCidadeUf(c.id)}
                       </Button>
                     ))}
-                  </div>
-                  <div className="pt-4">
-                    <Button variant="secondary" onClick={() => setNovoCidadeModal(true)}>
-                      Cadastrar nova cidade
-                    </Button>
                   </div>
                 </DialogContent>
               </Dialog>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Valor Mínimo de Pedido</label>
-              <Input type="number" value={form.valorMinimoPedido ?? 0}
-                     onChange={(e) =>
-                       setForm({ ...form, valorMinimoPedido: Number(e.target.value) })}/>
+            <div className="col-span-1 flex flex-col">
+              <label>UF</label>
+              <Input value={getEstado(form.idCidade)?.uf || ""} disabled />
+            </div>
+
+            <div className="col-span-1 flex flex-col">
+              <label>País</label>
+              <Input value={getPais(form.idCidade)?.nome || ""} disabled />
+            </div>
+
+            <div className="col-span-1 flex flex-col">
+              <label>CPF/CNPJ</label>
+              <Input
+                value={form.cpfCnpj}
+                onChange={(e) => setForm({ ...form, cpfCnpj: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-1 flex flex-col">
+              <label>RG</label>
+              <Input
+                value={form.rg}
+                onChange={(e) => setForm({ ...form, rg: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-1 flex flex-col">
+              <label>Data Nasc.</label>
+              <Input
+                type="date"
+                value={form.dataNascimento}
+                onChange={(e) => setForm({ ...form, dataNascimento: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-4 border-t pt-4 grid grid-cols-4 gap-4">
+              <div className="col-span-1 flex flex-col">
+                <label>Código Cond. Pagamento</label>
+                <Input value={form.condicaoPagamentoId || ""} disabled />
+              </div>
+              <div className="col-span-1 flex flex-col justify-end">
+                <Button
+                  variant="outline"
+                  onClick={() => setCondSelector(true)}
+                  className="w-full"
+                >
+                  <Search className="mr-2 h-4 w-4" />
+                  Buscar
+                </Button>
+              </div>
+              <div className="col-span-2 flex flex-col">
+                <label>Condição de Pagamento</label>
+                <Input value={getNomeCondicao(form.condicaoPagamentoId)} disabled />
+              </div>
+            </div>
+
+            <div className="col-span-2 flex flex-col">
+              <label>Valor Mínimo de Pedido</label>
+              <Input
+                type="number"
+                value={form.valorMinimoPedido}
+                onChange={(e) =>
+                  setForm({ ...form, valorMinimoPedido: Number(e.target.value) })
+                }
+              />
+            </div>
+
+            <div className="col-span-1 flex flex-col">
+              <label>Data Cadastro</label>
+              <Input value={editing?.dataCriacao?.slice(0, 10) || ""} disabled />
+            </div>
+            <div className="col-span-1 flex flex-col">
+              <label>Data Últ. Alt.</label>
+              <Input value={editing?.dataAtualizacao?.slice(0, 10) || ""} disabled />
             </div>
           </div>
 
           <DialogFooter>
+            <Button onClick={salvarFornecedor}>{editing ? "Atualizar" : "Salvar"}</Button>
             <DialogClose asChild>
-              <Button variant="outline">Cancelar</Button>
+              <Button variant="outline">Fechar</Button>
             </DialogClose>
-            <Button onClick={salvarFornecedor}>
-              {editing ? "Atualizar" : "Salvar"}
-            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
-      {/* modal nova cidade */}
-      <Dialog open={novoCidadeModal} onOpenChange={setNovoCidadeModal}>
-        <DialogContent className="max-w-5xl">
-          <DialogHeader>
-            <DialogTitle>Nova Cidade</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <Input placeholder="Nome"
-                   value={formNovoCidade.nome}
-                   onChange={(e) =>
-                     setFormNovoCidade({ ...formNovoCidade, nome: e.target.value })}/>
-            <Input placeholder="DDD"
-                   value={formNovoCidade.ddd}
-                   onChange={(e) =>
-                     setFormNovoCidade({ ...formNovoCidade, ddd: e.target.value })}/>
-
-            {/* seletor estado */}
-            <div>
-              <label className="block text-sm font-medium mb-1">Estado</label>
-              <Dialog open={estadoSelectorNovoCidade}
-                      onOpenChange={setEstadoSelectorNovoCidade}>
-                <DialogTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
-                    {getNomeEstado(formNovoCidade.idEstado)}
-                    <ChevronDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-5xl">
-                  <DialogHeader>
-                    <DialogTitle>Selecionar Estado</DialogTitle>
-                  </DialogHeader>
-                  <div className="max-h-[300px] overflow-auto space-y-1">
-                    {estados.map((e) => (
-                      <Button key={e.id}
-                              variant={formNovoCidade.idEstado === e.id ? "default" : "outline"}
-                              className="w-full justify-start"
-                              onDoubleClick={() => {
-                                setFormNovoCidade({ ...formNovoCidade, idEstado: e.id })
-                                setEstadoSelectorNovoCidade(false)
-                              }}>
-                        {e.nome} ({e.uf}) – {getNomePais(e.idPais)}
-                      </Button>
-                    ))}
-                  </div>
-                  <div className="pt-4">
-                    <Button variant="secondary" onClick={() => setNovoEstadoModal(true)}>
-                      Cadastrar novo estado
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </div>
-          </div>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancelar</Button>
-            </DialogClose>
-            <Button onClick={salvarCidade}>Salvar Cidade</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* modal novo estado */}
-      <Dialog open={novoEstadoModal} onOpenChange={setNovoEstadoModal}>
-        <DialogContent className="max-w-5xl">
-          <DialogHeader>
-            <DialogTitle>Novo Estado</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <Input placeholder="Nome"
-                   value={formNovoEstado.nome}
-                   onChange={(e) =>
-                     setFormNovoEstado({ ...formNovoEstado, nome: e.target.value })}/>
-            <Input placeholder="UF" maxLength={2}
-                   value={formNovoEstado.uf}
-                   onChange={(e) =>
-                     setFormNovoEstado({ ...formNovoEstado, uf: e.target.value.toUpperCase() })}/>
-
-            {/* seletor país */}
-            <div>
-              <label className="block text-sm font-medium mb-1">País</label>
-              <Dialog open={paisSelectorNovoEstado}
-                      onOpenChange={setPaisSelectorNovoEstado}>
-                <DialogTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
-                    {getNomePais(formNovoEstado.idPais)}
-                    <ChevronDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl">
-                  <DialogHeader>
-                    <DialogTitle>Selecionar País</DialogTitle>
-                  </DialogHeader>
-                  <div className="max-h-[300px] overflow-auto space-y-1">
-                    {paises.map((p) => (
-                      <Button key={p.id}
-                              variant={formNovoEstado.idPais === p.id ? "default" : "outline"}
-                              className="w-full justify-start"
-                              onDoubleClick={() => {
-                                setFormNovoEstado({ ...formNovoEstado, idPais: p.id })
-                                setPaisSelectorNovoEstado(false)
-                              }}>
-                        {p.nome} ({p.sigla})
-                      </Button>
-                    ))}
-                  </div>
-                  <div className="pt-4">
-                    <Button variant="secondary" onClick={() => setNovoPaisModal(true)}>
-                      Cadastrar novo país
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </div>
-          </div>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancelar</Button>
-            </DialogClose>
-            <Button onClick={salvarEstado}>Salvar Estado</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* modal novo país */}
-      <Dialog open={novoPaisModal} onOpenChange={setNovoPaisModal}>
+      <Dialog open={condSelector} onOpenChange={setCondSelector}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
-            <DialogTitle>Novo País</DialogTitle>
+            <DialogTitle>Selecionar Condição de Pagamento</DialogTitle>
           </DialogHeader>
-          <div className="grid grid-cols-3 gap-2">
-            <Input placeholder="Nome"
-                   value={formNovoPais.nome}
-                   onChange={(e) =>
-                     setFormNovoPais({ ...formNovoPais, nome: e.target.value })}/>
-            <Input placeholder="Sigla" maxLength={2}
-                   value={formNovoPais.sigla}
-                   onChange={(e) =>
-                     setFormNovoPais({ ...formNovoPais, sigla: e.target.value.toUpperCase() })}/>
-            <Input placeholder="DDI"
-                   value={formNovoPais.ddi}
-                   onChange={(e) =>
-                     setFormNovoPais({ ...formNovoPais, ddi: e.target.value })}/>
+          <div className="max-h-[300px] overflow-auto space-y-1">
+            {condicoes.map((c) => (
+              <Button
+                key={c.id}
+                variant={form.condicaoPagamentoId === c.id ? "default" : "outline"}
+                className="w-full justify-start uppercase"
+                onDoubleClick={() => {
+                  setForm({ ...form, condicaoPagamentoId: c.id })
+                  setCondSelector(false)
+                }}
+              >
+                {c.descricao}
+              </Button>
+            ))}
           </div>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancelar</Button>
-            </DialogClose>
-            <Button onClick={salvarPais}>Salvar País</Button>
-          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

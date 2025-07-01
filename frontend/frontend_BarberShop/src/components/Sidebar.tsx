@@ -9,6 +9,7 @@ import {
   Globe,
   Briefcase,
   ShoppingBag,
+  Package,
   CreditCard,
   Wallet,
   Settings,
@@ -17,9 +18,7 @@ import {
 } from "lucide-react"
 import { useState } from "react"
 
-type SidebarProps = {
-  isOpen: boolean
-}
+type SidebarProps = { isOpen: boolean }
 
 interface NavItem {
   title: string
@@ -29,11 +28,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  {
-    title: "Dashboard",
-    href: "/",
-    icon: <Home className="h-5 w-5" />,
-  },
+  // { title: "Dashboard", href: "/", icon: <Home className="h-5 w-5" /> },
   {
     title: "Localização",
     href: "#",
@@ -44,41 +39,17 @@ const navItems: NavItem[] = [
       { title: "Cidades", href: "/cidades", icon: <MapPin className="h-4 w-4" /> },
     ],
   },
-  {
-    title: "Funcionários",
-    href: "/funcionarios",
-    icon: <Briefcase className="h-5 w-5" />,
-  },
-  {
-    title: "Clientes",
-    href: "/clientes",
-    icon: <Users className="h-5 w-5" />,
-  },
-  {
-    title: "Fornecedores",
-    href: "/fornecedores",
-    icon: <ShoppingBag className="h-5 w-5" />,
-  },
-  {
-    title: "Condições de Pagamento",
-    href: "/condicoes-pagamento",
-    icon: <CreditCard className="h-5 w-5" />,
-  },
-  {
-    title: "Formas de Pagamento",
-    href: "/formas-pagamento",
-    icon: <Wallet className="h-5 w-5" />,
-  },
-  {
-    title: "Configurações",
-    href: "/configuracoes",
-    icon: <Settings className="h-5 w-5" />,
-  },
+  { title: "Produtos", href: "/produtos", icon: <Package className="h-5 w-5" /> },
+  { title: "Funcionários", href: "/funcionarios", icon: <Briefcase className="h-5 w-5" /> },
+  { title: "Clientes", href: "/clientes", icon: <Users className="h-5 w-5" /> },
+  { title: "Fornecedores", href: "/fornecedores", icon: <ShoppingBag className="h-5 w-5" /> },
+  { title: "Condições de Pagamento", href: "/condicoes-pagamento", icon: <CreditCard className="h-5 w-5" /> },
+  { title: "Formas de Pagamento", href: "/formas-pagamento", icon: <Wallet className="h-5 w-5" /> },
+  // { title: "Configurações", href: "/configuracoes", icon: <Settings className="h-5 w-5" /> },
 ]
 
 export function Sidebar({ isOpen }: SidebarProps) {
-  const location = useLocation()
-  const pathname = location.pathname
+  const pathname = useLocation().pathname
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null)
 
   return (
@@ -91,8 +62,8 @@ export function Sidebar({ isOpen }: SidebarProps) {
         </div>
         <div className="flex-1 overflow-auto py-2">
           <nav className="grid gap-1 px-2 text-sm">
-            {navItems.map((item, index) => (
-              <div key={index}>
+            {navItems.map((item) => (
+              <div key={item.title}>
                 {item.submenu ? (
                   <div className="space-y-1">
                     <button
@@ -102,31 +73,21 @@ export function Sidebar({ isOpen }: SidebarProps) {
                         "text-muted-foreground",
                       )}
                     >
-                      <div className="flex items-center gap-3">
-                        {item.icon}
-                        {item.title}
-                      </div>
-                      {openSubmenu === item.title ? (
-                        <ChevronDown className="h-4 w-4" />
-                      ) : (
-                        <ChevronRight className="h-4 w-4" />
-                      )}
+                      <div className="flex items-center gap-3">{item.icon}{item.title}</div>
+                      {openSubmenu === item.title ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                     </button>
                     {openSubmenu === item.title && (
                       <div className="ml-4 space-y-1 border-l pl-4">
-                        {item.submenu.map((subItem, subIndex) => (
+                        {item.submenu.map((sub) => (
                           <Link
-                            key={subIndex}
-                            to={subItem.href}
+                            key={sub.title}
+                            to={sub.href}
                             className={cn(
                               "flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-accent hover:text-accent-foreground",
-                              pathname === subItem.href
-                                ? "bg-accent text-accent-foreground"
-                                : "text-muted-foreground",
+                              pathname === sub.href ? "bg-accent text-accent-foreground" : "text-muted-foreground",
                             )}
                           >
-                            {subItem.icon}
-                            {subItem.title}
+                            {sub.icon}{sub.title}
                           </Link>
                         ))}
                       </div>
@@ -137,13 +98,10 @@ export function Sidebar({ isOpen }: SidebarProps) {
                     to={item.href}
                     className={cn(
                       "flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-accent hover:text-accent-foreground",
-                      pathname === item.href
-                        ? "bg-accent text-accent-foreground"
-                        : "text-muted-foreground",
+                      pathname === item.href ? "bg-accent text-accent-foreground" : "text-muted-foreground",
                     )}
                   >
-                    {item.icon}
-                    {item.title}
+                    {item.icon}{item.title}
                   </Link>
                 )}
               </div>

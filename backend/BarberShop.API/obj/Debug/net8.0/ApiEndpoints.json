@@ -79,7 +79,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BarberShop.API.Controllers.ClienteController",
+    "ContainingType": "ClienteController",
     "Method": "GetAll",
     "RelativePath": "api/Cliente",
     "HttpMethod": "GET",
@@ -89,7 +89,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BarberShop.API.Controllers.ClienteController",
+    "ContainingType": "ClienteController",
     "Method": "Create",
     "RelativePath": "api/Cliente",
     "HttpMethod": "POST",
@@ -105,7 +105,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BarberShop.API.Controllers.ClienteController",
+    "ContainingType": "ClienteController",
     "Method": "Get",
     "RelativePath": "api/Cliente/{id}",
     "HttpMethod": "GET",
@@ -121,7 +121,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BarberShop.API.Controllers.ClienteController",
+    "ContainingType": "ClienteController",
     "Method": "Update",
     "RelativePath": "api/Cliente/{id}",
     "HttpMethod": "PUT",
@@ -135,14 +135,14 @@
       },
       {
         "Name": "dto",
-        "Type": "BarberShop.API.Models.UpdateClienteDto",
+        "Type": "BarberShop.API.Models.Cliente.CreateClienteDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BarberShop.API.Controllers.ClienteController",
+    "ContainingType": "ClienteController",
     "Method": "Delete",
     "RelativePath": "api/Cliente/{id}",
     "HttpMethod": "DELETE",
@@ -158,7 +158,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BarberShop.API.Controllers.CondicaoPagamentoController",
+    "ContainingType": "CondicaoPagamentoController",
     "Method": "GetAll",
     "RelativePath": "api/CondicaoPagamento",
     "HttpMethod": "GET",
@@ -168,7 +168,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BarberShop.API.Controllers.CondicaoPagamentoController",
+    "ContainingType": "CondicaoPagamentoController",
     "Method": "Create",
     "RelativePath": "api/CondicaoPagamento",
     "HttpMethod": "POST",
@@ -177,14 +177,14 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "BarberShop.API.Models.CreateCondicaoPagamentoDto",
+        "Type": "BarberShop.API.Models.CondicaoPagamento.CreateCondicaoPagamentoDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BarberShop.API.Controllers.CondicaoPagamentoController",
+    "ContainingType": "CondicaoPagamentoController",
     "Method": "Get",
     "RelativePath": "api/CondicaoPagamento/{id}",
     "HttpMethod": "GET",
@@ -200,7 +200,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BarberShop.API.Controllers.CondicaoPagamentoController",
+    "ContainingType": "CondicaoPagamentoController",
     "Method": "Update",
     "RelativePath": "api/CondicaoPagamento/{id}",
     "HttpMethod": "PUT",
@@ -221,7 +221,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BarberShop.API.Controllers.CondicaoPagamentoController",
+    "ContainingType": "CondicaoPagamentoController",
     "Method": "Delete",
     "RelativePath": "api/CondicaoPagamento/{id}",
     "HttpMethod": "DELETE",
