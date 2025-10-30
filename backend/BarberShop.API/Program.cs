@@ -33,6 +33,9 @@ builder.Services.AddScoped<ClienteRepository>();
 builder.Services.AddScoped<FornecedorRepository>();
 builder.Services.AddScoped<FormaPagamentoRepository>();
 builder.Services.AddScoped<CondicaoPagamentoRepository>();
+builder.Services.AddScoped<MarcaRepository>();
+builder.Services.AddScoped<CategoriaRepository>();
+builder.Services.AddScoped<UnidadeMedidaRepository>();
 
 var app = builder.Build();
 

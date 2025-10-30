@@ -1,27 +1,21 @@
 import { useEffect, useMemo, useState } from "react"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-  DialogClose,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose, DialogTrigger} from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ChevronDown, Search } from "lucide-react"
 import { Cidade, criarCidade, atualizarCidade } from "@/services/cidadeService"
 import { Estado } from "@/services/estadoService"
 import { ModalEstados } from "@/components/modals/ModalEstados"
+import { toast } from "react-toastify"
+import { CidadeSchema } from "@/validations/localizacao"
 
 type Props = {
   isOpen: boolean
   onOpenChange: (o: boolean) => void
   cidade?: Cidade | null
-  onSave: () => Promise<void> 
+  onSave: () => Promise<void>
   readOnly?: boolean
-  estados: Estado[] 
+  estados: Estado[]
 }
 
 export function ModalCidades({
@@ -32,19 +26,27 @@ export function ModalCidades({
   readOnly = false,
   estados,
 }: Props) {
-  const [form, setForm] = useState({ nome: "", ddd: "", idEstado: 0 })
+  const [form, setForm] = useState({ nome: "", ddd: "", estadoId: 0 })
   const [modalEstadoOpen, setModalEstadoOpen] = useState(false)
   const [selectorOpen, setSelectorOpen] = useState(false)
   const [searchEstado, setSearchEstado] = useState("")
-
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     if (cidade) {
-      setForm({ nome: cidade.nome, ddd: cidade.ddd, idEstado: cidade.idEstado })
+      setForm({
+        nome: cidade.nome,
+        ddd: cidade.ddd,
+        estadoId: cidade.idEstado,
+      })
     } else {
-      setForm({ nome: "", ddd: "", idEstado: 0 })
+      setForm({ nome: "", ddd: "", estadoId: 0 })
     }
   }, [cidade, isOpen])
+
+  function updateFormField<K extends keyof typeof form>(key: K, value: typeof form[K]) {
+    setForm((prev) => ({ ...prev, [key]: value }))
+  }
 
   const estadosFiltrados = useMemo(() => {
     const t = searchEstado.toLowerCase()
@@ -53,10 +55,10 @@ export function ModalCidades({
       .sort((a, b) => a.nome.localeCompare(b.nome))
   }, [estados, searchEstado])
 
-  const getNomeEstado = (id: number) => {
-    const e = estados.find((x) => x.id === id)
+  const nomeEstadoSelecionado = useMemo(() => {
+    const e = estados.find((x) => x.id === form.estadoId)
     return e ? `${e.nome.toUpperCase()} - ${e.uf}` : "SELECIONE..."
-  }
+  }, [form.estadoId, estados])
 
   const formatDate = (s?: string) => {
     if (!s) return ""
@@ -66,14 +68,42 @@ export function ModalCidades({
   }
 
   async function handleSubmit() {
-    if (readOnly) return
-    if (cidade) {
-      await atualizarCidade(cidade.id, form)
-    } else {
-      await criarCidade(form)
+    if (readOnly || isSubmitting) return
+
+    const parsed = CidadeSchema.safeParse({
+      nome: form.nome,
+      ddd: form.ddd,
+      idEstado: form.estadoId,
+    })
+
+    if (!parsed.success) {
+      toast.error("Preencha todos os campos corretamente")
+      return
     }
-    await onSave() 
-    onOpenChange(false)
+
+    setIsSubmitting(true)
+    try {
+      if (cidade) {
+        await atualizarCidade(cidade.id, {
+          nome: form.nome,
+          ddd: form.ddd,
+          idEstado: form.estadoId,
+        })
+      } else {
+        await criarCidade({
+          nome: form.nome,
+          ddd: form.ddd,
+          idEstado: form.estadoId,
+        })
+      }
+
+      await onSave()
+      onOpenChange(false)
+    } catch (error) {
+      toast.error("Erro ao salvar cidade")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -81,7 +111,7 @@ export function ModalCidades({
       <ModalEstados
         isOpen={modalEstadoOpen}
         onOpenChange={setModalEstadoOpen}
-        onSave={onSave} 
+        onSave={onSave}
       />
 
       <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -94,21 +124,23 @@ export function ModalCidades({
 
           <div className="grid gap-4 py-4">
             <Input
-              placeholder="NOME"
+              placeholder="NOME*"
               disabled={readOnly}
               className="uppercase"
               value={form.nome}
-              onChange={(e) => setForm({ ...form, nome: e.target.value.toUpperCase() })}
+              onChange={(e) => updateFormField("nome", e.target.value.toUpperCase())}
             />
             <Input
-              placeholder="DDD"
+              placeholder="DDD*"
               disabled={readOnly}
+              maxLength={3}
+              inputMode="numeric"
               value={form.ddd}
-              onChange={(e) => setForm({ ...form, ddd: e.target.value })}
+              onChange={(e) => updateFormField("ddd", e.target.value.replace(/\D/g, ""))}
             />
 
             <div>
-              <label className="block text-sm mb-1">ESTADO</label>
+              <label className="block text-sm mb-1">ESTADO*</label>
               <Dialog open={selectorOpen} onOpenChange={setSelectorOpen}>
                 <DialogTrigger asChild>
                   <Button
@@ -116,7 +148,7 @@ export function ModalCidades({
                     disabled={readOnly}
                     className="w-full justify-between uppercase font-normal"
                   >
-                    {getNomeEstado(form.idEstado)}
+                    {nomeEstadoSelecionado}
                     {!readOnly && <ChevronDown className="ml-2 h-4 w-4" />}
                   </Button>
                 </DialogTrigger>
@@ -139,10 +171,10 @@ export function ModalCidades({
                     {estadosFiltrados.map((e) => (
                       <Button
                         key={e.id}
-                        variant={form.idEstado === e.id ? "default" : "outline"}
+                        variant={form.estadoId === e.id ? "default" : "outline"}
                         className="w-full justify-start font-normal uppercase"
                         onDoubleClick={() => {
-                          setForm({ ...form, idEstado: e.id })
+                          updateFormField("estadoId", e.id)
                           setSelectorOpen(false)
                         }}
                       >
@@ -152,7 +184,13 @@ export function ModalCidades({
                   </div>
 
                   <div className="pt-4 flex justify-end gap-2">
-                    <Button variant="secondary" onClick={() => { setSelectorOpen(false); setModalEstadoOpen(true) }}>
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        setSelectorOpen(false)
+                        setModalEstadoOpen(true)
+                      }}
+                    >
                       CADASTRAR NOVO ESTADO
                     </Button>
                     <Button variant="outline" onClick={() => setSelectorOpen(false)}>
@@ -175,8 +213,12 @@ export function ModalCidades({
             </div>
 
             {!readOnly && (
-              <Button onClick={handleSubmit}>
-                {cidade ? "ATUALIZAR" : "CADASTRAR"}
+              <Button onClick={handleSubmit} disabled={isSubmitting}>
+                {isSubmitting
+                  ? "SALVANDO..."
+                  : cidade
+                  ? "ATUALIZAR"
+                  : "CADASTRAR"}
               </Button>
             )}
             <DialogClose asChild>

@@ -43,6 +43,7 @@ import {
   DialogClose,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { Switch } from "@/components/ui/switch"
 
 import {
   Funcionario,
@@ -90,6 +91,12 @@ export default function Funcionarios() {
     dataAdmissao: "",
     turno: "",
     idCidade: 0,
+    rua: "",
+    numero: "",
+    complemento: "",
+    bairro: "",
+    cep: "",
+    cargaHoraria: "",
   })
 
   /* ---------- modais aninhados (cidade > estado > país) ---------- */
@@ -231,6 +238,12 @@ export default function Funcionarios() {
       dataAdmissao: "",
       turno: "",
       idCidade: cidades[0]?.id || 0,
+      rua: "",
+      numero: "",
+      complemento: "",
+      bairro: "",
+      cep: "",
+      cargaHoraria: "",
     })
     setModalOpen(true)
   }
@@ -246,6 +259,12 @@ export default function Funcionarios() {
       dataAdmissao: f.dataAdmissao.substring(0, 10),
       turno: f.turno,
       idCidade: f.idCidade,
+      rua: f.rua ?? "",
+      numero: f.numero ?? "",
+      complemento: f.complemento ?? "",
+      bairro: f.bairro ?? "",
+      cep: f.cep ?? "",
+      cargaHoraria: f.cargaHoraria ?? "",
     })
     setModalOpen(true)
   }
@@ -341,106 +360,152 @@ export default function Funcionarios() {
       {/* ---------- Modal Funcionário ---------- */}
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
         <DialogContent className="max-w-6xl">
-          <DialogHeader>
-            <DialogTitle>{editing ? "Editar Funcionário" : "Novo Funcionário"}</DialogTitle>
-          </DialogHeader>
 
-          <div className="grid gap-4 py-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Nome*</label>
-              <Input placeholder="Nome completo"
-                     value={form.nomeRazaoSocial}
-                     onChange={(e) => setForm({ ...form, nomeRazaoSocial: e.target.value })}/>
+
+          <div className="grid grid-cols-12 gap-3 py-4">
+            <div className="col-span-12 sm:col-span-1">
+              <label className="block text-sm font-medium mb-1">Código</label>
+              <Input placeholder="ID" value={editing?.id ?? ''} disabled />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Cargo*</label>
-              <Input placeholder="Ex.: Barbeiro"
-                     value={form.cargo}
-                     onChange={(e) => setForm({ ...form, cargo: e.target.value })}/>
+            <div className="col-span-12 sm:col-span-7">
+              <label className="block text-sm font-medium mb-1">Funcionário</label>
+              <Input placeholder="Nome completo" value={form.nomeRazaoSocial} onChange={(e) => setForm({ ...form, nomeRazaoSocial: e.target.value })} />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Telefone</label>
-              <Input placeholder="(xx) 99999-9999"
-                     value={form.telefone}
-                     onChange={(e) => setForm({ ...form, telefone: e.target.value })}/>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Email</label>
-              <Input placeholder="email@exemplo.com"
-                     value={form.email}
-                     onChange={(e) => setForm({ ...form, email: e.target.value })}/>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Matrícula</label>
-              <Input placeholder="Código interno"
-                     value={form.matricula}
-                     onChange={(e) => setForm({ ...form, matricula: e.target.value })}/>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Salário*</label>
-              <Input type="number" placeholder="0,00"
-                     value={form.salario}
-                     onChange={(e) => setForm({ ...form, salario: Number(e.target.value) })}/>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Data de admissão*</label>
-              <Input type="date"
-                     value={form.dataAdmissao}
-                     onChange={(e) => setForm({ ...form, dataAdmissao: e.target.value })}/>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Turno</label>
-              <Input placeholder="Ex.: Manhã"
-                     value={form.turno}
-                     onChange={(e) => setForm({ ...form, turno: e.target.value })}/>
+            <div className="col-span-12 sm:col-span-4">
+              <label className="block text-sm font-medium mb-1">Sexo *</label>
+              <select className="w-full border rounded px-2 py-1.5 bg-background" value={""} onChange={() => {}}>
+                <option>Selecione...</option>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+              </select>
             </div>
 
-            {/* ---------- seletor / cadastro de cidade ---------- */}
-            <div>
-              <label className="block text-sm font-medium mb-1">Cidade</label>
-              <Dialog open={cidadeSelectorOpen} onOpenChange={setCidadeSelectorOpen}>
-                <DialogTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
-                    {getNomeCidade(form.idCidade)}
-                    <ChevronDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-5xl">
-                  <DialogHeader>
-                    <DialogTitle>Selecionar Cidade</DialogTitle>
-                  </DialogHeader>
+            {/* Endereço */}
+            <div className="col-span-12 sm:col-span-6">
+              <label className="block text-sm font-medium mb-1">Endereço</label>
+              <Input placeholder="Rua / Logradouro" value={form.rua ?? ''} onChange={(e) => setForm({ ...form, rua: e.target.value })} />
+            </div>
+            <div className="col-span-6 sm:col-span-1">
+              <label className="block text-sm font-medium mb-1">Número</label>
+              <Input placeholder="Nº" value={form.numero ?? ''} onChange={(e) => setForm({ ...form, numero: e.target.value })} />
+            </div>
+            <div className="col-span-6 sm:col-span-2">
+              <label className="block text-sm font-medium mb-1">Complemento</label>
+              <Input placeholder="Complemento" value={form.complemento ?? ''} onChange={(e) => setForm({ ...form, complemento: e.target.value })} />
+            </div>
+            <div className="col-span-12 sm:col-span-3">
+              <label className="block text-sm font-medium mb-1">Bairro</label>
+              <Input placeholder="Bairro" value={form.bairro ?? ''} onChange={(e) => setForm({ ...form, bairro: e.target.value })} />
+            </div>
 
-                  <div className="space-y-2 max-h-[300px] overflow-auto">
-                    {cidades.map((c) => (
-                      <Button key={c.id}
-                              variant={form.idCidade === c.id ? "default" : "outline"}
-                              className="w-full justify-start"
-                              onDoubleClick={() => {
-                                setForm({ ...form, idCidade: c.id })
-                                setCidadeSelectorOpen(false)
-                              }}>
-                        {c.nome}
-                      </Button>
-                    ))}
-                  </div>
-
-                  <div className="pt-4">
-                    <Button variant="secondary" onClick={() => setNovoCidadeModal(true)}>
-                      Cadastrar nova cidade
+            <div className="col-span-6 sm:col-span-3">
+              <label className="block text-sm font-medium mb-1">CEP</label>
+              <Input placeholder="XXXXX-XXX" value={form.cep ?? ''} onChange={(e) => setForm({ ...form, cep: e.target.value })} />
+            </div>
+            <div className="col-span-6 sm:col-span-9 flex items-end gap-2">
+              <div className="flex-1">
+                <label className="block text-sm font-medium mb-1">Cidade</label>
+                <Dialog open={cidadeSelectorOpen} onOpenChange={setCidadeSelectorOpen}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" className="w-full justify-between">
+                      {getNomeCidade(form.idCidade)}
+                      <ChevronDown className="ml-2 h-4 w-4" />
                     </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-5xl">
+                    <DialogHeader>
+                      <DialogTitle>Selecionar Cidade</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-2 max-h-[300px] overflow-auto">
+                      {cidades.map((c) => (
+                        <Button key={c.id}
+                                variant={form.idCidade === c.id ? "default" : "outline"}
+                                className="w-full justify-start"
+                                onDoubleClick={() => {
+                                  setForm({ ...form, idCidade: c.id })
+                                  setCidadeSelectorOpen(false)
+                                }}>
+                          {c.nome}
+                        </Button>
+                      ))}
+                    </div>
+                    <div className="pt-4">
+                      <Button variant="secondary" onClick={() => setNovoCidadeModal(true)}>
+                        Cadastrar nova cidade
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+              <Button className="h-10 w-10 bg-blue-500 text-white hover:bg-blue-600" onClick={() => setCidadeSelectorOpen(true)}>
+                <Search className="h-4 w-4" />
+              </Button>
+            </div>
+
+            {/* CPF, RG, Datas */}
+            <div className="col-span-12 sm:col-span-3">
+              <label className="block text-sm font-medium mb-1">CPF</label>
+              <Input placeholder="CPF" />
+            </div>
+            <div className="col-span-12 sm:col-span-3">
+              <label className="block text-sm font-medium mb-1">RG</label>
+              <Input placeholder="RG" />
+            </div>
+            <div className="col-span-12 sm:col-span-2">
+              <label className="block text-sm font-medium mb-1">Data de Nascimento</label>
+              <Input type="date" />
+            </div>
+            <div className="col-span-12 sm:col-span-2">
+              <label className="block text-sm font-medium mb-1">Data de Admissão</label>
+              <Input type="date" value={form.dataAdmissao} onChange={(e) => setForm({ ...form, dataAdmissao: e.target.value })} />
+            </div>
+            <div className="col-span-12 sm:col-span-2">
+              <label className="block text-sm font-medium mb-1">Data de Demissão</label>
+              <Input type="date" />
+            </div>
+
+            {/* Cargo / Carga Horária / Salário */}
+            <div className="col-span-12 sm:col-span-7 flex items-end gap-2">
+              <div className="flex-1">
+                <label className="block text-sm font-medium mb-1">Cargo</label>
+                <Input placeholder="Selecione um cargo" value={form.cargo} onChange={(e) => setForm({ ...form, cargo: e.target.value })} />
+              </div>
+              <Button className="h-10 w-10 bg-blue-500 text-white hover:bg-blue-600" onClick={() => {/* abrir modal de cargo */}}>
+                <Search className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="col-span-12 sm:col-span-3">
+              <label className="block text-sm font-medium mb-1">Carga Horária</label>
+              <Input placeholder="Carga Horária" value={form.cargaHoraria ?? ''} onChange={(e) => setForm({ ...form, cargaHoraria: e.target.value })} />
+            </div>
+            <div className="col-span-12 sm:col-span-2">
+              <label className="block text-sm font-medium mb-1">Salário (R$)</label>
+              <Input type="number" placeholder="0,00" value={form.salario} onChange={(e) => setForm({ ...form, salario: Number(e.target.value) })} />
+            </div>
+
+            <div className="col-span-12 sm:col-span-6">
+              <label className="block text-sm font-medium mb-1">E-mail</label>
+              <Input placeholder="email@exemplo.com" value={form.email ?? ''} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+            </div>
+            <div className="col-span-12 sm:col-span-6">
+              <label className="block text-sm font-medium mb-1">Telefone</label>
+              <Input placeholder="(xx) 99999-9999" value={form.telefone ?? ''} onChange={(e) => setForm({ ...form, telefone: e.target.value })} />
             </div>
           </div>
 
           <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancelar</Button>
-            </DialogClose>
-            <Button onClick={salvarFuncionario}>
-              {editing ? "Atualizar" : "Salvar"}
-            </Button>
+            <div className="w-full flex justify-between items-center">
+              <div className="flex flex-col text-xs text-muted-foreground">
+                <div>Data Criação: {editing?.dataCriacao ? new Date(editing.dataCriacao).toLocaleString() : 'N/A'}</div>
+                <div>Data Atualização: {editing?.dataAtualizacao ? new Date(editing.dataAtualizacao).toLocaleString() : 'N/A'}</div>
+              </div>
+              <div className="flex gap-2">
+                <DialogClose asChild>
+                  <Button variant="outline">Cancelar</Button>
+                </DialogClose>
+                <Button onClick={salvarFuncionario}>{editing ? "Atualizar" : "Salvar"}</Button>
+              </div>
+            </div>
           </DialogFooter>
         </DialogContent>
       </Dialog>

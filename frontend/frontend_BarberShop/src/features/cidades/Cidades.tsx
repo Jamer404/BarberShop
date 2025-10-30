@@ -180,7 +180,7 @@ export default function CidadesPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
-                  <TableHead>Nome</TableHead>
+                  <TableHead>Cidade</TableHead>
                   <TableHead>Estado</TableHead>
                   <TableHead>País</TableHead>
                   <TableHead className="text-center">Ações</TableHead>

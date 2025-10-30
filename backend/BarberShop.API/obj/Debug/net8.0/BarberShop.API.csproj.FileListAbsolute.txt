@@ -159,3 +159,7 @@ C:\Users\jamel\source\repos\BarberShop\backend\BarberShop.API\obj\Debug\net8.0\B
 C:\Users\jamel\source\repos\BarberShop\backend\BarberShop.API\obj\Debug\net8.0\ref\BarberShop.API.dll
 C:\Users\jamel\source\repos\BarberShop\backend\BarberShop.API\obj\Debug\net8.0\BarberShop.API.sourcelink.json
 C:\Users\jamel\source\repos\BarberShop\backend\BarberShop.API\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\jamel\source\repos\BarberShop\backend\BarberShop.API\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\jamel\source\repos\BarberShop\backend\BarberShop.API\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\jamel\source\repos\BarberShop\backend\BarberShop.API\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\jamel\source\repos\BarberShop\backend\BarberShop.API\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json

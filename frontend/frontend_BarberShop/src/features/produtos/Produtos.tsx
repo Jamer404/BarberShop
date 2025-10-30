@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table"
-import { Plus, Search, Edit, Trash } from "lucide-react"
+import { Plus, Edit, Trash } from "lucide-react"
 import {
   AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
   AlertDialogTitle, AlertDialogDescription, AlertDialogFooter,
@@ -41,48 +41,7 @@ type Produto = {
 }
 
 export default function Produtos() {
-  const mockProdutos: Produto[] = [
-    {
-      id: 1,
-      nome: "GARRAFA TÉRMICA P",
-      unidade: "UN",
-      precoVenda: 0,
-      ativo: true,
-      modeloId: 1,
-      modeloNome: "TÉRMICA P",
-      marca: "TERMOPLAST",
-      fornecedorId: 1,
-      fornecedorNome: "EMPRESA ALPHA LTDA",
-      saldo: 10,
-      custoMedio: 15,
-      precoUltCompra: 15,
-      dataUltCompra: "2024-05-10",
-      observacao: "",
-      dataCriacao: "2024-05-10",
-      dataAtualizacao: "2024-05-10",
-    },
-    {
-      id: 2,
-      nome: "CUIA CHIMARRÃO",
-      unidade: "PC",
-      precoVenda: 70,
-      ativo: true,
-      modeloId: 2,
-      modeloNome: "CUIA PREMIUM",
-      marca: "GAÚCHA",
-      fornecedorId: 2,
-      fornecedorNome: "BETA COMERCIAL EIRELI",
-      saldo: 5,
-      custoMedio: 40,
-      precoUltCompra: 40,
-      dataUltCompra: "2024-06-20",
-      observacao: "",
-      dataCriacao: "2024-06-20",
-      dataAtualizacao: "2024-06-20",
-    },
-  ]
-
-  const [produtos, setProdutos] = useState<Produto[]>(mockProdutos)
+  const [produtos, setProdutos] = useState<Produto[]>([])
   const [loading, setLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
   const [editing, setEditing] = useState<Produto | null>(null)
@@ -108,10 +67,10 @@ export default function Produtos() {
   function salvar() {
     const parsed = ProdutoSchema.safeParse(form);
     console.log(parsed.error, form)
-      if (!parsed.success) {
-        toast.error("Preencha todos os campos corretamente");
-        return;
-      }
+    if (!parsed.success) {
+      toast.error("Preencha todos os campos corretamente");
+      return;
+    }
     try {
       if (editing) {
         setProdutos((prev) =>

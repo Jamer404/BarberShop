@@ -14,6 +14,18 @@ export interface Fornecedor {
   valorMinimoPedido: number | null
   dataCriacao: string
   dataAtualizacao: string
+  pessoaFisica?: boolean
+  ativo?: boolean
+  apelido?: string | null
+  sexo?: string | null
+  celular?: string | null
+  cep?: string | null
+  endereco?: string | null
+  numero?: string | null
+  complemento?: string | null
+  bairro?: string | null
+  rg?: string | null
+  dataNascimento?: string | null
 }
 
 export interface CreateFornecedorDto {

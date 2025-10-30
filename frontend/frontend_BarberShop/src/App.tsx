@@ -10,7 +10,11 @@ import CondicoesPagamento from "@/features/condicaoPagamento/CondicaoPagamento"
 import Fornecedores from "@/features/fornecedores/Fornecedores"
 import Clientes from "@/features/clientes/Clientes"
 import Produtos from "@/features/produtos/Produtos"
-import { ToastContainer, toast } from 'react-toastify';
+import NotaCompraLista from "@/features/notaCompra/NotaCompraLista";
+import Marcas from "@/features/marcas/Marcas"
+import UnidadesMedidas from "./features/unidadesMedidas/UnidadesMedidas"
+import Categorias from "./features/categorias/Categorias"
+import { ToastContainer } from 'react-toastify';
 
 
 export default function App() {
@@ -29,8 +33,12 @@ export default function App() {
           <Route path="/formas-pagamento" element={<FormasPagamento />} />
           <Route path="/condicoes-pagamento" element={<CondicoesPagamento />} />
           <Route path="/fornecedores" element={<Fornecedores />} />
+          <Route path="/marcas" element={<Marcas />} />
           <Route path="/clientes" element={<Clientes />} />
           <Route path="/produtos" element={<Produtos />} />
+          <Route path="/nota-compra" element={<NotaCompraLista />} />
+          <Route path="/unidades-medida" element={<UnidadesMedidas />} />
+          <Route path="/categorias" element={<Categorias />} />
         </Routes>
       </RootLayout>
     </Router>

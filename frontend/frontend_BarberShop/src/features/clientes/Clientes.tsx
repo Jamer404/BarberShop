@@ -91,17 +91,17 @@ export default function Clientes() {
       />
 
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight">CLIENTES</h2>
+        <h2 className="text-3xl font-bold tracking-tight">Clientes</h2>
         <Button onClick={openCreate}>
           <Plus className="mr-2 h-4 w-4" />
-          NOVO CLIENTE
+          Novo Cliente
         </Button>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>GERENCIAR CLIENTES</CardTitle>
-          <CardDescription>CADASTRE, EDITE OU REMOVA CLIENTES.</CardDescription>
+          <CardTitle>Gerenciar clientes</CardTitle>
+          <CardDescription>Lista todos os clientes cadastradoss.</CardDescription>
         </CardHeader>
         <CardContent>
          {/*  <div className="flex items-center gap-2 pb-4">
@@ -112,7 +112,7 @@ export default function Clientes() {
           </div> */}
 
           {loading ? (
-            <p>CARREGANDO...</p>
+            <p>Carregando...</p>
           ) : (
             <Table>
               <TableHeader>
@@ -130,7 +130,7 @@ export default function Clientes() {
                 {clientes.map((c) => (
                   <TableRow key={c.id}>
                     <TableCell>{c.id}</TableCell>
-                    <TableCell>{c.nome}</TableCell>
+                    <TableCell>{c.nomeRazaoSocial}</TableCell>
                     <TableCell>{c.cpfCnpj}</TableCell>
                     <TableCell>{getCidadeUf(c.idCidade)}</TableCell>
                     <TableCell>{c.email}</TableCell>
@@ -156,7 +156,7 @@ export default function Clientes() {
                           <AlertDialogHeader>
                             <AlertDialogTitle>CONFIRMAR EXCLUSÃO</AlertDialogTitle>
                             <AlertDialogDescription>
-                              EXCLUIR <span className="uppercase">{c.nome}</span>?
+                              EXCLUIR <span className="uppercase">{c.nomeRazaoSocial}</span>?
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>

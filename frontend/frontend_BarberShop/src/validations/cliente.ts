@@ -10,7 +10,7 @@ export const buildClienteSchema = (isBrasil: boolean) => {
     classificacao: z.string().optional(),
     pf: z.boolean(),
     sexo: z.enum(["M", "F"]),
-    dataNascimentoCriacao: z.string().nullable(), // <-- Corrigido
+    dataNascimentoCriacao: z.string().nullable(),
     email: z.string().email({ message: "Formato de e-mail inválido." }).optional().or(z.literal('')),
     telefone: z.string().optional(),
     rua: z.string().optional(),

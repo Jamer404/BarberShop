@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table"
-import { Plus, Search, Edit, Trash, Eye, ChevronDown } from "lucide-react"
+import { Plus, Search, Edit, Trash, ChevronDown } from "lucide-react"
 import {
   AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogHeader,
   AlertDialogTitle, AlertDialogDescription, AlertDialogFooter,
@@ -17,6 +17,7 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
   DialogClose, DialogTrigger,
 } from "@/components/ui/dialog"
+import { Switch } from "@/components/ui/switch"
 
 import {
   Fornecedor, getFornecedores, criarFornecedor,
@@ -246,275 +247,203 @@ export default function Fornecedores() {
       </Card>
 
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="max-w-7xl w-full">
+        <DialogContent className="max-w-7xl w-full max-h-[90vh]">
           <DialogHeader>
-            <DialogTitle>{editing ? "Editar Fornecedor" : "Novo Fornecedor"}</DialogTitle>
+            <div className="w-full flex items-center justify-between">
+              <DialogTitle>{editing ? "Editar Fornecedor" : "Novo Fornecedor"}</DialogTitle>
+              <div className="flex items-center gap-3">
+                <span className="text-sm">Habilitado</span>
+                <Switch checked={form.ativo} onCheckedChange={(v: boolean) => setForm({ ...form, ativo: v })} />
+              </div>
+            </div>
           </DialogHeader>
 
-          <div className="grid grid-cols-4 gap-4 py-4 text-sm">
-            <div className="col-span-1 flex flex-col">
+          <div className="overflow-y-auto max-h-[70vh] pr-2 grid grid-cols-4 gap-x-4 gap-y-3 text-sm">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>Código</label>
-              <Input value={editing ? editing.id : "0"} disabled />
+              <Input value={editing ? String(editing.id) : "0"} disabled />
             </div>
 
-            <div className="col-span-1 flex flex-col">
-              <label>Pessoa</label>
-              <div className="flex gap-4 border rounded px-2 py-1">
-                <label className="flex items-center gap-1">
-                  <input
-                    type="radio"
-                    checked={form.pessoaFisica}
-                    onChange={() => setForm({ ...form, pessoaFisica: true })}
-                  />
-                  Física
-                </label>
-                <label className="flex items-center gap-1">
-                  <input
-                    type="radio"
-                    checked={!form.pessoaFisica}
-                    onChange={() => setForm({ ...form, pessoaFisica: false })}
-                  />
-                  Jurídica
-                </label>
-              </div>
+            <div className="col-span-1 flex flex-col gap-1.5">
+              <label>Tipo de Pessoa</label>
+              <select className="w-full border rounded px-2 py-1.5 bg-background" value={form.pessoaFisica ? "pf" : "pj"} onChange={(e) => setForm({ ...form, pessoaFisica: e.target.value === "pf" })}>
+                <option value="pf">PESSOA FÍSICA</option>
+                <option value="pj">PESSOA JURÍDICA</option>
+              </select>
             </div>
 
-            <div className="col-span-1 flex flex-col">
-              <label>Status</label>
-              <div className="flex gap-4 border rounded px-2 py-1">
-                <label className="flex items-center gap-1">
-                  <input
-                    type="radio"
-                    checked={form.ativo}
-                    onChange={() => setForm({ ...form, ativo: true })}
-                  />
-                  Ativo
-                </label>
-                <label className="flex items-center gap-1">
-                  <input
-                    type="radio"
-                    checked={!form.ativo}
-                    onChange={() => setForm({ ...form, ativo: false })}
-                  />
-                  Inativo
-                </label>
-              </div>
-            </div>
+            <div className="col-span-2" />
 
-            <div className="col-span-1 flex flex-col">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>Sexo</label>
-              <select
-                className="border rounded px-2 py-1"
-                value={form.sexo}
-                onChange={(e) => setForm({ ...form, sexo: e.target.value })}
-              >
+              <select className="w-full border rounded px-2 py-1.5 bg-background" value={form.sexo} onChange={(e) => setForm({ ...form, sexo: e.target.value })}>
                 <option value="">Selecione</option>
                 <option value="M">MASCULINO</option>
                 <option value="F">FEMININO</option>
               </select>
             </div>
 
-            <div className="col-span-2 flex flex-col">
-              <label>Fornecedor</label>
-              <Input
-                value={form.nomeRazaoSocial}
-                onChange={(e) => setForm({ ...form, nomeRazaoSocial: e.target.value })}
-              />
+            <div className="col-span-3 flex flex-col gap-1.5">
+              <label>Fornecedor (Nome / Razão Social)</label>
+              <Input placeholder="Digite o nome ou razão social" value={form.nomeRazaoSocial} onChange={(e) => setForm({ ...form, nomeRazaoSocial: e.target.value })} />
             </div>
 
-            <div className="col-span-2 flex flex-col">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>Apelido</label>
-              <Input
-                value={form.apelido}
-                onChange={(e) => setForm({ ...form, apelido: e.target.value })}
-              />
+              <Input placeholder="Apelido / Nome fantasia" value={form.apelido} onChange={(e) => setForm({ ...form, apelido: e.target.value })} />
             </div>
 
-            <div className="col-span-2 flex flex-col">
+            <div className="col-span-2 flex flex-col gap-1.5">
               <label>Email</label>
-              <Input
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-              />
+              <Input placeholder="exemplo@email.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
             </div>
 
-            <div className="col-span-1 flex flex-col">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>Telefone</label>
-              <Input
-                value={form.telefone}
-                onChange={(e) => setForm({ ...form, telefone: e.target.value })}
-              />
+              <Input placeholder="(XX) XXXXX-XXXX" value={form.telefone} onChange={(e) => setForm({ ...form, telefone: e.target.value })} />
             </div>
 
-            <div className="col-span-1 flex flex-col">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>Celular</label>
-              <Input
-                value={form.celular}
-                onChange={(e) => setForm({ ...form, celular: e.target.value })}
-              />
+              <Input placeholder="(XX) XXXXX-XXXX" value={form.celular} onChange={(e) => setForm({ ...form, celular: e.target.value })} />
             </div>
 
-            <div className="col-span-1 flex flex-col">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>CEP</label>
-              <Input
-                value={form.cep}
-                onChange={(e) => setForm({ ...form, cep: e.target.value })}
-              />
+              <Input placeholder="XXXXX-XXX" value={form.cep} onChange={(e) => setForm({ ...form, cep: e.target.value })} />
             </div>
 
-            <div className="col-span-2 flex flex-col">
+            <div className="col-span-3 flex flex-col gap-1.5">
               <label>Endereço</label>
-              <Input
-                value={form.endereco}
-                onChange={(e) => setForm({ ...form, endereco: e.target.value })}
-              />
+              <Input placeholder="Rua / Logradouro" value={form.endereco} onChange={(e) => setForm({ ...form, endereco: e.target.value })} />
             </div>
 
-            <div className="col-span-1 flex flex-col">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>Número</label>
-              <Input
-                value={form.numero}
-                onChange={(e) => setForm({ ...form, numero: e.target.value })}
-              />
+              <Input placeholder="Número" value={form.numero} onChange={(e) => setForm({ ...form, numero: e.target.value })} />
             </div>
 
-            <div className="col-span-2 flex flex-col">
+            <div className="col-span-2 flex flex-col gap-1.5">
               <label>Complemento</label>
-              <Input
-                value={form.complemento}
-                onChange={(e) => setForm({ ...form, complemento: e.target.value })}
-              />
+              <Input placeholder="Complemento" value={form.complemento} onChange={(e) => setForm({ ...form, complemento: e.target.value })} />
             </div>
 
-            <div className="col-span-2 flex flex-col">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>Bairro</label>
-              <Input
-                value={form.bairro}
-                onChange={(e) => setForm({ ...form, bairro: e.target.value })}
-              />
+              <Input placeholder="Bairro" value={form.bairro} onChange={(e) => setForm({ ...form, bairro: e.target.value })} />
             </div>
 
-            <div className="col-span-2 flex flex-col">
-              <label>Cidade</label>
-              <Dialog open={citySelector} onOpenChange={setCitySelector}>
-                <DialogTrigger asChild>
-                  <Button variant="outline" className="w-full justify-between">
-                    {getNomeCidadeUf(form.idCidade)}
-                    <ChevronDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-5xl">
-                  <DialogHeader>
-                    <DialogTitle>Selecionar Cidade</DialogTitle>
-                  </DialogHeader>
-                  <div className="flex gap-2 pb-2">
-                    <Input
-                      placeholder="Buscar..."
-                      value={searchCidade}
-                      onChange={(e) => setSearchCidade(e.target.value)}
-                    />
-                  </div>
-                  <div className="max-h-[300px] overflow-auto space-y-1">
-                    {cidadesFiltradas.map((c) => (
-                      <Button
-                        key={c.id}
-                        variant={form.idCidade === c.id ? "default" : "outline"}
-                        className="w-full justify-start"
-                        onDoubleClick={() => {
-                          setForm({ ...form, idCidade: c.id })
-                          setCitySelector(false)
-                        }}
-                      >
-                        {getNomeCidadeUf(c.id)}
-                      </Button>
-                    ))}
-                  </div>
-                </DialogContent>
-              </Dialog>
+            <div className="col-span-3 flex items-end gap-2">
+              <div className="flex-1">
+                <label>Cidade</label>
+                <Dialog open={citySelector} onOpenChange={setCitySelector}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" className="w-full justify-between uppercase font-normal">
+                      {getNomeCidadeUf(form.idCidade)}
+                      <ChevronDown className="ml-2 h-4 w-4" />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-5xl">
+                    <DialogHeader>
+                      <DialogTitle>Selecionar Cidade</DialogTitle>
+                    </DialogHeader>
+                    <div className="flex gap-2 pb-2">
+                      <Input placeholder="Buscar..." value={searchCidade} onChange={(e) => setSearchCidade(e.target.value)} />
+                    </div>
+                    <div className="max-h-[300px] overflow-auto space-y-1">
+                      {cidadesFiltradas.map((c) => (
+                        <Button
+                          key={c.id}
+                          variant={form.idCidade === c.id ? "default" : "outline"}
+                          className="w-full justify-start"
+                          onDoubleClick={() => {
+                            setForm({ ...form, idCidade: c.id })
+                            setCitySelector(false)
+                          }}
+                        >
+                          {getNomeCidadeUf(c.id)}
+                        </Button>
+                      ))}
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+              <Button className="h-10 w-10 bg-blue-500 text-white hover:bg-blue-600" onClick={() => setCitySelector(true)}>
+                <Search className="h-4 w-4" />
+              </Button>
             </div>
 
-            <div className="col-span-1 flex flex-col">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>UF</label>
               <Input value={getEstado(form.idCidade)?.uf || ""} disabled />
             </div>
 
-            <div className="col-span-1 flex flex-col">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>País</label>
               <Input value={getPais(form.idCidade)?.nome || ""} disabled />
             </div>
 
-            <div className="col-span-1 flex flex-col">
-              <label>CPF/CNPJ</label>
-              <Input
-                value={form.cpfCnpj}
-                onChange={(e) => setForm({ ...form, cpfCnpj: e.target.value })}
-              />
+            <div className="col-span-1 flex flex-col gap-1.5">
+              <label>CPF / CNPJ</label>
+              <Input placeholder="CPF ou CNPJ" value={form.cpfCnpj} onChange={(e) => setForm({ ...form, cpfCnpj: e.target.value })} />
             </div>
 
-            <div className="col-span-1 flex flex-col">
-              <label>RG</label>
-              <Input
-                value={form.rg}
-                onChange={(e) => setForm({ ...form, rg: e.target.value })}
-              />
+            <div className="col-span-1 flex flex-col gap-1.5">
+              <label>RG / IE</label>
+              <Input placeholder="RG ou Inscrição Estadual" value={form.rg} onChange={(e) => setForm({ ...form, rg: e.target.value })} />
             </div>
 
-            <div className="col-span-1 flex flex-col">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>Data Nasc.</label>
-              <Input
-                type="date"
-                value={form.dataNascimento}
-                onChange={(e) => setForm({ ...form, dataNascimento: e.target.value })}
-              />
+              <Input type="date" value={form.dataNascimento} onChange={(e) => setForm({ ...form, dataNascimento: e.target.value })} />
             </div>
 
             <div className="col-span-4 border-t pt-4 grid grid-cols-4 gap-4">
-              <div className="col-span-1 flex flex-col">
-                <label>Código Cond. Pagamento</label>
+              <div className="col-span-1 flex flex-col gap-1.5">
+                <label>Cód. Cond. Pagamento</label>
                 <Input value={form.condicaoPagamentoId || ""} disabled />
               </div>
-              <div className="col-span-1 flex flex-col justify-end">
-                <Button
-                  variant="outline"
-                  onClick={() => setCondSelector(true)}
-                  className="w-full"
-                >
+              <div className="col-span-1 flex flex-col gap-1.5 justify-end">
+                <Button variant="outline" onClick={() => setCondSelector(true)} className="w-full">
                   <Search className="mr-2 h-4 w-4" />
                   Buscar
                 </Button>
               </div>
-              <div className="col-span-2 flex flex-col">
+              <div className="col-span-2 flex flex-col gap-1.5">
                 <label>Condição de Pagamento</label>
                 <Input value={getNomeCondicao(form.condicaoPagamentoId)} disabled />
               </div>
             </div>
 
-            <div className="col-span-2 flex flex-col">
+            <div className="col-span-2 flex flex-col gap-1.5">
               <label>Valor Mínimo de Pedido</label>
-              <Input
-                type="number"
-                value={form.valorMinimoPedido}
-                onChange={(e) =>
-                  setForm({ ...form, valorMinimoPedido: Number(e.target.value) })
-                }
-              />
+              <Input type="number" value={form.valorMinimoPedido} onChange={(e) => setForm({ ...form, valorMinimoPedido: Number(e.target.value) })} />
             </div>
 
-            <div className="col-span-1 flex flex-col">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>Data Cadastro</label>
               <Input value={editing?.dataCriacao?.slice(0, 10) || ""} disabled />
             </div>
-            <div className="col-span-1 flex flex-col">
+            <div className="col-span-1 flex flex-col gap-1.5">
               <label>Data Últ. Alt.</label>
               <Input value={editing?.dataAtualizacao?.slice(0, 10) || ""} disabled />
             </div>
           </div>
 
           <DialogFooter>
-            <Button onClick={salvarFornecedor}>{editing ? "Atualizar" : "Salvar"}</Button>
-            <DialogClose asChild>
-              <Button variant="outline">Fechar</Button>
-            </DialogClose>
+            <div className="w-full flex justify-between items-center">
+              <div className="flex flex-col text-xs text-muted-foreground">
+                <div>Data Criação: {editing?.dataCriacao ? new Date(editing.dataCriacao).toLocaleString() : 'N/A'}</div>
+                <div>Data Atualização: {editing?.dataAtualizacao ? new Date(editing.dataAtualizacao).toLocaleString() : 'N/A'}</div>
+                <div>Usuário Últ. Alt: N/A</div>
+              </div>
+              <div className="flex gap-2">
+                <DialogClose asChild>
+                  <Button variant="outline">Cancelar</Button>
+                </DialogClose>
+                <Button onClick={salvarFornecedor}>{editing ? "Atualizar" : "Salvar"}</Button>
+              </div>
+            </div>
           </DialogFooter>
         </DialogContent>
       </Dialog>

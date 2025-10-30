@@ -3,7 +3,6 @@ import { useLocation, Link } from "react-router-dom"
 import { cn } from "@/lib/utils"
 import {
   Users,
-  Home,
   Map,
   MapPin,
   Globe,
@@ -12,7 +11,6 @@ import {
   Package,
   CreditCard,
   Wallet,
-  Settings,
   ChevronDown,
   ChevronRight,
 } from "lucide-react"
@@ -40,11 +38,15 @@ const navItems: NavItem[] = [
     ],
   },
   { title: "Produtos", href: "/produtos", icon: <Package className="h-5 w-5" /> },
+  { title: "Marcas", href: "/marcas", icon: <Package className="h-5 w-5" /> },
   { title: "Funcionários", href: "/funcionarios", icon: <Briefcase className="h-5 w-5" /> },
   { title: "Clientes", href: "/clientes", icon: <Users className="h-5 w-5" /> },
   { title: "Fornecedores", href: "/fornecedores", icon: <ShoppingBag className="h-5 w-5" /> },
+  { title: "Nota de Compra", href: "/nota-compra", icon: <CreditCard className="h-5 w-5" /> },
   { title: "Condições de Pagamento", href: "/condicoes-pagamento", icon: <CreditCard className="h-5 w-5" /> },
   { title: "Formas de Pagamento", href: "/formas-pagamento", icon: <Wallet className="h-5 w-5" /> },
+  { title: "Unidades de Medida", href: "/unidades-medida", icon: <Package className="h-5 w-5" /> },
+  { title: "Categorias", href: "/categorias", icon: <Package className="h-5 w-5" /> },
   // { title: "Configurações", href: "/configuracoes", icon: <Settings className="h-5 w-5" /> },
 ]
 
@@ -111,4 +113,4 @@ export function Sidebar({ isOpen }: SidebarProps) {
       </div>
     </aside>
   )
-}
+} 

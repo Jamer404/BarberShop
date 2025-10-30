@@ -145,7 +145,7 @@ export default function EstadosPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
-                  <TableHead>Nome</TableHead>
+                  <TableHead>Estado</TableHead>
                   <TableHead>UF</TableHead>
                   <TableHead>País</TableHead>
                   <TableHead className="text-center">Ações</TableHead>

@@ -136,7 +136,7 @@ export default function PaisesPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
-                  <TableHead>Nome</TableHead>
+                  <TableHead>País</TableHead>
                   <TableHead>Sigla</TableHead>
                   <TableHead>DDI</TableHead>
                   <TableHead className="text-center">Ações</TableHead>
