@@ -123,24 +123,31 @@ export function ModalCidades({
           </DialogHeader>
 
           <div className="grid gap-4 py-4">
-            <Input
-              placeholder="NOME*"
-              disabled={readOnly}
-              className="uppercase"
-              value={form.nome}
-              onChange={(e) => updateFormField("nome", e.target.value.toUpperCase())}
-            />
-            <Input
-              placeholder="DDD*"
-              disabled={readOnly}
-              maxLength={3}
-              inputMode="numeric"
-              value={form.ddd}
-              onChange={(e) => updateFormField("ddd", e.target.value.replace(/\D/g, ""))}
-            />
-
-            <div>
-              <label className="block text-sm mb-1">ESTADO*</label>
+            <div className="space-y-1">
+              <label className="font-medium">Cidade <span className="text-red-500">*</span></label>
+              <Input
+                placeholder="Cidade"
+                disabled={readOnly}
+                className="uppercase"
+                value={form.nome}
+                required
+                onChange={(e) => updateFormField("nome", e.target.value.toUpperCase())}
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="font-medium">DDD <span className="text-red-500">*</span></label>
+              <Input
+                placeholder="DDD"
+                disabled={readOnly}
+                maxLength={3}
+                inputMode="numeric"
+                value={form.ddd}
+                required
+                onChange={(e) => updateFormField("ddd", e.target.value.replace(/\D/g, ""))}
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="font-medium">Estado <span className="text-red-500">*</span></label>
               <Dialog open={selectorOpen} onOpenChange={setSelectorOpen}>
                 <DialogTrigger asChild>
                   <Button
@@ -159,7 +166,6 @@ export function ModalCidades({
                   </DialogHeader>
 
                   <div className="flex items-center gap-2 pb-2">
-                    <Search className="h-4 w-4 text-muted-foreground" />
                     <Input
                       placeholder="BUSCAR..."
                       value={searchEstado}
@@ -217,12 +223,12 @@ export function ModalCidades({
                 {isSubmitting
                   ? "SALVANDO..."
                   : cidade
-                  ? "ATUALIZAR"
-                  : "CADASTRAR"}
+                  ? "Atualizar"
+                  : "Cadastrar"}
               </Button>
             )}
             <DialogClose asChild>
-              <Button variant="outline">VOLTAR</Button>
+              <Button variant="outline">Voltar</Button>
             </DialogClose>
           </DialogFooter>
         </DialogContent>

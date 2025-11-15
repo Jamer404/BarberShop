@@ -14,6 +14,9 @@ import NotaCompraLista from "@/features/notaCompra/NotaCompraLista";
 import Marcas from "@/features/marcas/Marcas"
 import UnidadesMedidas from "./features/unidadesMedidas/UnidadesMedidas"
 import Categorias from "./features/categorias/Categorias"
+import Veiculos from "./features/veiculos/Veiculos"
+import Transportadoras from "./features/transportadoras/Transportadoras"
+import Cargos from "./features/cargos/Cargos"
 import { ToastContainer } from 'react-toastify';
 
 
@@ -39,6 +42,9 @@ export default function App() {
           <Route path="/nota-compra" element={<NotaCompraLista />} />
           <Route path="/unidades-medida" element={<UnidadesMedidas />} />
           <Route path="/categorias" element={<Categorias />} />
+          <Route path="/veiculos" element={<Veiculos />} />
+          <Route path="/transportadoras" element={<Transportadoras />} />
+          <Route path="/cargos" element={<Cargos />} />
         </Routes>
       </RootLayout>
     </Router>

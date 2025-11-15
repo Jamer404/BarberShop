@@ -101,28 +101,36 @@ export function ModalEstados({
           </DialogHeader>
 
           <div className="grid gap-4 py-4">
-            <Input
-              placeholder="Nome*"
-              disabled={readOnly}
-              className="uppercase"
-              value={formData.nome}
-              onChange={(e) =>
-                setFormData({ ...formData, nome: e.target.value.toUpperCase() })
-              }
-            />
-            <Input
-              placeholder="UF*"
-              maxLength={2}
-              disabled={readOnly}
-              className="uppercase"
-              value={formData.uf}
-              onChange={(e) =>
-                setFormData({ ...formData, uf: e.target.value.toUpperCase() })
-              }
-            />
+            <div className="space-y-1">
+              <label className="font-medium">Estado <span className="text-red-500">*</span></label>
+              <Input
+                placeholder="Estado"
+                disabled={readOnly}
+                className="uppercase"
+                value={formData.nome}
+                required
+                onChange={(e) =>
+                  setFormData({ ...formData, nome: e.target.value.toUpperCase() })
+                }
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="font-medium">UF <span className="text-red-500">*</span></label>
+              <Input
+                placeholder="UF"
+                maxLength={2}
+                disabled={readOnly}
+                className="uppercase"
+                value={formData.uf}
+                required
+                onChange={(e) =>
+                  setFormData({ ...formData, uf: e.target.value.toUpperCase() })
+                }
+              />
+            </div>
 
             <div>
-              <label className="block text-sm mb-1">País*</label>
+              <label className="block text-sm mb-1 font-medium">País <span className="text-red-500">*</span></label>
               <Dialog open={selectorOpen} onOpenChange={setSelectorOpen}>
                 <DialogTrigger asChild>
                   <Button

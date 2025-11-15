@@ -44,7 +44,7 @@ export default function Clientes() {
       const cli = await getClientes()
       const cid = await getCidades()
       const est = await getEstados()
-     
+
       setClientes(cli)
       setCidades(cid)
       setEstados(est)
@@ -104,7 +104,7 @@ export default function Clientes() {
           <CardDescription>Lista todos os clientes cadastradoss.</CardDescription>
         </CardHeader>
         <CardContent>
-         {/*  <div className="flex items-center gap-2 pb-4">
+          {/*  <div className="flex items-center gap-2 pb-4">
             <div className="relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input placeholder="BUSCAR..." className="pl-8 w-[300px]" />
@@ -134,11 +134,7 @@ export default function Clientes() {
                     <TableCell>{c.cpfCnpj}</TableCell>
                     <TableCell>{getCidadeUf(c.idCidade)}</TableCell>
                     <TableCell>{c.email}</TableCell>
-                    <TableCell>
-                      <span className={c.ativo ? "text-green-600" : "text-red-600"}>
-                        {c.ativo ? "HABILITADO" : "DESABILITADO"}
-                      </span>
-                    </TableCell>
+                    <TableCell>{c.ativo ? "HABILITADO" : "DESABILITADO"}</TableCell>
                     <TableCell className="flex justify-center items-center gap-2">
                       <Button variant="outline" size="icon" onClick={() => openView(c)}>
                         <Eye className="h-4 w-4" />

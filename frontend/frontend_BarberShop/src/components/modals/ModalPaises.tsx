@@ -16,7 +16,8 @@ import {
   UpdatePaisDto,
 } from "@/services/paisService"
 import { toast } from "react-toastify"
-import { Paischema } from "@/validations/localizacao"
+import { PaisSchema } from "@/validations/pais"
+import { z } from "zod"
 
 interface ModalPaisesProps {
   isOpen: boolean
@@ -39,6 +40,8 @@ export function ModalPaises({
     ddi: "",
   })
 
+  const [errors, setErrors] = useState<{ nome?: string; sigla?: string; ddi?: string }>({})
+
   useEffect(() => {
     if (pais) {
       setFormData({ nome: pais.nome, sigla: pais.sigla, ddi: pais.ddi })
@@ -48,12 +51,18 @@ export function ModalPaises({
   }, [pais])
 
   async function handleSubmit() {
+    const parsed = PaisSchema.safeParse(formData)
+    if (!parsed.success) {
+      const fieldErrors: { nome?: string; sigla?: string; ddi?: string } = {}
+      parsed.error.errors.forEach((err) => {
+        if (err.path[0]) fieldErrors[err.path[0] as keyof typeof fieldErrors] = err.message
+      })
+      setErrors(fieldErrors)
+      toast.error('Preencha todos os campos corretamente')
+      return
+    }
+    setErrors({})
     try {
-      const parsed = Paischema.safeParse(formData)
-      if (!parsed.success) {
-        toast.error('Preencha todos os campos corretamente')
-        return
-      }
       if (pais?.id) await atualizarPais(pais.id, formData)
       else await criarPais(formData)
       onOpenChange(false)
@@ -77,36 +86,64 @@ export function ModalPaises({
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
-          <Input
-            placeholder="Nome do país*"
-            disabled={readOnly}
-            className="uppercase"
-            value={formData.nome}
-            onChange={(e) =>
-              setFormData({ ...formData, nome: e.target.value.toUpperCase() })
-            }
-          />
-          <Input
-            placeholder="Sigla (2 letras)*"
-            maxLength={2}
-            disabled={readOnly}
-            className="uppercase"
-            value={formData.sigla}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                sigla: e.target.value.toUpperCase(),
-              })
-            }
-          />
-          <Input
-            placeholder="DDI*"
-            disabled={readOnly}
-            value={formData.ddi}
-            onChange={(e) =>
-              setFormData({ ...formData, ddi: e.target.value })
-            }
-          />
+          <div className="space-y-1">
+            <label className="font-medium">Nome do país <span className="text-red-500">*</span></label>
+            <Input
+              placeholder="Nome do país"
+              disabled={readOnly}
+              className="uppercase"
+              value={formData.nome}
+              required
+              onChange={(e) => {
+                setFormData({ ...formData, nome: e.target.value.toUpperCase() })
+                setErrors((err) => ({ ...err, nome: undefined }))
+              }}
+            />
+            {errors.nome && <span className="text-xs text-red-500">{errors.nome}</span>}
+          </div>
+          <div className="space-y-1">
+            <label className="font-medium">Sigla (2 letras) <span className="text-red-500">*</span></label>
+            <Input
+              placeholder="Sigla (2 letras)"
+              maxLength={2}
+              disabled={readOnly}
+              className="uppercase"
+              value={formData.sigla}
+              required
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  sigla: e.target.value.toUpperCase(),
+                })
+                setErrors((err) => ({ ...err, sigla: undefined }))
+              }}
+            />
+            {errors.sigla && <span className="text-xs text-red-500">{errors.sigla}</span>}
+          </div>
+          <div className="space-y-1">
+            <label className="font-medium">DDI <span className="text-red-500">*</span></label>
+            <Input
+              placeholder="DDI"
+              disabled={readOnly}
+              value={formData.ddi}
+              required
+              maxLength={4}
+              inputMode="text"
+              pattern="\+\d{0,3}"
+              onChange={(e) => {
+                let value = e.target.value;
+                // Garante que começa com +
+                if (!value.startsWith("+")) value = "+" + value.replace(/[^\d]/g, "");
+                // Remove tudo que não for número após o +
+                value = value[0] + value.slice(1).replace(/[^\d]/g, "");
+                // Limita a 3 dígitos após o +
+                value = value.slice(0, 4);
+                setFormData({ ...formData, ddi: value });
+                setErrors((err) => ({ ...err, ddi: undefined }));
+              }}
+            />
+            {errors.ddi && <span className="text-xs text-red-500">{errors.ddi}</span>}
+          </div>
         </div>
 
         <DialogFooter>

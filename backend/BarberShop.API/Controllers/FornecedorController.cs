@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// Controllers/FornecedorController.cs
+using Microsoft.AspNetCore.Mvc;
 using BarberShop.API.Entities;
 using BarberShop.API.Repository;
 using BarberShop.API.Models;
@@ -22,7 +23,11 @@ namespace BarberShop.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateFornecedorDto dto)
         {
+            var now = DateTime.UtcNow;
             var ent = Map(dto);
+            ent.DataCriacao = now;
+            ent.DataAtualizacao = now;
+
             var id = await _repo.InsertAsync(ent);
             return CreatedAtAction(nameof(Get), new { id }, id);
         }
@@ -30,7 +35,9 @@ namespace BarberShop.API.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update(int id, UpdateFornecedorDto dto)
         {
-            await _repo.UpdateAsync(id, Map(dto));
+            var ent = Map(dto);
+            ent.DataAtualizacao = DateTime.UtcNow;
+            await _repo.UpdateAsync(id, ent);
             return NoContent();
         }
 
@@ -44,8 +51,30 @@ namespace BarberShop.API.Controllers
         private static Fornecedor Map(CreateFornecedorDto d) => new()
         {
             TipoPessoa = d.TipoPessoa,
-            NomeRazaoSocial = d.NomeRazaoSocial.ToUpperInvariant(),
-            ApelidoNomeFantasia = d.ApelidoNomeFantasia.ToUpperInvariant(),
+            NomeRazaoSocial = (d.NomeRazaoSocial ?? "").ToUpperInvariant(),
+            ApelidoNomeFantasia = (d.ApelidoNomeFantasia ?? "").ToUpperInvariant(),
+            DataNascimentoCriacao = d.DataNascimentoCriacao,
+            CpfCnpj = d.CpfCnpj,
+            RgInscricaoEstadual = d.RgInscricaoEstadual,
+            Email = d.Email,
+            Telefone = d.Telefone,
+            Rua = d.Rua,
+            Numero = d.Numero,
+            Bairro = d.Bairro,
+            Cep = d.Cep,
+            Classificacao = d.Classificacao,
+            Complemento = d.Complemento,
+            FormaPagamentoId = d.FormaPagamentoId,
+            CondicaoPagamentoId = d.CondicaoPagamentoId,
+            IdCidade = d.IdCidade,
+            ValorMinimoPedido = d.ValorMinimoPedido
+        };
+
+        private static Fornecedor Map(UpdateFornecedorDto d) => new()
+        {
+            TipoPessoa = d.TipoPessoa,
+            NomeRazaoSocial = (d.NomeRazaoSocial ?? "").ToUpperInvariant(),
+            ApelidoNomeFantasia = (d.ApelidoNomeFantasia ?? "").ToUpperInvariant(),
             DataNascimentoCriacao = d.DataNascimentoCriacao,
             CpfCnpj = d.CpfCnpj,
             RgInscricaoEstadual = d.RgInscricaoEstadual,

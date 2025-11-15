@@ -1,50 +1,61 @@
-import axios from "axios";
+import axios from "axios"
 
-export interface Produto {
-  id: number;
-  codigo: string;
-  nome: string;
-  unidade: string;
-  quantidade: number;
-  precoUN: number;
-  desconto: number;
-  liquidoUN: number;
-  precoTotal: number;
-  rateio?: number;
-  custoFinalUN?: number;
-  custoFinal?: number;
-  precoVenda: number;
-  ativo: boolean;
-  modeloId: number;
-  modeloNome: string;
-  marca: string;
-  fornecedorId: number;
-  fornecedorNome: string;
-  saldo: number;
-  custoMedio: number;
-  precoUltCompra: number;
-  dataUltCompra: string;
-  observacao: string;
-  dataCriacao: string;
-  dataAtualizacao: string;
+const API_URL = "https://localhost:7145/api/Produto"
+
+export interface CreateProdutoDto {
+  descricao: string
+  unidadeId?: number | null
+  marcaId?: number | null
+  categoriaId?: number | null
+  codigoBarras?: string | null
+  referencia?: string | null
+  custoCompra: number
+  precoVenda: number
+  lucroPercentual: number
+  estoque: number
+  estoqueMinimo: number
+  ativo: boolean
 }
 
-const API_URL = "/api/produtos";
+export interface UpdateProdutoDto extends CreateProdutoDto {}
 
-export const produtoService = {
-  async listar(): Promise<Produto[]> {
-  const { data } = await axios.get<Produto[]>(API_URL);
-  return data;
-  },
-  async criar(produto: Produto): Promise<Produto> {
-  const { data } = await axios.post<Produto>(API_URL, produto);
-  return data;
-  },
-  async atualizar(produto: Produto): Promise<Produto> {
-  const { data } = await axios.put<Produto>(`${API_URL}/${produto.id}`, produto);
-  return data;
-  },
-  async remover(id: number): Promise<void> {
-    await axios.delete(`${API_URL}/${id}`);
-  },
-};
+export interface Produto {
+  id: number
+  descricao: string
+  unidadeId: number | null
+  marcaId: number | null
+  categoriaId: number | null
+  codigoBarras: string | null
+  referencia: string | null
+  custoCompra: number
+  precoVenda: number
+  lucroPercentual: number
+  estoque: number
+  estoqueMinimo: number
+  ativo: boolean
+  dataCriacao: string
+  dataAtualizacao: string
+}
+
+export async function getProdutos(): Promise<Produto[]> {
+  const { data } = await axios.get<Produto[]>(API_URL)
+  return data
+}
+
+export async function getProdutoById(id: number): Promise<Produto> {
+  const { data } = await axios.get<Produto>(`${API_URL}/${id}`)
+  return data
+}
+
+export async function criarProduto(payload: CreateProdutoDto): Promise<number> {
+  const { data } = await axios.post<number>(API_URL, payload)
+  return data // controller retorna o id no CreatedAtAction
+}
+
+export async function atualizarProduto(id: number, payload: UpdateProdutoDto): Promise<void> {
+  await axios.put(`${API_URL}/${id}`, payload)
+}
+
+export async function deletarProduto(id: number): Promise<void> {
+  await axios.delete(`${API_URL}/${id}`)
+}

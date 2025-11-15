@@ -144,9 +144,7 @@ export default function FormasPagamento() {
                     <TableCell>{fp.id}</TableCell>
                     <TableCell>{fp.descricao.toUpperCase()}</TableCell>
                     <TableCell>
-                      <span className={`px-2 py-1 rounded-full text-xs font-semibold ${fp.ativo ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
-                        {fp.ativo ? "ATIVO" : "INATIVO"}
-                      </span>
+                      {fp.ativo ? "ATIVO" : "INATIVO"}
                     </TableCell>
                     <TableCell className="flex justify-center items-center gap-2">
                       <Button variant="outline" size="icon" onClick={() => openView(fp)}>

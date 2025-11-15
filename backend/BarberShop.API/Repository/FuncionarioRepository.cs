@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using System.Threading.Tasks;
 using Dapper;
 using BarberShop.API.Entities;
 
@@ -7,111 +6,145 @@ namespace BarberShop.API.Repository
 {
     public class FuncionarioRepository
     {
-        private readonly IDbConnection _connection;
+        private readonly IDbConnection _conn;
 
-        public FuncionarioRepository(IDbConnection connection)
+        public FuncionarioRepository(IDbConnection conn)
         {
-            _connection = connection;
+            _conn = conn;
         }
 
         public async Task<IEnumerable<Funcionario>> GetAllAsync()
         {
-            const string sql = "SELECT * FROM Funcionarios WITH(NOLOCK)";
-            return await _connection.QueryAsync<Funcionario>(sql);
+            const string sql = @"
+SELECT
+    Id, Nome, Sexo, Endereco, Numero, Complemento, Bairro, Cep,
+    IdCidade, Cpf, Rg, DataNascimento, DataAdmissao, DataDemissao,
+    IdCargo, CargaHoraria, Salario, Email, Telefone,
+    Ativo, DataCriacao, DataAtualizacao
+FROM dbo.Funcionarios
+ORDER BY Id DESC;";
+            return await _conn.QueryAsync<Funcionario>(sql);
         }
 
         public async Task<Funcionario?> GetByIdAsync(int id)
         {
-            const string sql = "SELECT * FROM Funcionarios WHERE Id = @Id";
-            return await _connection.QuerySingleOrDefaultAsync<Funcionario>(sql, new { id });
+            const string sql = @"
+SELECT
+    Id, Nome, Sexo, Endereco, Numero, Complemento, Bairro, Cep,
+    IdCidade, Cpf, Rg, DataNascimento, DataAdmissao, DataDemissao,
+    IdCargo, CargaHoraria, Salario, Email, Telefone,
+    Ativo, DataCriacao, DataAtualizacao
+FROM dbo.Funcionarios
+WHERE Id = @Id;";
+            return await _conn.QueryFirstOrDefaultAsync<Funcionario>(sql, new { Id = id });
         }
 
-        public async Task<int> InsertAsync(Funcionario entidade)
+        public async Task<int> InsertAsync(Funcionario f)
         {
-            const string sql = @"
-                    INSERT INTO Funcionarios
-                    (
-                        TipoPessoa, NomeRazaoSocial, ApelidoNomeFantasia, DataNascimentoCriacao,
-                        CpfCnpj, RgInscricaoEstadual, Email, Telefone, Rua, Numero, Bairro, Cep,
-                        Classificacao, Complemento,
-                        Matricula, Cargo, Salario, DataAdmissao, DataDemissao, Turno, CargaHoraria, IdCidade,
-                        DataCriacao, DataAtualizacao
-                    )
-                    VALUES
-                    (
-                        @TipoPessoa, @NomeRazaoSocial, @ApelidoNomeFantasia, @DataNascimentoCriacao,
-                        @CpfCnpj, @RgInscricaoEstadual, @Email, @Telefone, @Rua, @Numero, @Bairro, @Cep,
-                        @Classificacao, @Complemento,
-                        @Matricula, @Cargo, @Salario, @DataAdmissao, @DataDemissao, @Turno, @CargaHoraria, @IdCidade,
-                        GETDATE(), GETDATE()
-                    );
-                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
+            var now = DateTime.UtcNow;
 
-            return await _connection.ExecuteScalarAsync<int>(sql, entidade);
+            const string sql = @"
+INSERT INTO dbo.Funcionarios
+(
+    Nome, Sexo, Endereco, Numero, Complemento, Bairro, Cep,
+    IdCidade, Cpf, Rg, DataNascimento, DataAdmissao, DataDemissao,
+    IdCargo, CargaHoraria, Salario, Email, Telefone,
+    Ativo, DataCriacao, DataAtualizacao
+)
+VALUES
+(
+    @Nome, @Sexo, @Endereco, @Numero, @Complemento, @Bairro, @Cep,
+    @IdCidade, @Cpf, @Rg, @DataNascimento, @DataAdmissao, @DataDemissao,
+    @IdCargo, @CargaHoraria, @Salario, @Email, @Telefone,
+    @Ativo, @DataCriacao, NULL
+);
+SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+            var id = await _conn.ExecuteScalarAsync<int>(sql, new
+            {
+                f.Nome,
+                f.Sexo,
+                f.Endereco,
+                f.Numero,
+                f.Complemento,
+                f.Bairro,
+                f.Cep,
+                f.IdCidade,
+                f.Cpf,
+                f.Rg,
+                f.DataNascimento,
+                f.DataAdmissao,
+                f.DataDemissao,
+                f.IdCargo,
+                f.CargaHoraria,
+                f.Salario,
+                f.Email,
+                f.Telefone,
+                f.Ativo,
+                DataCriacao = now
+            });
+
+            return id;
         }
 
-        public async Task UpdateAsync(int id, Funcionario entidade)
+        public async Task UpdateAsync(int id, Funcionario f)
         {
-            const string sql = @"
-                    UPDATE Funcionarios SET
-                        TipoPessoa               = @TipoPessoa,
-                        NomeRazaoSocial          = @NomeRazaoSocial,
-                        ApelidoNomeFantasia      = @ApelidoNomeFantasia,
-                        DataNascimentoCriacao    = @DataNascimentoCriacao,
-                        CpfCnpj                  = @CpfCnpj,
-                        RgInscricaoEstadual      = @RgInscricaoEstadual,
-                        Email                    = @Email,
-                        Telefone                 = @Telefone,
-                        Rua                      = @Rua,
-                        Numero                   = @Numero,
-                        Bairro                   = @Bairro,
-                        Cep                      = @Cep,
-                        Classificacao            = @Classificacao,
-                        Complemento              = @Complemento,
-                        Matricula                = @Matricula,
-                        Cargo                    = @Cargo,
-                        Salario                  = @Salario,
-                        DataAdmissao             = @DataAdmissao,
-                        DataDemissao             = @DataDemissao,
-                        Turno                    = @Turno,
-                        CargaHoraria             = @CargaHoraria,
-                        IdCidade                 = @IdCidade,
-                        DataAtualizacao          = GETDATE()
-                    WHERE Id = @Id;";
+            var now = DateTime.UtcNow;
 
-            var parametros = entidade;
-            await _connection.ExecuteAsync(sql, new
+            const string sql = @"
+UPDATE dbo.Funcionarios SET
+    Nome            = @Nome,
+    Sexo            = @Sexo,
+    Endereco        = @Endereco,
+    Numero          = @Numero,
+    Complemento     = @Complemento,
+    Bairro          = @Bairro,
+    Cep             = @Cep,
+    IdCidade        = @IdCidade,
+    Cpf             = @Cpf,
+    Rg              = @Rg,
+    DataNascimento  = @DataNascimento,
+    DataAdmissao    = @DataAdmissao,
+    DataDemissao    = @DataDemissao,
+    IdCargo         = @IdCargo,
+    CargaHoraria    = @CargaHoraria,
+    Salario         = @Salario,
+    Email           = @Email,
+    Telefone        = @Telefone,
+    Ativo           = @Ativo,
+    DataAtualizacao = @DataAtualizacao
+WHERE Id = @Id;";
+
+            await _conn.ExecuteAsync(sql, new
             {
                 Id = id,
-                parametros.TipoPessoa,
-                parametros.NomeRazaoSocial,
-                parametros.ApelidoNomeFantasia,
-                parametros.DataNascimentoCriacao,
-                parametros.CpfCnpj,
-                parametros.RgInscricaoEstadual,
-                parametros.Email,
-                parametros.Telefone,
-                parametros.Rua,
-                parametros.Numero,
-                parametros.Bairro,
-                parametros.Cep,
-                parametros.Classificacao,
-                parametros.Complemento,
-                parametros.Matricula,
-                parametros.Cargo,
-                parametros.Salario,
-                parametros.DataAdmissao,
-                parametros.DataDemissao,
-                parametros.Turno,
-                parametros.CargaHoraria,
-                parametros.IdCidade
+                f.Nome,
+                f.Sexo,
+                f.Endereco,
+                f.Numero,
+                f.Complemento,
+                f.Bairro,
+                f.Cep,
+                f.IdCidade,
+                f.Cpf,
+                f.Rg,
+                f.DataNascimento,
+                f.DataAdmissao,
+                f.DataDemissao,
+                f.IdCargo,
+                f.CargaHoraria,
+                f.Salario,
+                f.Email,
+                f.Telefone,
+                f.Ativo,
+                DataAtualizacao = now
             });
         }
 
         public async Task DeleteAsync(int id)
         {
-            const string sql = "DELETE FROM Funcionarios WHERE Id = @Id";
-            await _connection.ExecuteAsync(sql, new { id });
+            const string sql = @"DELETE FROM dbo.Funcionarios WHERE Id = @Id;";
+            await _conn.ExecuteAsync(sql, new { Id = id });
         }
     }
 }
