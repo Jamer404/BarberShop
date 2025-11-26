@@ -29,6 +29,11 @@ export interface Transportadora extends CreateTransportadoraDto {
   dataAtualizacao: string
 }
 
+export async function getTransportadoraById(id: number): Promise<Transportadora> {
+  const { data } = await axios.get<Transportadora>(`${API_URL}/${id}`)
+  return data
+}
+
 export async function getTransportadoras(): Promise<Transportadora[]> {
   const { data } = await axios.get<Transportadora[]>(API_URL)
   return data

@@ -3,10 +3,15 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Plus, Edit, Trash, Eye } from "lucide-react"
-
-import { getTransportadoras, deletarTransportadora, Transportadora } from "@/services/transportadoraService"
+import {
+  getTransportadoras,
+  deletarTransportadora,
+  Transportadora,
+  getTransportadoraById
+} from "@/services/transportadoraService"
 import { ModalTransportadora } from "@/components/modals/ModalTransportadora"
 import { ModalConfirm } from "@/components/modals/ModalConfirm"
+import { toast } from "react-toastify"
 
 export default function Transportadoras() {
   const [items, setItems] = useState<Transportadora[]>([])
@@ -19,27 +24,73 @@ export default function Transportadoras() {
   const [isConfirmOpen, setConfirmOpen] = useState(false)
   const [selected, setSelected] = useState<Transportadora | null>(null)
 
-  useEffect(()=>{ fetchAll() }, [])
-  async function fetchAll(){ setLoading(true); try{ setItems(await getTransportadoras()) } finally{ setLoading(false) } }
+  useEffect(() => { fetchAll() }, [])
 
-  function openCreate(){ setEditing(null); setViewOnly(false); setModalOpen(true) }
-  function openEdit(t:Transportadora){ setEditing(t); setViewOnly(false); setModalOpen(true) }
-  function openView(t:Transportadora){ setEditing(t); setViewOnly(true); setModalOpen(true) }
-  function openDelete(t:Transportadora){ setSelected(t); setConfirmOpen(true) }
+  async function fetchAll() {
+    setLoading(true)
+    try {
+      setItems(await getTransportadoras())
+    } catch {
+      toast.error("Erro ao carregar transportadoras")
+    } finally {
+      setLoading(false)
+    }
+  }
 
-  async function handleDelete(){
-    if(!selected) return
-    await deletarTransportadora(selected.id)
-    setItems(prev => prev.filter(x => x.id !== selected.id))
+  function openCreate() {
+    setEditing(null)
+    setViewOnly(false)
+    setModalOpen(true)
+  }
+
+  async function openEdit(t: Transportadora) {
+    try {
+      const full = await getTransportadoraById(t.id)
+      setEditing(full)
+      setViewOnly(false)
+      setModalOpen(true)
+    } catch {
+      toast.error("Erro ao carregar transportadora")
+    }
+  }
+
+  async function openView(t: Transportadora) {
+    try {
+      const full = await getTransportadoraById(t.id)
+      setEditing(full)
+      setViewOnly(true)
+      setModalOpen(true)
+    } catch {
+      toast.error("Erro ao carregar transportadora")
+    }
+  }
+
+  function openDelete(t: Transportadora) {
+    setSelected(t)
+    setConfirmOpen(true)
+  }
+
+  async function handleDelete() {
+    if (!selected) return
+    try {
+      await deletarTransportadora(selected.id)
+      setItems(prev => prev.filter(x => x.id !== selected.id))
+      toast.success("Transportadora excluída com sucesso")
+    } catch {
+      toast.error("Erro ao excluir transportadora")
+    }
   }
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
       <ModalTransportadora
         isOpen={isModalOpen}
-        onOpenChange={(o)=>{ setModalOpen(o); if(!o) setViewOnly(false) }}
+        onOpenChange={(o) => { setModalOpen(o); if (!o) setViewOnly(false) }}
         transportadora={editing ?? undefined}
-        carregarTransportadoras={fetchAll}
+        carregarTransportadoras={async () => {
+          await fetchAll()
+          toast.success(editing ? "Transportadora atualizada" : "Transportadora cadastrada")
+        }}
         readOnly={viewOnly}
       />
 
@@ -53,7 +104,10 @@ export default function Transportadoras() {
 
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold">Transportadoras</h2>
-        <Button onClick={openCreate}><Plus className="mr-2 h-4 w-4"/>Nova Transportadora</Button>
+        <Button onClick={openCreate}>
+          <Plus className="mr-2 h-4 w-4" />
+          Nova Transportadora
+        </Button>
       </div>
 
       <Card>
@@ -77,7 +131,7 @@ export default function Transportadoras() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {items.map(t=>(
+                {items.map(t => (
                   <TableRow key={t.id}>
                     <TableCell>{t.id}</TableCell>
                     <TableCell className="uppercase">{t.razaoSocial}</TableCell>
@@ -87,9 +141,15 @@ export default function Transportadoras() {
                     <TableCell>{t.veiculoIds?.length ?? 0}</TableCell>
                     <TableCell>{t.ativo ? "Habilitada" : "Desabilitada"}</TableCell>
                     <TableCell className="flex gap-2 justify-center">
-                      <Button variant="outline" size="icon" onClick={()=>openView(t)}><Eye className="h-4 w-4"/></Button>
-                      <Button variant="outline" size="icon" onClick={()=>openEdit(t)}><Edit className="h-4 w-4"/></Button>
-                      <Button variant="outline" size="icon" onClick={()=>openDelete(t)}><Trash className="h-4 w-4"/></Button>
+                      <Button variant="outline" size="icon" onClick={() => openView(t)}>
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button variant="outline" size="icon" onClick={() => openEdit(t)}>
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button variant="outline" size="icon" onClick={() => openDelete(t)}>
+                        <Trash className="h-4 w-4" />
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}

@@ -70,6 +70,13 @@ export function ModalFuncionario({
     ativo: true,
   })
 
+  const formatDate = (s?: string | null) => {
+    if (!s) return ""
+    const d = new Date(s)
+    d.setHours(d.getHours() - 3)
+    return d.toLocaleString("pt-BR")
+  }
+
   // carregar auxiliares ao abrir
   useEffect(() => {
     if (!isOpen) return
@@ -197,7 +204,6 @@ export function ModalFuncionario({
 
   return (
     <>
-      {/* Modal de cidades */}
       <ModalCidades
         isOpen={modalCidadeOpen}
         onOpenChange={setModalCidadeOpen}
@@ -208,7 +214,6 @@ export function ModalFuncionario({
         }}
       />
 
-      {/* Modal de cargos */}
       <ModalCargo
         isOpen={modalCargoOpen}
         onOpenChange={setModalCargoOpen}
@@ -221,9 +226,22 @@ export function ModalFuncionario({
       <Dialog open={isOpen} onOpenChange={onOpenChange}>
         <DialogContent className="w-[92%] max-w-6xl">
           <DialogHeader>
-            <DialogTitle>
-              {readOnly ? "Visualizar Funcionário" : funcionario?.id ? "Editar Funcionário" : "Cadastrar Funcionário"}
-            </DialogTitle>
+            <div className="flex items-center justify-between">
+              <DialogTitle>
+                {readOnly ? "Visualizar Funcionário" : funcionario?.id ? "Editar Funcionário" : "Cadastrar Funcionário"}
+              </DialogTitle>
+
+              <div className="flex items-center gap-2 mr-8">
+                <span className="text-sm text-muted-foreground">
+                  Habilitado
+                </span>
+                <Switch
+                  checked={form.ativo}
+                  onCheckedChange={(v) => setForm({ ...form, ativo: v })}
+                  disabled={readOnly}
+                />
+              </div>
+            </div>
           </DialogHeader>
 
           <div className="grid grid-cols-4 gap-3 text-sm">
@@ -256,7 +274,6 @@ export function ModalFuncionario({
             <Input className="col-span-1" placeholder="CEP" disabled={readOnly}
               value={form.cep ?? ""} onChange={(e)=>setForm({...form, cep:e.target.value})}/>
 
-            {/* Seletor de Cidade */}
             <div className="col-span-2 flex flex-col gap-1.5">
               <Dialog open={citySelectorOpen} onOpenChange={setCitySelectorOpen}>
                 <DialogTrigger asChild>
@@ -318,7 +335,6 @@ export function ModalFuncionario({
             <Input className="col-span-1" type="date" placeholder="Demissão" disabled={readOnly}
               value={form.dataDemissao ?? ""} onChange={(e)=>setForm({...form, dataDemissao:e.target.value || null})}/>
 
-            {/* Seletor de Cargo */}
             <div className="col-span-2 flex flex-col gap-1.5">
               <Dialog open={cargoSelectorOpen} onOpenChange={setCargoSelectorOpen}>
                 <DialogTrigger asChild>
@@ -381,18 +397,18 @@ export function ModalFuncionario({
               value={form.email ?? ""} onChange={(e)=>setForm({...form, email:e.target.value || null})}/>
             <Input className="col-span-2" placeholder="Telefone" disabled={readOnly}
               value={form.telefone ?? ""} onChange={(e)=>setForm({...form, telefone:e.target.value || null})}/>
-
-            <div className="col-span-4 flex items-center gap-2">
-              <span className="text-sm">Ativo</span>
-              <Switch
-                checked={form.ativo}
-                onCheckedChange={(v) => setForm({ ...form, ativo: v })}
-                disabled={readOnly}
-              />
-            </div>
           </div>
 
           <DialogFooter>
+            <div className="text-xs text-muted-foreground mr-auto pl-1 space-y-0.5">
+              {funcionario && (
+                <>
+                  <div>Data Criação: {formatDate(funcionario.dataCriacao)}</div>
+                  <div>Data Atualização: {formatDate(funcionario.dataAtualizacao)}</div>
+                </>
+              )}
+            </div>
+
             {!readOnly && (
               <Button onClick={handleSubmit}>
                 {funcionario?.id ? "Atualizar" : "Salvar"}

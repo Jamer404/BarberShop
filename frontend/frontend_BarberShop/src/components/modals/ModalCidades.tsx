@@ -212,8 +212,8 @@ export function ModalCidades({
             <div className="text-xs text-muted-foreground mr-auto pl-1 space-y-0.5">
               {cidade && (
                 <>
-                  <div>DATA CRIAÇÃO: {formatDate(cidade.dataCriacao)}</div>
-                  <div>DATA ATUALIZAÇÃO: {formatDate(cidade.dataAtualizacao)}</div>
+                  <div>Data Criação: {formatDate(cidade.dataCriacao)}</div>
+                  <div>Data Atualização: {formatDate(cidade.dataAtualizacao)}</div>
                 </>
               )}
             </div>

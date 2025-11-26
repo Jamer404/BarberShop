@@ -2,7 +2,7 @@
 {
     public class UpdateFornecedorDto
     {
-        public string TipoPessoa { get; set; } = "J"; // 'F' ou 'J'
+        public string TipoPessoa { get; set; } = "J";
         public string NomeRazaoSocial { get; set; } = string.Empty;
         public string ApelidoNomeFantasia { get; set; } = string.Empty;
         public DateTime DataNascimentoCriacao { get; set; }

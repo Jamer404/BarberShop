@@ -1,5 +1,4 @@
-﻿// Entities/Transportadora.cs
-namespace BarberShop.API.Entities
+﻿namespace BarberShop.API.Entities
 {
     public class Transportadora
     {

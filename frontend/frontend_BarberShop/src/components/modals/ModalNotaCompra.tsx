@@ -338,6 +338,7 @@ export function ModalNotaCompra({
               <Input
                 type="date"
                 value={form.dataChegada}
+                min={new Date().toISOString().slice(0, 10)}
                 onChange={(e) => setForm({ ...form, dataChegada: e.target.value })}
                 disabled={readOnly}
               />
@@ -611,7 +612,7 @@ export function ModalNotaCompra({
               </div>
               <div className="col-span-10 space-y-1.5">
                 <Label>Condição de Pagamento</Label>
-                <Input readOnly value={condicaoPagamentoNome} placeholder="—" />
+                <Input readOnly value={condicaoPagamentoNome} placeholder=" " />
               </div>
 
               <div className="col-span-12">

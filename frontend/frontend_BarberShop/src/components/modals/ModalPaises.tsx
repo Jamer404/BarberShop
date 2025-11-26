@@ -17,7 +17,6 @@ import {
 } from "@/services/paisService"
 import { toast } from "react-toastify"
 import { PaisSchema } from "@/validations/pais"
-import { z } from "zod"
 
 interface ModalPaisesProps {
   isOpen: boolean
@@ -41,6 +40,13 @@ export function ModalPaises({
   })
 
   const [errors, setErrors] = useState<{ nome?: string; sigla?: string; ddi?: string }>({})
+
+  const formatDate = (s?: string) => {
+    if (!s) return ""
+    const d = new Date(s)
+    d.setHours(d.getHours() - 3)
+    return d.toLocaleString("pt-BR")
+  }
 
   useEffect(() => {
     if (pais) {
@@ -147,6 +153,15 @@ export function ModalPaises({
         </div>
 
         <DialogFooter>
+          <div className="text-xs text-muted-foreground mr-auto pl-1 space-y-0.5">
+            {pais && (
+              <>
+                <div>Data Criação: {formatDate(pais.dataCriacao)}</div>
+                <div>Data Atualização: {formatDate(pais.dataAtualizacao)}</div>
+              </>
+            )}
+          </div>
+
           {!readOnly && (
             <Button onClick={handleSubmit}>
               {pais?.id ? "Atualizar" : "Cadastrar"}

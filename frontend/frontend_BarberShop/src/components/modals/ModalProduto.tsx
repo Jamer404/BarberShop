@@ -83,6 +83,13 @@ export function ModalProduto({
     ativo: true,
   })
 
+  const formatDate = (s?: string) => {
+    if (!s) return ""
+    const d = new Date(s)
+    d.setHours(d.getHours() - 3)
+    return d.toLocaleString("pt-BR")
+  }
+
   // carregar listas quando o modal principal abre
   useEffect(() => {
     if (!isOpen) return
@@ -223,7 +230,6 @@ export function ModalProduto({
 
   return (
     <>
-      {/* Modais auxiliares */}
       <ModalUnidadeMedida
         isOpen={modalUnOpen}
         onOpenChange={handleCloseUnModal}
@@ -260,8 +266,7 @@ export function ModalProduto({
                   : "Cadastrar Novo Produto"}
               </DialogTitle>
 
-              {/* Habilitado no topo (como no print) */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mr-8">
                 <span className="text-sm text-muted-foreground">Habilitado</span>
                 <Switch
                   checked={form.ativo}
@@ -272,9 +277,7 @@ export function ModalProduto({
             </div>
           </DialogHeader>
 
-          {/* FORM */}
           <div className="grid grid-cols-4 gap-4 text-sm">
-            {/* Descrição */}
             <div className="col-span-4 space-y-1.5">
               <Label className="uppercase">Descrição do Produto*</Label>
               <Input
@@ -288,7 +291,6 @@ export function ModalProduto({
               />
             </div>
 
-            {/* Unidade de Medida */}
             <div className="col-span-2 space-y-1.5">
               <div className="flex items-center justify-between">
                 <Label className="uppercase">Unidade de Medida</Label>
@@ -422,7 +424,6 @@ export function ModalProduto({
               </Dialog>
             </div>
 
-            {/* Categoria */}
             <div className="col-span-4 space-y-1.5">
               <div className="flex items-center justify-between">
                 <Label className="uppercase">Categoria</Label>
@@ -491,7 +492,6 @@ export function ModalProduto({
               </Dialog>
             </div>
 
-            {/* Código de Barras */}
             <div className="col-span-2 space-y-1.5">
               <Label className="uppercase">Código de Barras</Label>
               <Input
@@ -503,7 +503,6 @@ export function ModalProduto({
               />
             </div>
 
-            {/* Referência */}
             <div className="col-span-2 space-y-1.5">
               <Label className="uppercase">Referência</Label>
               <Input
@@ -539,7 +538,6 @@ export function ModalProduto({
               </div>
             </div>
 
-            {/* Preço de Venda (R$) */}
             <div className="col-span-2 space-y-1.5">
               <Label className="uppercase">Preço de Venda</Label>
               <div className="relative">
@@ -562,7 +560,6 @@ export function ModalProduto({
               </div>
             </div>
 
-            {/* Lucro (%) */}
             <div className="col-span-2 space-y-1.5">
               <Label className="uppercase">Lucro (%)</Label>
               <div className="relative">
@@ -582,7 +579,6 @@ export function ModalProduto({
               </div>
             </div>
 
-            {/* Estoque */}
             <div className="col-span-1 space-y-1.5">
               <Label className="uppercase">Estoque</Label>
               <Input
@@ -596,7 +592,6 @@ export function ModalProduto({
               />
             </div>
 
-            {/* Estoque Mínimo */}
             <div className="col-span-1 space-y-1.5">
               <Label className="uppercase">Estoque Mínimo</Label>
               <Input
@@ -615,6 +610,15 @@ export function ModalProduto({
           </div>
 
           <DialogFooter>
+            <div className="text-xs text-muted-foreground mr-auto pl-1 space-y-0.5">
+              {produto && (
+                <>
+                  <div>Data Criação: {formatDate(produto.dataCriacao)}</div>
+                  <div>Data Atualização: {formatDate(produto.dataAtualizacao)}</div>
+                </>
+              )}
+            </div>
+
             {!readOnly && (
               <Button onClick={handleSubmit}>
                 {produto?.id ? "Atualizar" : "Cadastrar"}

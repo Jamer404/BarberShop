@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
+import { Switch } from "@/components/ui/switch"
 import { useEffect, useState } from "react"
 import {
   criarUnidadeMedida,
@@ -40,6 +41,13 @@ export function ModalUnidadeMedida({
     descricao: "",
     ativo: true,
   })
+
+  const formatDate = (s?: string) => {
+    if (!s) return ""
+    const d = new Date(s)
+    d.setHours(d.getHours() - 3)
+    return d.toLocaleString("pt-BR")
+  }
 
   useEffect(() => {
     if (unidade) {
@@ -90,13 +98,26 @@ export function ModalUnidadeMedida({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="w-[60%] sm:max-w-[95%]">
         <DialogHeader>
-          <DialogTitle>
-            {readOnly
-              ? "Visualizar Unidade"
-              : unidade?.id
-              ? "Editar Unidade"
-              : "Nova Unidade"}
-          </DialogTitle>
+          <div className="flex items-center justify-between">
+            <DialogTitle>
+              {readOnly
+                ? "Visualizar Unidade"
+                : unidade?.id
+                ? "Editar Unidade"
+                : "Nova Unidade"}
+            </DialogTitle>
+
+            <div className="flex items-center gap-2 mr-8">
+              <span className="text-sm text-muted-foreground">
+                Habilitado
+              </span>
+              <Switch
+                checked={formData.ativo}
+                onCheckedChange={(v) => setFormData({ ...formData, ativo: v })}
+                disabled={readOnly}
+              />
+            </div>
+          </div>
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
@@ -139,6 +160,15 @@ export function ModalUnidadeMedida({
         </div>
 
         <DialogFooter>
+          <div className="text-xs text-muted-foreground mr-auto pl-1 space-y-0.5">
+            {unidade && (
+              <>
+                <div>Data Criação: {formatDate(unidade.dataCriacao)}</div>
+                <div>Data Atualização: {formatDate(unidade.dataAtualizacao)}</div>
+              </>
+            )}
+          </div>
+
           {!readOnly && (
             <Button onClick={handleSubmit}>
               {unidade?.id ? "Atualizar" : "Cadastrar"}

@@ -56,13 +56,26 @@ export function ModalFormaPagamento({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-xl">
         <DialogHeader>
-          <DialogTitle>
-            {readOnly
-              ? "Visualizar Forma de Pagamento"
-              : forma
-                ? "Editar Forma de Pagamento"
-                : "Nova Forma de Pagamento"}
-          </DialogTitle>
+          <div className="flex items-center justify-between">
+            <DialogTitle>
+              {readOnly
+                ? "Visualizar Forma de Pagamento"
+                : forma
+                  ? "Editar Forma de Pagamento"
+                  : "Nova Forma de Pagamento"}
+            </DialogTitle>
+
+            <div className="flex items-center gap-2 mr-8">
+              <span className="text-sm text-muted-foreground">
+                Habilitado
+              </span>
+              <Switch
+                checked={form.ativo}
+                onCheckedChange={(v) => setForm({ ...form, ativo: v })}
+                disabled={readOnly}
+              />
+            </div>
+          </div>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
@@ -76,17 +89,6 @@ export function ModalFormaPagamento({
               className="uppercase"
               onChange={(e) => setForm({ ...form, descricao: e.target.value.toUpperCase() })}
             />
-          </div>
-          <div className="flex items-center gap-2 pt-2">
-            <Switch
-              id="ativo"
-              disabled={readOnly}
-              checked={form.ativo}
-              onCheckedChange={(v) => setForm({ ...form, ativo: v })}
-            />
-            <label htmlFor="ativo" className="text-sm font-medium">
-              Ativo
-            </label>
           </div>
         </div>
 

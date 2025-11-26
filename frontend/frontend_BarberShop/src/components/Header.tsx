@@ -30,7 +30,7 @@ export function Header() {
         </form>
       </div>
 
-      {/* ALINHADO À DIREITA */}
+
       <div className="ml-auto flex items-center gap-2">
         <ThemeToggle />
 

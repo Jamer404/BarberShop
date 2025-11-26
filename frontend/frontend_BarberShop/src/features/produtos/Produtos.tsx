@@ -116,7 +116,7 @@ export default function Produtos() {
                     <TableCell>{getNomeUnidade(p.unidadeId)}</TableCell>
                     <TableCell>{getNomeMarca(p.marcaId)}</TableCell>
                     <TableCell>{getNomeCategoria(p.categoriaId)}</TableCell>
-                    <TableCell>R$ {p.precoVenda.toFixed(2)}</TableCell>
+                    <TableCell>R$ {p.precoVenda.toFixed(2).replace('.', ',')}</TableCell>
                     <TableCell>{p.estoque}</TableCell>
                     <TableCell>{p.ativo ? "Habilitado" : "Desabilitado"}</TableCell>
                     <TableCell className="flex justify-center items-center gap-2">

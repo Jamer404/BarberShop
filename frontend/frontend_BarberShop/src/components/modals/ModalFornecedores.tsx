@@ -142,6 +142,8 @@ export function ModalFornecedores({
       rua: form.rua?.toUpperCase(),
       bairro: form.bairro?.toUpperCase(),
       numero: form.numero?.toUpperCase(),
+      email: form.email,
+      telefone: form.telefone,
     };
 
     if (fornecedor?.id) await atualizarFornecedor(fornecedor.id, payload);
@@ -161,7 +163,6 @@ export function ModalFornecedores({
         </DialogHeader>
 
         <div className="grid grid-cols-4 gap-3 text-sm">
-          {/* Tipo Pessoa + Código (se existir) */}
           <div className="col-span-1">
             <select
               className="w-full border rounded px-2 py-2 bg-background"
@@ -199,7 +200,6 @@ export function ModalFornecedores({
                  value={form.rgInscricaoEstadual ?? ""}
                  onChange={e=> setForm({ ...form, rgInscricaoEstadual: e.target.value })} />
 
-          {/* Endereço */}
           <Input className="col-span-2 uppercase" placeholder="Endereço"
                  disabled={readOnly}
                  value={form.rua ?? ""}
@@ -225,7 +225,6 @@ export function ModalFornecedores({
                  value={form.cep ?? ""}
                  onChange={e=> setForm({ ...form, cep: e.target.value })} />
 
-          {/* Cidade (seletor) */}
           <div className="col-span-2">
             <Dialog open={citySelOpen} onOpenChange={setCitySelOpen}>
               <DialogTrigger asChild>
@@ -242,6 +241,7 @@ export function ModalFornecedores({
                 <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                   {cidadesFiltradas.map(c => (
                     <Button key={c.id}
+                            type="button"
                             variant={form.idCidade === c.id ? "default" : "outline"}
                             className="w-full justify-start uppercase font-normal"
                             onClick={() => { setForm({ ...form, idCidade: c.id }); setCitySelOpen(false); }}>
@@ -253,9 +253,6 @@ export function ModalFornecedores({
             </Dialog>
           </div>
 
-          {/* CNPJ/IE já acima */}
-
-          {/* Condição de Pagamento (seletor) */}
           <div className="col-span-2">
             <Dialog open={condSelOpen} onOpenChange={setCondSelOpen}>
               <DialogTrigger asChild>
@@ -272,6 +269,7 @@ export function ModalFornecedores({
                 <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                   {condicoesFiltradas.map(c => (
                     <Button key={c.id}
+                            type="button"
                             variant={form.condicaoPagamentoId === c.id ? "default" : "outline"}
                             className="w-full justify-start uppercase font-normal"
                             onClick={() => { setForm({ ...form, condicaoPagamentoId: c.id }); setCondSelOpen(false); }}>
@@ -283,7 +281,6 @@ export function ModalFornecedores({
             </Dialog>
           </div>
 
-          {/* Forma de Pagamento (seletor) */}
           <div className="col-span-2">
             <Dialog open={formaSelOpen} onOpenChange={setFormaSelOpen}>
               <DialogTrigger asChild>
@@ -300,6 +297,7 @@ export function ModalFornecedores({
                 <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                   {formasFiltradas.map(f => (
                     <Button key={f.id}
+                            type="button"
                             variant={form.formaPagamentoId === f.id ? "default" : "outline"}
                             className="w-full justify-start uppercase font-normal"
                             onClick={() => { setForm({ ...form, formaPagamentoId: f.id }); setFormaSelOpen(false); }}>

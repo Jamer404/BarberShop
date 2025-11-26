@@ -32,6 +32,13 @@ export function ModalTransportadora({
   const [estados, setEstados] = useState<Estado[]>([])
   const [condicoes, setCondicoes] = useState<CondicaoPagamento[]>([])
 
+  const formatDate = (s?: string) => {
+    if (!s) return ""
+    const d = new Date(s)
+    d.setHours(d.getHours() - 3)
+    return d.toLocaleString("pt-BR")
+  }
+
   // seletores auxiliares
   const [citySelectorOpen, setCitySelectorOpen] = useState(false)
   const [modalCidadeOpen, setModalCidadeOpen] = useState(false)
@@ -162,6 +169,8 @@ export function ModalTransportadora({
       bairro: form.bairro?.toUpperCase(),
       inscricaoEstadual: form.inscricaoEstadual?.toUpperCase(),
       emails: (form.emails||[]).map(e=>e.toUpperCase()),
+      telefones: (form.telefones||[]),
+      veiculoIds: form.veiculoIds||[],
     }
     if (transportadora?.id) await atualizarTransportadora(transportadora.id, payload)
     else await criarTransportadora(payload)
@@ -187,7 +196,20 @@ export function ModalTransportadora({
       <Dialog open={isOpen} onOpenChange={onOpenChange}>
         <DialogContent className="w-[92%] max-w-6xl">
           <DialogHeader>
-            <DialogTitle>{transportadora?.id ? "Editar Transportadora" : "Cadastrar Transportadora"}</DialogTitle>
+            <div className="flex items-center justify-between">
+              <DialogTitle>{transportadora?.id ? "Editar Transportadora" : "Cadastrar Transportadora"}</DialogTitle>
+
+              <div className="flex items-center gap-2 mr-8">
+                <span className="text-sm text-muted-foreground">
+                  Habilitado
+                </span>
+                <Switch
+                  checked={form.ativo}
+                  onCheckedChange={(v) => setForm({ ...form, ativo: v })}
+                  disabled={readOnly}
+                />
+              </div>
+            </div>
           </DialogHeader>
 
           <div className="grid grid-cols-4 gap-3 text-sm">
@@ -239,13 +261,14 @@ export function ModalTransportadora({
                   <div className="flex gap-2 items-center">
                     <Input placeholder="Buscar cidade..." className="w-full"
                       value={searchCidade} onChange={e=>setSearchCidade(e.target.value)}/>
-                    <Button onClick={()=>{ setCitySelectorOpen(false); setModalCidadeOpen(true); setReopenCity(true); }}>
+                    <Button type="button" onClick={()=>{ setCitySelectorOpen(false); setModalCidadeOpen(true); setReopenCity(true); }}>
                       Nova Cidade
                     </Button>
                   </div>
                   <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                     {cidadesFiltradas.map(cid=>(
                       <Button key={cid.id}
+                        type="button"
                         variant={form.idCidade===cid.id?"default":"outline"}
                         className="w-full justify-start uppercase font-normal"
                         onClick={()=>{ setForm({...form, idCidade: cid.id}); setCitySelectorOpen(false) }}>
@@ -257,7 +280,6 @@ export function ModalTransportadora({
               </Dialog>
             </div>
 
-            {/* Condição de pagamento */}
             <div className="col-span-2">
               <label className="block mb-1 font-medium">Condição de Pagamento</label>
               <Dialog open={condSelectorOpen} onOpenChange={setCondSelectorOpen}>
@@ -272,13 +294,14 @@ export function ModalTransportadora({
                   <div className="flex gap-2 items-center">
                     <Input placeholder="Buscar condição..." className="w-full"
                       value={searchCond} onChange={e=>setSearchCond(e.target.value)}/>
-                    <Button onClick={()=>{ setCondSelectorOpen(false); setModalCondOpen(true); setReopenCond(true); }}>
+                    <Button type="button" onClick={()=>{ setCondSelectorOpen(false); setModalCondOpen(true); setReopenCond(true); }}>
                       Nova Condição
                     </Button>
                   </div>
                   <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                     {condFiltradas.map(c=>(
                       <Button key={c.id}
+                        type="button"
                         variant={form.idCondicaoPagamento===c.id?"default":"outline"}
                         className="w-full justify-start uppercase font-normal"
                         onClick={()=>{ setForm({...form, idCondicaoPagamento: c.id }); setCondSelectorOpen(false) }}>
@@ -293,7 +316,7 @@ export function ModalTransportadora({
             {/* Veículos vinculados */}
             <div className="col-span-2">
               <label className="block mb-1 font-medium">Veículos vinculados</label>
-              <Button variant="outline" className="mb-2 w-full justify-between" onClick={()=>setVeiculoSelectorOpen(true)} disabled={readOnly}>
+              <Button type="button" variant="outline" className="mb-2 w-full justify-between" onClick={()=>setVeiculoSelectorOpen(true)} disabled={readOnly}>
                 <Car className="mr-2 h-4 w-4" /> Selecionar veículo
               </Button>
               <div className="text-xs text-muted-foreground mb-1">
@@ -306,7 +329,7 @@ export function ModalTransportadora({
                     <span key={id} className="px-2 py-1 border rounded text-xs flex items-center gap-1">
                       {v ? `${v.placa} - ${v.modelo}` : `#${id}`}
                       {!readOnly && (
-                        <button onClick={()=>setForm({...form, veiculoIds: form.veiculoIds.filter(x=>x!==id)})}>
+                        <button type="button" onClick={()=>setForm({...form, veiculoIds: form.veiculoIds.filter(x=>x!==id)})}>
                           <X className="h-3 w-3" />
                         </button>
                       )}
@@ -323,7 +346,7 @@ export function ModalTransportadora({
                   <div className="max-h-[300px] overflow-auto space-y-2 mt-2">
                     {veiculos.length === 0 && <div className="text-center text-muted-foreground">Nenhum veículo cadastrado.</div>}
                     {veiculos.map(v=>(
-                      <Button key={v.id} variant="outline" className="w-full justify-start" onClick={()=>{ addVeiculo(v.id); setVeiculoSelectorOpen(false) }}>
+                      <Button type="button" key={v.id} variant="outline" className="w-full justify-start" onClick={()=>{ addVeiculo(v.id); setVeiculoSelectorOpen(false) }}>
                         {v.placa} - {v.modelo} {v.ativo ? "" : <span className="text-red-500 ml-2">(Inativo)</span>}
                       </Button>
                     ))}
@@ -347,7 +370,7 @@ export function ModalTransportadora({
             <div className="col-span-2">
               <label className="block mb-1 font-medium">E-mail(s)</label>
               <div className="flex items-center justify-between mb-1">
-                {!readOnly && <Button size="icon" variant="outline" onClick={()=>setForm(f=>({...f, emails:[...f.emails,""]}))}><Plus className="h-4 w-4"/></Button>}
+                {!readOnly && <Button type="button" size="icon" variant="outline" onClick={()=>setForm(f=>({...f, emails:[...f.emails,""]}))}><Plus className="h-4 w-4"/></Button>}
               </div>
               <div className="space-y-2">
                 {form.emails.map((e,idx)=>(
@@ -357,7 +380,7 @@ export function ModalTransportadora({
                         const arr=[...form.emails]; arr[idx]=ev.target.value; setForm({...form, emails:arr})
                       }}/>
                     {!readOnly && (
-                      <Button variant="outline" size="icon" onClick={()=>setForm({...form, emails: removeAt(form.emails, idx)})}><X className="h-4 w-4"/></Button>
+                      <Button type="button" variant="outline" size="icon" onClick={()=>setForm({...form, emails: removeAt(form.emails, idx)})}><X className="h-4 w-4"/></Button>
                     )}
                   </div>
                 ))}
@@ -368,7 +391,7 @@ export function ModalTransportadora({
             <div className="col-span-2">
               <label className="block mb-1 font-medium">Telefone(s)</label>
               <div className="flex items-center justify-between mb-1">
-                {!readOnly && <Button size="icon" variant="outline" onClick={()=>setForm(f=>({...f, telefones:[...f.telefones,""]}))}><Plus className="h-4 w-4"/></Button>}
+                {!readOnly && <Button type="button" size="icon" variant="outline" onClick={()=>setForm(f=>({...f, telefones:[...f.telefones,""]}))}><Plus className="h-4 w-4"/></Button>}
               </div>
               <div className="space-y-2">
                 {form.telefones.map((t,idx)=>(
@@ -378,20 +401,24 @@ export function ModalTransportadora({
                         const arr=[...form.telefones]; arr[idx]=ev.target.value; setForm({...form, telefones:arr})
                       }}/>
                     {!readOnly && (
-                      <Button variant="outline" size="icon" onClick={()=>setForm({...form, telefones: removeAt(form.telefones, idx)})}><X className="h-4 w-4"/></Button>
+                      <Button type="button" variant="outline" size="icon" onClick={()=>setForm({...form, telefones: removeAt(form.telefones, idx)})}><X className="h-4 w-4"/></Button>
                     )}
                   </div>
                 ))}
               </div>
             </div>
-
-            <div className="col-span-4 flex items-center gap-2">
-              <span className="text-sm">Habilitado</span>
-              <Switch checked={form.ativo} onCheckedChange={v=>setForm({...form, ativo:v})} disabled={readOnly}/>
-            </div>
           </div>
 
           <DialogFooter>
+            <div className="text-xs text-muted-foreground mr-auto pl-1 space-y-0.5">
+              {transportadora && (
+                <>
+                  <div>Data Criação: {formatDate(transportadora.dataCriacao)}</div>
+                  <div>Data Atualização: {formatDate(transportadora.dataAtualizacao)}</div>
+                </>
+              )}
+            </div>
+
             {!readOnly && <Button onClick={handleSubmit}>{transportadora?.id ? "Atualizar" : "Cadastrar"}</Button>}
             <DialogClose asChild><Button variant="outline">Cancelar</Button></DialogClose>
           </DialogFooter>

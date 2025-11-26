@@ -65,7 +65,7 @@ export async function getFornecedorById(id: number): Promise<Fornecedor> {
 }
 export async function criarFornecedor(payload: CreateFornecedorDto): Promise<number> {
   const { data } = await axios.post<number>(API_URL, payload);
-  return data; // id
+  return data;
 }
 export async function atualizarFornecedor(id: number, payload: UpdateFornecedorDto): Promise<void> {
   await axios.put(`${API_URL}/${id}`, payload);

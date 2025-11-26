@@ -12,7 +12,7 @@ type Props = {
   onOpenChange: (open: boolean) => void
   title: string
   columns: Column[]
-  fetchPage: (query: string) => Promise<RemoteItem[]>   // <- chamada GET ao back
+  fetchPage: (query: string) => Promise<RemoteItem[]>  
   onSelect: (item: RemoteItem) => void
 }
 
@@ -23,7 +23,6 @@ export function RemotePickerModal({ isOpen, onOpenChange, title, columns, fetchP
   const [error, setError] = useState<string | null>(null)
   const debounceRef = useRef<number | null>(null)
 
-  // carrega ao abrir e quando q muda (com debounce)
   useEffect(() => {
     if (!isOpen) return
     setError(null)

@@ -68,7 +68,6 @@ export function ModalClientes({
   const [searchCidade, setSearchCidade] = useState("")
   const [searchCond, setSearchCond] = useState("")
 
-  // Flags para reabrir os seletores após fechar os modais
   const [reopenCitySelector, setReopenCitySelector] = useState(false)
   const [reopenCondSelector, setReopenCondSelector] = useState(false)
 
@@ -154,7 +153,6 @@ export function ModalClientes({
     }
   }, [isOpen])
 
-  // Reabrir seletores após fechar os modais auxiliares
   useEffect(() => {
     if (!modalCidadeOpen && reopenCitySelector) {
       setReopenCitySelector(false)
@@ -205,7 +203,6 @@ export function ModalClientes({
 
   return (
     <>
-      {/* Modal de Cidades: recarrega e reabre o seletor ao fechar */}
       <ModalCidades
         isOpen={modalCidadeOpen}
         onOpenChange={(open) => setModalCidadeOpen(open)}
@@ -216,7 +213,6 @@ export function ModalClientes({
         estados={estados}
       />
 
-      {/* Modal de Condição de Pagamento: recarrega e reabre o seletor ao fechar */}
       <ModalCondicaoPagamento
         isOpen={modalCondOpen}
         onOpenChange={setModalCondOpen}
@@ -229,7 +225,20 @@ export function ModalClientes({
       <Dialog open={isOpen} onOpenChange={onOpenChange}>
         <DialogContent className="max-w-7xl w-full max-h-[90vh]">
           <DialogHeader>
-            <DialogTitle>{cliente ? "Editar Cliente" : "Novo Cliente"}</DialogTitle>
+            <div className="flex items-center justify-between">
+              <DialogTitle>{cliente ? "Editar Cliente" : "Novo Cliente"}</DialogTitle>
+
+              <div className="flex items-center gap-2 mr-8">
+                <span className="text-sm text-muted-foreground">
+                  Habilitado
+                </span>
+                <Switch
+                  checked={form.ativo}
+                  onCheckedChange={(v) => setForm({ ...form, ativo: v })}
+                  disabled={readOnly}
+                />
+              </div>
+            </div>
           </DialogHeader>
 
           <div className="overflow-y-auto max-h-[70vh] pr-2 grid grid-cols-4 gap-x-4 gap-y-3 text-sm">
@@ -410,7 +419,7 @@ export function ModalClientes({
               />
             </div>
 
-            {/* Seletor de Cidades com apenas "Nova Cidade" */}
+
             <div className="col-span-2 flex flex-col gap-1.5">
               <label>Cidade</label>
               <Dialog open={citySelectorOpen} onOpenChange={setCitySelectorOpen}>
@@ -466,7 +475,6 @@ export function ModalClientes({
               {errors.idCidade && <p className="text-xs text-destructive">{errors.idCidade[0]}</p>}
             </div>
 
-            {/* Seletor de Condição de Pagamento com apenas "Nova Condição" */}
             <div className="col-span-2 flex flex-col gap-1.5">
               <label>Condição de Pagamento</label>
               <Dialog open={condSelectorOpen} onOpenChange={setCondSelectorOpen}>
@@ -547,26 +555,23 @@ export function ModalClientes({
                 onChange={(e) => setForm({ ...form, classificacao: e.target.value.toUpperCase() })}
               />
             </div>
-
-            <div className="col-span-4 flex items-center gap-2">
-              <span className="text-sm">Ativo</span>
-              <Switch checked={form.ativo} onCheckedChange={(v) => setForm({ ...form, ativo: v })} disabled={readOnly} />
-            </div>
           </div>
 
           <DialogFooter>
-            <div className="w-full flex justify-between items-center">
-              <div className="flex flex-col text-xs text-muted-foreground">
-                <div>Data Criação: {cliente?.dataCriacao ? new Date(cliente.dataCriacao).toLocaleString() : 'N/A'}</div>
-                <div>Data Atualização: {cliente?.dataAtualizacao ? new Date(cliente.dataAtualizacao).toLocaleString() : 'N/A'}</div>
-                <div>Usuário Últ. Alt: N/A</div>
-              </div>
-              <div className="flex gap-2">
-                <DialogClose asChild>
-                  <Button variant="outline">Cancelar</Button>
-                </DialogClose>
-                {!readOnly && <Button onClick={salvar}>{cliente ? "Atualizar" : "Salvar"}</Button>}
-              </div>
+            <div className="text-xs text-muted-foreground mr-auto pl-1 space-y-0.5">
+              {cliente && (
+                <>
+                  <div>Data Criação: {cliente.dataCriacao ? (() => { const d = new Date(cliente.dataCriacao); d.setHours(d.getHours() - 3); return d.toLocaleString("pt-BR"); })() : 'N/A'}</div>
+                  <div>Data Atualização: {cliente.dataAtualizacao ? (() => { const d = new Date(cliente.dataAtualizacao); d.setHours(d.getHours() - 3); return d.toLocaleString("pt-BR"); })() : 'N/A'}</div>
+                </>
+              )}
+            </div>
+
+            <div className="flex gap-2">
+              <DialogClose asChild>
+                <Button variant="outline">Cancelar</Button>
+              </DialogClose>
+              {!readOnly && <Button onClick={salvar}>{cliente ? "Atualizar" : "Salvar"}</Button>}
             </div>
           </DialogFooter>
         </DialogContent>

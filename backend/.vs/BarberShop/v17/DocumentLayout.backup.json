@@ -326,20 +326,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "TransportadoraController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\TransportadoraController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\TransportadoraController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\TransportadoraController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\TransportadoraController.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAiwFIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:47:29.333Z"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -366,6 +354,31 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TransportadoraRepository.cs",
+              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\TransportadoraRepository.cs",
+              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\TransportadoraRepository.cs",
+              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\TransportadoraRepository.cs",
+              "RelativeToolTip": "BarberShop.API\\Repository\\TransportadoraRepository.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBMAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T23:48:24.263Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TransportadoraController.cs",
+              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\TransportadoraController.cs",
+              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\TransportadoraController.cs",
+              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\TransportadoraController.cs",
+              "RelativeToolTip": "BarberShop.API\\Controllers\\TransportadoraController.cs",
+              "ViewState": "AgIAADcAAAAAAAAAAAAiwFIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T23:47:29.333Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\appsettings.json",
@@ -375,19 +388,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-10-29T23:24:09.669Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TransportadoraRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\TransportadoraRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\TransportadoraRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\TransportadoraRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\TransportadoraRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:48:24.263Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",

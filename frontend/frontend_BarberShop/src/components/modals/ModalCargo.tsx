@@ -36,6 +36,13 @@ export function ModalCargo({
     ativo: true,
   })
 
+  const formatDate = (s?: string) => {
+    if (!s) return ""
+    const d = new Date(s)
+    d.setHours(d.getHours() - 3)
+    return d.toLocaleString("pt-BR")
+  }
+
   useEffect(() => {
     if (cargo) {
       setForm({
@@ -92,8 +99,8 @@ export function ModalCargo({
               {readOnly ? "Visualizar Cargo" : cargo?.id ? "Editar Cargo" : "Novo Cargo"}
             </DialogTitle>
 
-            <div className="flex items-center gap-3">
-              <span className={`text-sm ${form.ativo ? "text-green-600" : "text-muted-foreground"}`}>
+            <div className="flex items-center gap-2 mr-8">
+              <span className="text-sm text-muted-foreground">
                 Habilitado
               </span>
               <Switch
@@ -167,6 +174,15 @@ export function ModalCargo({
         </div>
 
         <DialogFooter>
+          <div className="text-xs text-muted-foreground mr-auto pl-1 space-y-0.5">
+            {cargo && (
+              <>
+                <div>Data Criação: {formatDate(cargo.dataCriacao)}</div>
+                <div>Data Atualização: {formatDate(cargo.dataAtualizacao || "")}</div>
+              </>
+            )}
+          </div>
+
           {!readOnly && (
             <Button onClick={handleSubmit}>
               {cargo?.id ? "Salvar" : "Cadastrar"}
