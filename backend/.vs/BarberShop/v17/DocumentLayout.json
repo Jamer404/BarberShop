@@ -351,8 +351,7 @@
               "RelativeToolTip": "BarberShop.API\\Controllers\\TransportadoraController.cs",
               "ViewState": "AgIAACgAAAAAAAAAAAAQwEoAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:47:29.333Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-31T23:47:29.333Z"
             },
             {
               "$type": "Document",
@@ -388,8 +387,7 @@
               "RelativeToolTip": "BarberShop.API\\Entities\\Transportadora.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:47:53.113Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-31T23:47:53.113Z"
             },
             {
               "$type": "Document",
@@ -401,8 +399,7 @@
               "RelativeToolTip": "BarberShop.API\\Models\\CreateTransportadoraDto.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAA5wB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:48:02.92Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-31T23:48:02.92Z"
             },
             {
               "$type": "Document",
@@ -414,8 +411,7 @@
               "RelativeToolTip": "BarberShop.API\\Models\\UpdateFornecedorDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T02:01:26.247Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T02:01:26.247Z"
             },
             {
               "$type": "Document",
@@ -427,8 +423,7 @@
               "RelativeToolTip": "BarberShop.API\\Models\\CreateFornecedorDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T01:39:57.468Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T01:39:57.468Z"
             },
             {
               "$type": "Document",
