@@ -109,7 +109,7 @@ export default function Fornecedores() {
               <TableBody>
                 {itens.map(f => (
                   <TableRow key={f.id}>
-                    <TableCell>{f.id}</TableCell>
+                    <TableCell className="text-right">{f.id}</TableCell>
                     <TableCell className="uppercase">{f.nomeRazaoSocial}</TableCell>
                     <TableCell className="uppercase">{f.apelidoNomeFantasia}</TableCell>
                     <TableCell>{f.tipoPessoa}</TableCell>

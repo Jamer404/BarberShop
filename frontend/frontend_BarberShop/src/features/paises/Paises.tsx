@@ -145,7 +145,7 @@ export default function PaisesPage() {
               <TableBody>
                 {paises.map((pais) => (
                   <TableRow key={pais.id}>
-                    <TableCell>{pais.id}</TableCell>
+                    <TableCell className="text-right">{pais.id}</TableCell>
                     <TableCell>{pais.nome.toUpperCase()}</TableCell>
                     <TableCell>{pais.sigla.toUpperCase()}</TableCell>
                     <TableCell>{pais.ddi}</TableCell>

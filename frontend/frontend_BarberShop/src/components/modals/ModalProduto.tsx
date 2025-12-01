@@ -552,6 +552,7 @@ export function ModalProduto({
             <div className="col-span-2 space-y-1.5">
               <Label className="uppercase">Código de Barras</Label>
               <Input
+                className="text-right"
                 disabled={readOnly}
                 value={form.codigoBarras ?? ""}
                 onChange={(e) =>

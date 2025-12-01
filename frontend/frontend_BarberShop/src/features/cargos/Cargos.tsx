@@ -132,7 +132,7 @@ export default function Cargos() {
               <TableBody>
                 {cargos.map((c) => (
                   <TableRow key={c.id}>
-                    <TableCell>{c.id}</TableCell>
+                    <TableCell className="text-right">{c.id}</TableCell>
                     <TableCell className="uppercase">{c.nome}</TableCell>
                     <TableCell className="uppercase">{c.setor || "-"}</TableCell>
                     <TableCell>{formatBRL(c.salarioBase)}</TableCell>

@@ -110,7 +110,7 @@ export default function Funcionarios() {
               <TableBody>
                 {itens.map((f) => (
                   <TableRow key={f.id}>
-                    <TableCell>{f.id}</TableCell>
+                    <TableCell className="text-right">{f.id}</TableCell>
                     <TableCell className="uppercase">{f.nome}</TableCell>
                     <TableCell>{f.sexo}</TableCell>
                     <TableCell>{getNomeCidade(f.idCidade)}</TableCell>

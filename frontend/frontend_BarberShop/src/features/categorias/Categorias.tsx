@@ -124,7 +124,7 @@ export default function Categorias() {
               <TableBody>
                 {categorias.map((c) => (
                   <TableRow key={c.id}>
-                    <TableCell>{c.id}</TableCell>
+                    <TableCell className="text-right">{c.id}</TableCell>
                     <TableCell className="uppercase">{c.nome}</TableCell>
                     <TableCell className="uppercase">{c.descricao || "-"}</TableCell>
                     <TableCell>{c.ativo ? "Habilitado" : "Desabilitado"}</TableCell>

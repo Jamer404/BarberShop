@@ -154,7 +154,7 @@ export default function EstadosPage() {
               <TableBody>
                 {estados.map((estado) => (
                   <TableRow key={estado.id}>
-                    <TableCell>{estado.id}</TableCell>
+                    <TableCell className="text-right">{estado.id}</TableCell>
                     <TableCell>{estado.nome.toUpperCase()}</TableCell>
                     <TableCell>{estado.uf}</TableCell>
                     <TableCell>{getNomePais(estado.idPais)}</TableCell>

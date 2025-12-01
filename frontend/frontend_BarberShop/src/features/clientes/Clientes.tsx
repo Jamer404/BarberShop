@@ -129,7 +129,7 @@ export default function Clientes() {
               <TableBody>
                 {clientes.map((c) => (
                   <TableRow key={c.id}>
-                    <TableCell>{c.id}</TableCell>
+                    <TableCell className="text-right">{c.id}</TableCell>
                     <TableCell>{c.nomeRazaoSocial}</TableCell>
                     <TableCell>{c.cpfCnpj}</TableCell>
                     <TableCell>{getCidadeUf(c.idCidade)}</TableCell>

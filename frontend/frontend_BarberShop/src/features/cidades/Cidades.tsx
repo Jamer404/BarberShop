@@ -189,7 +189,7 @@ export default function CidadesPage() {
               <TableBody>
                 {cidades.map((c) => (
                   <TableRow key={c.id}>
-                    <TableCell>{c.id}</TableCell>
+                    <TableCell className="text-right">{c.id}</TableCell>
                     <TableCell>{c.nome.toUpperCase()}</TableCell>
                     <TableCell>{getNomeEstado(c.idEstado)}</TableCell>
                     <TableCell>{getPaisPorEstado(c.idEstado)}</TableCell>

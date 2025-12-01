@@ -111,7 +111,7 @@ export default function Produtos() {
               <TableBody>
                 {produtos.map(p => (
                   <TableRow key={p.id}>
-                    <TableCell>{p.id}</TableCell>
+                    <TableCell className="text-right">{p.id}</TableCell>
                     <TableCell className="uppercase">{p.descricao}</TableCell>
                     <TableCell>{getNomeUnidade(p.unidadeId)}</TableCell>
                     <TableCell>{getNomeMarca(p.marcaId)}</TableCell>

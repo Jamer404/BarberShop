@@ -9,12 +9,14 @@ import {
   Transportadora,
   getTransportadoraById
 } from "@/services/transportadoraService"
+import { getCidades, Cidade } from "@/services/cidadeService"
 import { ModalTransportadora } from "@/components/modals/ModalTransportadora"
 import { ModalConfirm } from "@/components/modals/ModalConfirm"
 import { toast } from "react-toastify"
 
 export default function Transportadoras() {
   const [items, setItems] = useState<Transportadora[]>([])
+  const [cidades, setCidades] = useState<Cidade[]>([])
   const [loading, setLoading] = useState(true)
 
   const [isModalOpen, setModalOpen] = useState(false)
@@ -29,7 +31,12 @@ export default function Transportadoras() {
   async function fetchAll() {
     setLoading(true)
     try {
-      setItems(await getTransportadoras())
+      const [transportadoras, cidadesData] = await Promise.all([
+        getTransportadoras(),
+        getCidades()
+      ])
+      setItems(transportadoras)
+      setCidades(cidadesData)
     } catch {
       toast.error("Erro ao carregar transportadoras")
     } finally {
@@ -81,6 +88,11 @@ export default function Transportadoras() {
     }
   }
 
+  function getNomeCidade(id: number | null | undefined) {
+    if (!id) return "-"
+    return cidades.find(c => c.id === id)?.nome.toUpperCase() || "-"
+  }
+
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
       <ModalTransportadora
@@ -123,8 +135,7 @@ export default function Transportadoras() {
                   <TableHead>ID</TableHead>
                   <TableHead>Razão Social</TableHead>
                   <TableHead>CNPJ</TableHead>
-                  <TableHead>Cidade (ID)</TableHead>
-                  <TableHead>Condição (ID)</TableHead>
+                  <TableHead>Cidade</TableHead>
                   <TableHead>Veículos</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="text-center">Ações</TableHead>
@@ -133,11 +144,10 @@ export default function Transportadoras() {
               <TableBody>
                 {items.map(t => (
                   <TableRow key={t.id}>
-                    <TableCell>{t.id}</TableCell>
+                    <TableCell className="text-right">{t.id}</TableCell>
                     <TableCell className="uppercase">{t.razaoSocial}</TableCell>
                     <TableCell>{t.cnpj ?? "-"}</TableCell>
-                    <TableCell>{t.idCidade ?? "-"}</TableCell>
-                    <TableCell>{t.idCondicaoPagamento ?? "-"}</TableCell>
+                    <TableCell>{getNomeCidade(t.idCidade)}</TableCell>
                     <TableCell>{t.veiculoIds?.length ?? 0}</TableCell>
                     <TableCell>{t.ativo ? "Habilitada" : "Desabilitada"}</TableCell>
                     <TableCell className="flex gap-2 justify-center">

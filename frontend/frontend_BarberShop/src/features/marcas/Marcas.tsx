@@ -124,7 +124,7 @@ export default function Marcas() {
               <TableBody>
                 {marcas.map((m) => (
                   <TableRow key={m.id}>
-                    <TableCell>{m.id}</TableCell>
+                    <TableCell className="text-right">{m.id}</TableCell>
                     <TableCell className="uppercase">{m.nome}</TableCell>
                     <TableCell className="uppercase">{m.descricao || "-"}</TableCell>
                     <TableCell>{m.ativo ? "Habilitado" : "Desabilitado"}</TableCell>

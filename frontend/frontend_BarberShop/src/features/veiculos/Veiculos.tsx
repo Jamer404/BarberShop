@@ -125,7 +125,7 @@ export default function Veiculos() {
               <TableBody>
                 {veiculos.map((v) => (
                   <TableRow key={v.id}>
-                    <TableCell>{v.id}</TableCell>
+                    <TableCell className="text-right">{v.id}</TableCell>
                     <TableCell className="uppercase">{v.placa}</TableCell>
                     <TableCell className="uppercase">{v.modelo}</TableCell>
                     <TableCell className="uppercase">{v.descricao || "-"}</TableCell>

@@ -141,7 +141,7 @@ export default function FormasPagamento() {
               <TableBody>
                 {filteredFormas.map((fp) => (
                   <TableRow key={fp.id}>
-                    <TableCell>{fp.id}</TableCell>
+                    <TableCell className="text-right">{fp.id}</TableCell>
                     <TableCell>{fp.descricao.toUpperCase()}</TableCell>
                     <TableCell>
                       {fp.ativo ? "ATIVO" : "INATIVO"}
