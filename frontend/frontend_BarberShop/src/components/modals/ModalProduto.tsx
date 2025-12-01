@@ -89,6 +89,8 @@ export function ModalProduto({
     unidadeId?: string
     marcaId?: string
     categoriaId?: string
+    custoCompra?: string
+    precoVenda?: string
   }>({})
 
   const formatDate = (s?: string) => {
@@ -199,6 +201,8 @@ export function ModalProduto({
       unidadeId?: string
       marcaId?: string
       categoriaId?: string
+      custoCompra?: string
+      precoVenda?: string
     } = {}
 
     if (!form.descricao.trim()) {
@@ -212,6 +216,12 @@ export function ModalProduto({
     }
     if (!form.categoriaId) {
       newErrors.categoriaId = "Categoria é obrigatória"
+    }
+    if (form.custoCompra <= 0) {
+      newErrors.custoCompra = "Custo de compra deve ser maior que zero"
+    }
+    if (form.precoVenda <= 0) {
+      newErrors.precoVenda = "Preço de venda deve ser maior que zero"
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -575,7 +585,7 @@ export function ModalProduto({
 
             {/* Custo de Compra (R$) */}
             <div className="col-span-2 space-y-1.5">
-              <Label className="uppercase">Custo de Compra</Label>
+              <Label className="uppercase">Custo de Compra <span className="text-red-500">*</span></Label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
                   R$
@@ -586,18 +596,20 @@ export function ModalProduto({
                   className="pl-8 text-right"
                   disabled={readOnly}
                   value={form.custoCompra}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setForm({
                       ...form,
                       custoCompra: Number(e.target.value) || 0,
                     })
-                  }
+                    setErrors((err) => ({ ...err, custoCompra: undefined }))
+                  }}
                 />
               </div>
+              {errors.custoCompra && <span className="text-xs text-red-500">{errors.custoCompra}</span>}
             </div>
 
             <div className="col-span-2 space-y-1.5">
-              <Label className="uppercase">Preço de Venda</Label>
+              <Label className="uppercase">Preço de Venda <span className="text-red-500">*</span></Label>
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
                   R$
@@ -608,14 +620,16 @@ export function ModalProduto({
                   className="pl-8 text-right"
                   disabled={readOnly}
                   value={form.precoVenda}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setForm({
                       ...form,
                       precoVenda: Number(e.target.value) || 0,
                     })
-                  }
+                    setErrors((err) => ({ ...err, precoVenda: undefined }))
+                  }}
                 />
               </div>
+              {errors.precoVenda && <span className="text-xs text-red-500">{errors.precoVenda}</span>}
             </div>
 
             <div className="col-span-2 space-y-1.5">
@@ -644,7 +658,7 @@ export function ModalProduto({
                 type="number"
                 step="0.0001"
                 className="text-right"
-                disabled={readOnly}
+                disabled
                 value={form.estoque}
                 onChange={(e) =>
                   setForm({ ...form, estoque: Number(e.target.value) || 0 })

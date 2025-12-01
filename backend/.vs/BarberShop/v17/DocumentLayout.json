@@ -338,8 +338,7 @@
               "RelativeToolTip": "BarberShop.API\\Entities\\Marca.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:42:40.312Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T22:42:40.312Z"
             },
             {
               "$type": "Document",
@@ -351,8 +350,7 @@
               "RelativeToolTip": "BarberShop.API\\Models\\CreateMarcaDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:43:00.822Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T22:43:00.822Z"
             },
             {
               "$type": "Document",
@@ -364,8 +362,7 @@
               "RelativeToolTip": "BarberShop.API\\Models\\UpdateMarcaDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:43:17.714Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T22:43:17.714Z"
             },
             {
               "$type": "Document",
@@ -377,8 +374,7 @@
               "RelativeToolTip": "BarberShop.API\\Repository\\MarcaRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:43:39.083Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T22:43:39.083Z"
             },
             {
               "$type": "Document",
@@ -390,8 +386,7 @@
               "RelativeToolTip": "BarberShop.API\\Entities\\Categoria.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:57:01.285Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T22:57:01.285Z"
             },
             {
               "$type": "Document",
@@ -403,8 +398,7 @@
               "RelativeToolTip": "BarberShop.API\\Controllers\\UnidadeMedidaController.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAowCUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T00:40:59.706Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T00:40:59.706Z"
             },
             {
               "$type": "Document",
@@ -416,8 +410,7 @@
               "RelativeToolTip": "BarberShop.API\\Entities\\UnidadeMedida.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T00:35:24.667Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T00:35:24.667Z"
             },
             {
               "$type": "Document",
@@ -429,8 +422,7 @@
               "RelativeToolTip": "BarberShop.API\\Models\\CreateUnidadeMedidaDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T00:35:41.403Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-30T00:35:41.403Z"
             },
             {
               "$type": "Document",
@@ -455,8 +447,7 @@
               "RelativeToolTip": "BarberShop.API\\Controllers\\MarcaController.cs",
               "ViewState": "AgIAACYAAAAAAAAAAAAIwCUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:44:06.195Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T22:44:06.195Z"
             },
             {
               "$type": "Document",
@@ -468,8 +459,7 @@
               "RelativeToolTip": "BarberShop.API\\Repository\\CategoriaRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:59:32.066Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T22:59:32.066Z"
             },
             {
               "$type": "Document",
@@ -481,8 +471,7 @@
               "RelativeToolTip": "BarberShop.API\\Models\\UpdateCategoriaDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:57:25.446Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T22:57:25.446Z"
             },
             {
               "$type": "Document",
@@ -494,8 +483,7 @@
               "RelativeToolTip": "BarberShop.API\\Models\\CreateCategoriaDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:57:15.182Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T22:57:15.182Z"
             },
             {
               "$type": "Document",
@@ -507,8 +495,7 @@
               "RelativeToolTip": "BarberShop.API\\Controllers\\CategoriaController.cs",
               "ViewState": "AgIAACAAAAAAAAAAAAAwwCoAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:59:45.574Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-29T22:59:45.574Z"
             },
             {
               "$type": "Document",
@@ -592,8 +579,7 @@
               "RelativeToolTip": "BarberShop.API\\Repository\\TransportadoraRepository.cs",
               "ViewState": "AgIAAKsAAAAAAAAAAAAmwMIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:48:24.263Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-31T23:48:24.263Z"
             },
             {
               "$type": "Document",
