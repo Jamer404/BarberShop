@@ -2171,10 +2171,6 @@
       "CreateCategoriaDto": {
         "type": "object",
         "properties": {
-          "codigo": {
-            "type": "integer",
-            "format": "int32"
-          },
           "nome": {
             "type": "string",
             "nullable": true
@@ -2430,10 +2426,6 @@
       "CreateMarcaDto": {
         "type": "object",
         "properties": {
-          "codigo": {
-            "type": "integer",
-            "format": "int32"
-          },
           "nome": {
             "type": "string",
             "nullable": true
@@ -2761,10 +2753,6 @@
       "CreateUnidadeMedidaDto": {
         "type": "object",
         "properties": {
-          "codigo": {
-            "type": "integer",
-            "format": "int32"
-          },
           "nome": {
             "type": "string",
             "nullable": true

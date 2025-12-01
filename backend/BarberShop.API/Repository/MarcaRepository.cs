@@ -28,11 +28,10 @@ namespace BarberShop.API.Repository
         public async Task<int> InsertAsync(Marca marca)
         {
             var sql = @"
-                INSERT INTO Marcas (Codigo, Nome, Descricao, Ativo, DataCriacao, DataAtualizacao)
-                VALUES (@Codigo, @Nome, @Descricao, @Ativo, @DataCriacao, @DataAtualizacao);
+                INSERT INTO Marcas (Nome, Descricao, Ativo, DataCriacao, DataAtualizacao)
+                VALUES (@Nome, @Descricao, @Ativo, @DataCriacao, @DataAtualizacao);
                 SELECT SCOPE_IDENTITY();";
 
-            // normalização e datas
             marca.Nome = marca.Nome.ToUpper();
             marca.Descricao = marca.Descricao?.ToUpper();
             marca.DataCriacao = marca.DataAtualizacao = DateTime.UtcNow;

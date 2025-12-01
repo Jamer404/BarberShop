@@ -28,8 +28,8 @@ namespace BarberShop.API.Repository
         public async Task<int> InsertAsync(Categoria categoria)
         {
             var sql = @"
-                INSERT INTO Categorias (Codigo, Nome, Descricao, Ativo, DataCriacao, DataAtualizacao)
-                VALUES (@Codigo, @Nome, @Descricao, @Ativo, @DataCriacao, @DataAtualizacao);
+                INSERT INTO Categorias (Nome, Descricao, Ativo, DataCriacao, DataAtualizacao)
+                VALUES (@Nome, @Descricao, @Ativo, @DataCriacao, @DataAtualizacao);
                 SELECT SCOPE_IDENTITY();";
 
             categoria.Nome = categoria.Nome.ToUpper();

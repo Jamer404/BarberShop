@@ -115,7 +115,6 @@ export default function Marcas() {
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
-                  <TableHead>Código</TableHead>
                   <TableHead>Marca</TableHead>
                   <TableHead>Descrição</TableHead>
                   <TableHead>Status</TableHead>
@@ -126,7 +125,6 @@ export default function Marcas() {
                 {marcas.map((m) => (
                   <TableRow key={m.id}>
                     <TableCell>{m.id}</TableCell>
-                    <TableCell>{m.codigo}</TableCell>
                     <TableCell className="uppercase">{m.nome}</TableCell>
                     <TableCell className="uppercase">{m.descricao || "-"}</TableCell>
                     <TableCell>{m.ativo ? "Habilitado" : "Desabilitado"}</TableCell>

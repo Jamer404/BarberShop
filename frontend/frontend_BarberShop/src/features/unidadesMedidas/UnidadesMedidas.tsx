@@ -129,7 +129,6 @@ export default function UnidadesMedidas() {
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
-                  <TableHead>Código</TableHead>
                   <TableHead>Unidade</TableHead>
                   <TableHead>Descrição</TableHead>
                   <TableHead>Status</TableHead>
@@ -140,7 +139,6 @@ export default function UnidadesMedidas() {
                 {unidades.map((u) => (
                   <TableRow key={u.id}>
                     <TableCell>{u.id}</TableCell>
-                    <TableCell>{u.codigo}</TableCell>
                     <TableCell className="uppercase">{u.nome}</TableCell>
                     <TableCell className="uppercase">
                       {u.descricao || "-"}

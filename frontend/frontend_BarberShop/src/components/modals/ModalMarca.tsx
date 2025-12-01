@@ -26,12 +26,13 @@ export function ModalMarca({
   marca,
   readOnly = false,
 }: ModalMarcaProps) {
-  const [codigo, setCodigo] = useState<number | "">("")
   const [form, setForm] = useState<UpdateMarcaDto>({
     nome: "",
     descricao: "",
     ativo: true,
   })
+
+  const [errors, setErrors] = useState<{ nome?: string }>({})
 
   const formatDate = (s?: string) => {
     if (!s) return ""
@@ -42,23 +43,31 @@ export function ModalMarca({
 
   useEffect(() => {
     if (marca) {
-      setCodigo(marca.codigo)
       setForm({
         nome: marca.nome ?? "",
         descricao: marca.descricao ?? "",
         ativo: marca.ativo,
       })
     } else {
-      setCodigo("")
       setForm({ nome: "", descricao: "", ativo: true })
     }
-  }, [marca])
+    setErrors({})
+  }, [marca, isOpen])
 
   async function handleSubmit() {
-    if (!form.nome.trim() || (!marca?.id && codigo === "")) {
-      toast.error("Preencha os campos obrigatórios")
+    const newErrors: { nome?: string } = {}
+
+    if (!form.nome.trim()) {
+      newErrors.nome = "Nome da marca é obrigatório"
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      toast.error("Preencha todos os campos obrigatórios")
       return
     }
+
+    setErrors({})
 
     try {
       if (marca?.id) {
@@ -70,7 +79,6 @@ export function ModalMarca({
         await atualizarMarca(marca.id, payload)
       } else {
         const payload: CreateMarcaDto = {
-          codigo: Number(codigo),
           nome: form.nome,
           descricao: form.descricao,
           ativo: true,
@@ -107,30 +115,31 @@ export function ModalMarca({
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="space-y-1">
+            <label className="font-medium">Marca <span className="text-red-500">*</span></label>
             <Input
-              type="number"
-              placeholder="Código*"
-              value={codigo}
-              disabled={readOnly || Boolean(marca?.id)}  // código só na criação
-              onChange={(e) => setCodigo(e.target.value === "" ? "" : Number(e.target.value))}
-            />
-            <Input
-              placeholder="Marca*"
+              placeholder="Marca"
               className="uppercase"
               disabled={readOnly}
               value={form.nome}
-              onChange={(e) => setForm({ ...form, nome: e.target.value.toUpperCase() })}
+              onChange={(e) => {
+                setForm({ ...form, nome: e.target.value.toUpperCase() })
+                setErrors((err) => ({ ...err, nome: undefined }))
+              }}
             />
+            {errors.nome && <span className="text-xs text-red-500">{errors.nome}</span>}
           </div>
 
-          <Textarea
-            placeholder="Descrição"
-            className="uppercase min-h-28"
-            disabled={readOnly}
-            value={form.descricao}
-            onChange={(e) => setForm({ ...form, descricao: e.target.value.toUpperCase() })}
-          />
+          <div className="space-y-1">
+            <label className="font-medium">Descrição</label>
+            <Textarea
+              placeholder="Descrição"
+              disabled={readOnly}
+              className="uppercase"
+              value={form.descricao}
+              onChange={(e) => setForm({ ...form, descricao: e.target.value.toUpperCase() })}
+            />
+          </div>
         </div>
 
         <DialogFooter>

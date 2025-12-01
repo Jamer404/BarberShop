@@ -27,12 +27,13 @@ export function ModalCategoria({
   categoria,
   readOnly = false,
 }: ModalCategoriaProps) {
-  const [codigo, setCodigo] = useState<number | "">("")
   const [form, setForm] = useState<UpdateCategoriaDto>({
     nome: "",
     descricao: "",
     ativo: true,
   })
+
+  const [errors, setErrors] = useState<{ nome?: string }>({})
 
   const formatDate = (s?: string) => {
     if (!s) return ""
@@ -43,23 +44,31 @@ export function ModalCategoria({
 
   useEffect(() => {
     if (categoria) {
-      setCodigo(categoria.codigo)
       setForm({
         nome: categoria.nome ?? "",
         descricao: categoria.descricao ?? "",
         ativo: categoria.ativo,
       })
     } else {
-      setCodigo("")
       setForm({ nome: "", descricao: "", ativo: true })
     }
-  }, [categoria])
+    setErrors({})
+  }, [categoria, isOpen])
 
   async function handleSubmit() {
-    if (!form.nome.trim() || (!categoria?.id && codigo === "")) {
-      toast.error("Preencha os campos obrigatórios")
+    const newErrors: { nome?: string } = {}
+
+    if (!form.nome.trim()) {
+      newErrors.nome = "Nome da categoria é obrigatório"
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      toast.error("Preencha todos os campos obrigatórios")
       return
     }
+
+    setErrors({})
 
     try {
       if (categoria?.id) {
@@ -71,7 +80,6 @@ export function ModalCategoria({
         await atualizarCategoria(categoria.id, payload)
       } else {
         const payload: CreateCategoriaDto = {
-          codigo: Number(codigo),
           nome: form.nome,
           descricao: form.descricao,
           ativo: true,
@@ -108,30 +116,31 @@ export function ModalCategoria({
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="space-y-1">
+            <label className="font-medium">Categoria <span className="text-red-500">*</span></label>
             <Input
-              type="number"
-              placeholder="Código*"
-              value={codigo}
-              disabled={readOnly || Boolean(categoria?.id)} // código só na criação
-              onChange={(e) => setCodigo(e.target.value === "" ? "" : Number(e.target.value))}
-            />
-            <Input
-              placeholder="Categoria*"
+              placeholder="Categoria"
               className="uppercase"
               disabled={readOnly}
               value={form.nome}
-              onChange={(e) => setForm({ ...form, nome: e.target.value.toUpperCase() })}
+              onChange={(e) => {
+                setForm({ ...form, nome: e.target.value.toUpperCase() })
+                setErrors((err) => ({ ...err, nome: undefined }))
+              }}
             />
+            {errors.nome && <span className="text-xs text-red-500">{errors.nome}</span>}
           </div>
 
-          <Textarea
-            placeholder="Descrição"
-            className="uppercase min-h-28"
-            disabled={readOnly}
-            value={form.descricao}
-            onChange={(e) => setForm({ ...form, descricao: e.target.value.toUpperCase() })}
-          />
+          <div className="space-y-1">
+            <label className="font-medium">Descrição</label>
+            <Textarea
+              placeholder="Descrição"
+              className="uppercase min-h-28"
+              disabled={readOnly}
+              value={form.descricao}
+              onChange={(e) => setForm({ ...form, descricao: e.target.value.toUpperCase() })}
+            />
+          </div>
         </div>
 
         <DialogFooter>

@@ -115,7 +115,6 @@ export default function Categorias() {
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
-                  <TableHead>Código</TableHead>
                   <TableHead>Categoria</TableHead>
                   <TableHead>Descrição</TableHead>
                   <TableHead>Status</TableHead>
@@ -126,7 +125,6 @@ export default function Categorias() {
                 {categorias.map((c) => (
                   <TableRow key={c.id}>
                     <TableCell>{c.id}</TableCell>
-                    <TableCell>{c.codigo}</TableCell>
                     <TableCell className="uppercase">{c.nome}</TableCell>
                     <TableCell className="uppercase">{c.descricao || "-"}</TableCell>
                     <TableCell>{c.ativo ? "Habilitado" : "Desabilitado"}</TableCell>

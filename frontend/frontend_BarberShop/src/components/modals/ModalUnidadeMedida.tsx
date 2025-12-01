@@ -35,12 +35,13 @@ export function ModalUnidadeMedida({
   unidade,
   readOnly = false,
 }: ModalUnidadeMedidaProps) {
-  const [codigo, setCodigo] = useState<number | "">("")
   const [formData, setFormData] = useState<UpdateUnidadeMedidaDto>({
     nome: "",
     descricao: "",
     ativo: true,
   })
+
+  const [errors, setErrors] = useState<{ nome?: string }>({})
 
   const formatDate = (s?: string) => {
     if (!s) return ""
@@ -51,24 +52,31 @@ export function ModalUnidadeMedida({
 
   useEffect(() => {
     if (unidade) {
-      setCodigo(unidade.codigo)
       setFormData({
         nome: unidade.nome,
         descricao: unidade.descricao ?? "",
         ativo: unidade.ativo,
       })
     } else {
-      setCodigo("")
       setFormData({ nome: "", descricao: "", ativo: true })
     }
-  }, [unidade])
+    setErrors({})
+  }, [unidade, isOpen])
 
   async function handleSubmit() {
-    // validação simples no mesmo espírito do seu ModalPaises
-    if (!formData.nome?.trim() || (unidade?.id ? false : codigo === "")) {
-      toast.error("Preencha os campos obrigatórios")
+    const newErrors: { nome?: string } = {}
+
+    if (!formData.nome.trim()) {
+      newErrors.nome = "Nome da unidade de medida é obrigatório"
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      toast.error("Preencha todos os campos obrigatórios")
       return
     }
+
+    setErrors({})
 
     try {
       if (unidade?.id) {
@@ -80,10 +88,9 @@ export function ModalUnidadeMedida({
         await atualizarUnidadeMedida(unidade.id, payload)
       } else {
         const payload: CreateUnidadeMedidaDto = {
-          codigo: Number(codigo),
           nome: formData.nome,
           descricao: formData.descricao,
-          ativo: true, // novo registro inicia habilitado
+          ativo: true,
         }
         await criarUnidadeMedida(payload)
       }
@@ -121,42 +128,39 @@ export function ModalUnidadeMedida({
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="space-y-1">
+            <label className="font-medium">Unidade de Medida <span className="text-red-500">*</span></label>
             <Input
-              type="number"
-              placeholder="Código*"
-              disabled={readOnly || Boolean(unidade?.id)} // não permite alterar código em edição
-              value={codigo}
-              onChange={(e) =>
-                setCodigo(e.target.value === "" ? "" : Number(e.target.value))
-              }
-            />
-            <Input
-              placeholder="Unidade de Medida*"
+              placeholder="Unidade de Medida"
               disabled={readOnly}
               className="uppercase"
               value={formData.nome}
-              onChange={(e) =>
+              onChange={(e) => {
                 setFormData({
                   ...formData,
                   nome: e.target.value.toUpperCase(),
                 })
+                setErrors((err) => ({ ...err, nome: undefined }))
+              }}
+            />
+            {errors.nome && <span className="text-xs text-red-500">{errors.nome}</span>}
+          </div>
+
+          <div className="space-y-1">
+            <label className="font-medium">Descrição</label>
+            <Textarea
+              placeholder="Descrição"
+              disabled={readOnly}
+              className="uppercase min-h-28"
+              value={formData.descricao}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  descricao: e.target.value.toUpperCase(),
+                })
               }
             />
           </div>
-
-          <Textarea
-            placeholder="Descrição"
-            disabled={readOnly}
-            className="uppercase min-h-28"
-            value={formData.descricao}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                descricao: e.target.value.toUpperCase(),
-              })
-            }
-          />
         </div>
 
         <DialogFooter>

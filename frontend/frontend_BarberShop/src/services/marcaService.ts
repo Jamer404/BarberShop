@@ -3,7 +3,6 @@ import axios from "axios"
 const API_URL = "https://localhost:7145/api/Marca"
 
 export interface CreateMarcaDto {
-  codigo: number
   nome: string
   descricao?: string
   ativo: boolean
@@ -17,7 +16,6 @@ export interface UpdateMarcaDto {
 
 export interface Marca {
   id: number
-  codigo: number
   nome: string
   descricao?: string
   ativo: boolean

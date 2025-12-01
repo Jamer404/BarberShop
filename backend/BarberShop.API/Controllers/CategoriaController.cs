@@ -41,7 +41,6 @@ namespace BarberShop.API.Controllers
         {
             var categoria = new Categoria
             {
-                Codigo = dto.Codigo,
                 Nome = dto.Nome.ToUpper(),
                 Descricao = dto.Descricao?.ToUpper(),
                 Ativo = dto.Ativo

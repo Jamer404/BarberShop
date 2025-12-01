@@ -29,6 +29,7 @@ import { Categoria, getCategorias } from "@/services/categoriaService"
 import { ModalUnidadeMedida } from "@/components/modals/ModalUnidadeMedida"
 import { ModalMarca } from "@/components/modals/ModalMarca"
 import { ModalCategoria } from "@/components/modals/ModalCategoria"
+import { toast } from "react-toastify"
 
 type Props = {
   isOpen: boolean
@@ -83,6 +84,13 @@ export function ModalProduto({
     ativo: true,
   })
 
+  const [errors, setErrors] = useState<{ 
+    descricao?: string
+    unidadeId?: string
+    marcaId?: string
+    categoriaId?: string
+  }>({})
+
   const formatDate = (s?: string) => {
     if (!s) return ""
     const d = new Date(s)
@@ -135,6 +143,7 @@ export function ModalProduto({
         ativo: true,
       })
     }
+    setErrors({})
   }, [produto, isOpen])
 
   // reabrir selectores após fechar os modais auxiliares
@@ -185,6 +194,34 @@ export function ModalProduto({
   ) => col.find((x) => x.id === id)?.nome.toUpperCase() || "SELECIONE..."
 
   async function handleSubmit() {
+    const newErrors: { 
+      descricao?: string
+      unidadeId?: string
+      marcaId?: string
+      categoriaId?: string
+    } = {}
+
+    if (!form.descricao.trim()) {
+      newErrors.descricao = "Descrição do produto é obrigatória"
+    }
+    if (!form.unidadeId) {
+      newErrors.unidadeId = "Unidade de medida é obrigatória"
+    }
+    if (!form.marcaId) {
+      newErrors.marcaId = "Marca é obrigatória"
+    }
+    if (!form.categoriaId) {
+      newErrors.categoriaId = "Categoria é obrigatória"
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      toast.error("Preencha todos os campos obrigatórios")
+      return
+    }
+
+    setErrors({})
+
     const payload: CreateProdutoDto | UpdateProdutoDto = {
       ...form,
       descricao: form.descricao.toUpperCase(),
@@ -279,23 +316,26 @@ export function ModalProduto({
 
           <div className="grid grid-cols-4 gap-4 text-sm">
             <div className="col-span-4 space-y-1.5">
-              <Label className="uppercase">Descrição do Produto*</Label>
+              <Label className="uppercase font-medium">Descrição do Produto <span className="text-red-500">*</span></Label>
               <Input
                 className="uppercase"
                 placeholder="Ex.: TECLADO MECÂNICO RGB"
                 disabled={readOnly}
                 value={form.descricao}
-                onChange={(e) =>
+                onChange={(e) => {
                   setForm({ ...form, descricao: e.target.value })
-                }
+                  setErrors((err) => ({ ...err, descricao: undefined }))
+                }}
               />
+              {errors.descricao && <span className="text-xs text-red-500">{errors.descricao}</span>}
             </div>
 
             <div className="col-span-2 space-y-1.5">
               <div className="flex items-center justify-between">
-                <Label className="uppercase">Unidade de Medida</Label>
+                <Label className="uppercase font-medium">Unidade de Medida <span className="text-red-500">*</span></Label>
                 {!readOnly && (
                   <Button
+                    type="button"
                     size="sm"
                     variant="secondary"
                     onClick={() => {
@@ -312,6 +352,7 @@ export function ModalProduto({
               <Dialog open={unSelOpen} onOpenChange={setUnSelOpen}>
                 <DialogTrigger asChild>
                   <Button
+                    type="button"
                     variant="outline"
                     disabled={readOnly}
                     className="w-full justify-between uppercase font-normal"
@@ -329,6 +370,7 @@ export function ModalProduto({
                       onChange={(e) => setSearchUn(e.target.value)}
                     />
                     <Button
+                      type="button"
                       onClick={() => {
                         setUnSelOpen(false)
                         setModalUnOpen(true)
@@ -341,12 +383,14 @@ export function ModalProduto({
                   <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                     {unidadesFiltradas.map((u) => (
                       <Button
+                        type="button"
                         key={u.id}
                         variant={form.unidadeId === u.id ? "default" : "outline"}
                         className="w-full justify-start uppercase font-normal"
                         onClick={() => {
                           setForm({ ...form, unidadeId: u.id })
                           setUnSelOpen(false)
+                          setErrors((err) => ({ ...err, unidadeId: undefined }))
                         }}
                       >
                         {u.nome.toUpperCase()}
@@ -355,14 +399,16 @@ export function ModalProduto({
                   </div>
                 </DialogContent>
               </Dialog>
+              {errors.unidadeId && <span className="text-xs text-red-500">{errors.unidadeId}</span>}
             </div>
 
             {/* Marca */}
             <div className="col-span-2 space-y-1.5">
               <div className="flex items-center justify-between">
-                <Label className="uppercase">Marca</Label>
+                <Label className="uppercase font-medium">Marca <span className="text-red-500">*</span></Label>
                 {!readOnly && (
                   <Button
+                    type="button"
                     size="sm"
                     variant="secondary"
                     onClick={() => {
@@ -379,6 +425,7 @@ export function ModalProduto({
               <Dialog open={mcSelOpen} onOpenChange={setMcSelOpen}>
                 <DialogTrigger asChild>
                   <Button
+                    type="button"
                     variant="outline"
                     disabled={readOnly}
                     className="w-full justify-between uppercase font-normal"
@@ -396,6 +443,7 @@ export function ModalProduto({
                       onChange={(e) => setSearchMc(e.target.value)}
                     />
                     <Button
+                      type="button"
                       onClick={() => {
                         setMcSelOpen(false)
                         setModalMcOpen(true)
@@ -408,12 +456,14 @@ export function ModalProduto({
                   <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                     {marcasFiltradas.map((m) => (
                       <Button
+                        type="button"
                         key={m.id}
                         variant={form.marcaId === m.id ? "default" : "outline"}
                         className="w-full justify-start uppercase font-normal"
                         onClick={() => {
                           setForm({ ...form, marcaId: m.id })
                           setMcSelOpen(false)
+                          setErrors((err) => ({ ...err, marcaId: undefined }))
                         }}
                       >
                         {m.nome.toUpperCase()}
@@ -422,13 +472,15 @@ export function ModalProduto({
                   </div>
                 </DialogContent>
               </Dialog>
+              {errors.marcaId && <span className="text-xs text-red-500">{errors.marcaId}</span>}
             </div>
 
             <div className="col-span-4 space-y-1.5">
               <div className="flex items-center justify-between">
-                <Label className="uppercase">Categoria</Label>
+                <Label className="uppercase font-medium">Categoria <span className="text-red-500">*</span></Label>
                 {!readOnly && (
                   <Button
+                    type="button"
                     size="sm"
                     variant="secondary"
                     onClick={() => {
@@ -445,6 +497,7 @@ export function ModalProduto({
               <Dialog open={ctSelOpen} onOpenChange={setCtSelOpen}>
                 <DialogTrigger asChild>
                   <Button
+                    type="button"
                     variant="outline"
                     disabled={readOnly}
                     className="w-full justify-between uppercase font-normal"
@@ -462,6 +515,7 @@ export function ModalProduto({
                       onChange={(e) => setSearchCt(e.target.value)}
                     />
                     <Button
+                      type="button"
                       onClick={() => {
                         setCtSelOpen(false)
                         setModalCtOpen(true)
@@ -474,6 +528,7 @@ export function ModalProduto({
                   <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                     {categoriasFiltradas.map((c) => (
                       <Button
+                        type="button"
                         key={c.id}
                         variant={
                           form.categoriaId === c.id ? "default" : "outline"
@@ -482,6 +537,7 @@ export function ModalProduto({
                         onClick={() => {
                           setForm({ ...form, categoriaId: c.id })
                           setCtSelOpen(false)
+                          setErrors((err) => ({ ...err, categoriaId: undefined }))
                         }}
                       >
                         {c.nome.toUpperCase()}
@@ -490,6 +546,7 @@ export function ModalProduto({
                   </div>
                 </DialogContent>
               </Dialog>
+              {errors.categoriaId && <span className="text-xs text-red-500">{errors.categoriaId}</span>}
             </div>
 
             <div className="col-span-2 space-y-1.5">
@@ -525,7 +582,7 @@ export function ModalProduto({
                 <Input
                   type="number"
                   step="0.01"
-                  className="pl-8"
+                  className="pl-8 text-right"
                   disabled={readOnly}
                   value={form.custoCompra}
                   onChange={(e) =>
@@ -547,7 +604,7 @@ export function ModalProduto({
                 <Input
                   type="number"
                   step="0.01"
-                  className="pl-8"
+                  className="pl-8 text-right"
                   disabled={readOnly}
                   value={form.precoVenda}
                   onChange={(e) =>
@@ -566,6 +623,7 @@ export function ModalProduto({
                 <Input
                   type="number"
                   step="0.01"
+                  className="text-right pr-8"
                   disabled
                   value={
                     form.custoCompra > 0
@@ -584,6 +642,7 @@ export function ModalProduto({
               <Input
                 type="number"
                 step="0.0001"
+                className="text-right"
                 disabled={readOnly}
                 value={form.estoque}
                 onChange={(e) =>
@@ -597,6 +656,7 @@ export function ModalProduto({
               <Input
                 type="number"
                 step="0.0001"
+                className="text-right"
                 disabled={readOnly}
                 value={form.estoqueMinimo}
                 onChange={(e) =>

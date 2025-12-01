@@ -36,7 +36,6 @@ namespace BarberShop.API.Controllers
         {
             var unidade = new UnidadeMedida
             {
-                Codigo = dto.Codigo,
                 Nome = dto.Nome.ToUpper(),
                 Descricao = dto.Descricao?.ToUpper(),
                 Ativo = dto.Ativo
