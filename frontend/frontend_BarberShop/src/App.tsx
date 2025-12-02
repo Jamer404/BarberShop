@@ -11,6 +11,9 @@ import Fornecedores from "@/features/fornecedores/Fornecedores"
 import Clientes from "@/features/clientes/Clientes"
 import Produtos from "@/features/produtos/Produtos"
 import NotaCompra from "@/features/notaCompra/NotaCompra";
+import NotasVenda from "@/features/notasVenda/NotasVenda";
+import ContasPagar from "@/features/contasPagar/ContasPagar"
+import ContasReceber from "@/features/contasReceber/ContasReceber"
 import Marcas from "@/features/marcas/Marcas"
 import UnidadesMedidas from "./features/unidadesMedidas/UnidadesMedidas"
 import Categorias from "./features/categorias/Categorias"
@@ -40,6 +43,9 @@ export default function App() {
           <Route path="/clientes" element={<Clientes />} />
           <Route path="/produtos" element={<Produtos />} />
           <Route path="/nota-compra" element={<NotaCompra />} />
+          <Route path="/notas-venda" element={<NotasVenda />} />
+          <Route path="/contas-pagar" element={<ContasPagar />} />
+          <Route path="/contas-receber" element={<ContasReceber />} />
           <Route path="/unidades-medida" element={<UnidadesMedidas />} />
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/veiculos" element={<Veiculos />} />

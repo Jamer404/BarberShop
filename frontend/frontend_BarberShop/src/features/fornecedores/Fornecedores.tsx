@@ -7,7 +7,6 @@ import { Plus, Edit, Trash, Eye } from "lucide-react";
 
 import { getFornecedores, deletarFornecedor, Fornecedor } from "@/services/fornecedorService";
 import { getCidades, Cidade } from "@/services/cidadeService";
-import { getFormasPagamento, FormaPagamento } from "@/services/formaPagamentoService";
 import { getCondicoesPagamento, CondicaoPagamento } from "@/services/condicaoPagamentoService";
 
 import { ModalFornecedores } from "@/components/modals/ModalFornecedores";
@@ -16,7 +15,6 @@ import { ModalConfirm } from "@/components/modals/ModalConfirm";
 export default function Fornecedores() {
   const [itens, setItens] = useState<Fornecedor[]>([]);
   const [cidades, setCidades] = useState<Cidade[]>([]);
-  const [formas, setFormas] = useState<FormaPagamento[]>([]);
   const [condicoes, setCondicoes] = useState<CondicaoPagamento[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -32,12 +30,11 @@ export default function Fornecedores() {
   async function fetchAll() {
     setLoading(true);
     try {
-      const [fs, cs, fps, cps] = await Promise.all([
-        getFornecedores(), getCidades(), getFormasPagamento(), getCondicoesPagamento()
+      const [fs, cs, cps] = await Promise.all([
+        getFornecedores(), getCidades(), getCondicoesPagamento()
       ]);
       setItens(fs);
       setCidades(cs);
-      setFormas(fps);
       setCondicoes(cps);
     } finally { setLoading(false); }
   }
@@ -54,7 +51,6 @@ export default function Fornecedores() {
   }
 
   const cidadeNome = (id: number) => cidades.find(c => c.id === id)?.nome || "-";
-  const formaNome = (id: number) => formas.find(f => f.id === id)?.descricao || "-";
   const condNome = (id: number) => condicoes.find(c => c.id === id)?.descricao || "-";
 
   return (
@@ -101,7 +97,6 @@ export default function Fornecedores() {
                   <TableHead>Tipo</TableHead>
                   <TableHead>Cidade</TableHead>
                   <TableHead>Condição</TableHead>
-                  <TableHead>Forma</TableHead>
                   <TableHead className="text-center">Ações</TableHead>
                 </TableRow>
               </TableHeader>

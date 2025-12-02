@@ -13,14 +13,14 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { ChevronDown } from "lucide-react"
 import {
-  NotaCompra,
-  CreateNotaCompraDto,
-  UpdateNotaCompraDto,
-  criarNotaCompra,
-  atualizarNotaCompra,
-  getNotaCompraItens,
-} from "@/services/notaCompraService"
-import { Fornecedor, getFornecedores } from "@/services/fornecedorService"
+  NotaVenda,
+  CreateNotaVendaDto,
+  UpdateNotaVendaDto,
+  criarNotaVenda,
+  atualizarNotaVenda,
+  getNotaVendaProdutos,
+} from "@/services/notaVendaService"
+import { Cliente, getClientes } from "@/services/clienteService"
 import {
   CondicaoPagamento,
   getCondicoesPagamento,
@@ -34,8 +34,7 @@ import {
 import { Produto, getProdutos } from "@/services/produtoService"
 import { Veiculo, getVeiculos } from "@/services/veiculoService"
 import { UnidadeMedida, getUnidadesMedida } from "@/services/unidadeMedidaService"
-import { criarContaPagar, CreateContaPagarDto } from "@/services/contaPagarService"
-import { ModalFornecedores } from "./ModalFornecedores"
+import { ModalClientes } from "./ModalClientes"
 import { ModalCondicaoPagamento } from "./ModalCondicaoPagamento"
 import { ModalTransportadora } from "./ModalTransportadora"
 import { ModalProduto } from "./ModalProduto"
@@ -45,27 +44,27 @@ import { toast } from "react-toastify"
 type Props = {
   isOpen: boolean
   onOpenChange: (open: boolean) => void
-  nota?: NotaCompra | null
+  nota?: NotaVenda | null
   onSave: () => void
   readOnly?: boolean
 }
 
-export function ModalNotaCompra({
+export function ModalNotaVenda({
   isOpen,
   onOpenChange,
   nota,
   onSave,
   readOnly = false,
 }: Props) {
-  const [fornecedores, setFornecedores] = useState<Fornecedor[]>([])
+  const [clientes, setClientes] = useState<Cliente[]>([])
   const [condicoes, setCondicoes] = useState<CondicaoPagamento[]>([])
   const [transportadoras, setTransportadoras] = useState<Transportadora[]>([])
   const [produtos, setProdutos] = useState<Produto[]>([])
   const [veiculos, setVeiculos] = useState<Veiculo[]>([])
   const [unidades, setUnidades] = useState<UnidadeMedida[]>([])
 
-  const [form, setForm] = useState<CreateNotaCompraDto>({
-    fornecedorId: 0,
+  const [form, setForm] = useState<CreateNotaVendaDto>({
+    clienteId: 0,
     modelo: "",
     serie: "",
     numero: "",
@@ -88,10 +87,10 @@ export function ModalNotaCompra({
   const [veiculoId, setVeiculoId] = useState<number | null>(null)
 
   // Seletores
-  const [fornecedorSelectorOpen, setFornecedorSelectorOpen] = useState(false)
-  const [modalFornecedorOpen, setModalFornecedorOpen] = useState(false)
-  const [reopenFornecedor, setReopenFornecedor] = useState(false)
-  const [searchFornecedor, setSearchFornecedor] = useState("")
+  const [clienteSelectorOpen, setClienteSelectorOpen] = useState(false)
+  const [modalClienteOpen, setModalClienteOpen] = useState(false)
+  const [reopenCliente, setReopenCliente] = useState(false)
+  const [searchCliente, setSearchCliente] = useState("")
 
   const [condSelectorOpen, setCondSelectorOpen] = useState(false)
   const [modalCondOpen, setModalCondOpen] = useState(false)
@@ -138,14 +137,14 @@ export function ModalNotaCompra({
   useEffect(() => {
     if (!isOpen) return
     Promise.allSettled([
-      getFornecedores(),
+      getClientes(),
       getCondicoesPagamento(),
       getTransportadoras(),
       getProdutos(),
       getVeiculos(),
       getUnidadesMedida(),
     ]).then((r) => {
-      if (r[0].status === "fulfilled") setFornecedores(r[0].value)
+      if (r[0].status === "fulfilled") setClientes(r[0].value)
       if (r[1].status === "fulfilled") setCondicoes(r[1].value)
       if (r[2].status === "fulfilled") setTransportadoras(r[2].value)
       if (r[3].status === "fulfilled") setProdutos(r[3].value)
@@ -157,7 +156,7 @@ export function ModalNotaCompra({
   useEffect(() => {
     if (nota) {
       setForm({
-        fornecedorId: nota.fornecedorId,
+        clienteId: nota.clienteId,
         modelo: nota.modelo,
         serie: nota.serie,
         numero: nota.numero,
@@ -177,7 +176,7 @@ export function ModalNotaCompra({
       })
     } else {
       setForm({
-        fornecedorId: 0,
+        clienteId: 0,
         modelo: "55",
         serie: "1",
         numero: "",
@@ -209,7 +208,7 @@ export function ModalNotaCompra({
   // Carregar itens da nota quando abrir para visualização
   useEffect(() => {
     if (nota?.id && isOpen) {
-      getNotaCompraItens(nota.id)
+      getNotaVendaItens(nota.id)
         .then(itens => {
           const produtosCarregados = itens.map(item => ({
             produtoId: item.produtoId,
@@ -227,11 +226,11 @@ export function ModalNotaCompra({
   }, [nota?.id, isOpen])
 
   useEffect(() => {
-    if (!modalFornecedorOpen && reopenFornecedor) {
-      setReopenFornecedor(false)
-      setFornecedorSelectorOpen(true)
+    if (!modalClienteOpen && reopenCliente) {
+      setReopenCliente(false)
+      setClienteSelectorOpen(true)
     }
-  }, [modalFornecedorOpen, reopenFornecedor])
+  }, [modalClienteOpen, reopenCliente])
 
   useEffect(() => {
     if (!modalCondOpen && reopenCond) {
@@ -263,8 +262,8 @@ export function ModalNotaCompra({
 
   useEffect(() => {
     if (produtoSelecionado) {
-      const custoCompra = getProdutoCustoCompra(produtoSelecionado)
-      setItemPreco(custoCompra)
+      const precoVenda = getProdutoPrecoVenda(produtoSelecionado)
+      setItemPreco(precoVenda)
     }
   }, [produtoSelecionado, produtos])
 
@@ -331,12 +330,12 @@ export function ModalNotaCompra({
     return d.toLocaleString("pt-BR")
   }
 
-  const getFornecedorNome = (id?: number | null, includeId = false) => {
-    const forn = fornecedores.find((f) => f.id === id)
-    if (!forn) return "SELECIONE..."
+  const getClienteNome = (id?: number | null, includeId = false) => {
+    const cli = clientes.find((c) => c.id === id)
+    if (!cli) return "SELECIONE..."
     return includeId
-      ? `${forn.id} - ${forn.nomeRazaoSocial.toUpperCase()}`
-      : forn.nomeRazaoSocial.toUpperCase()
+      ? `${cli.id} - ${cli.nomeRazaoSocial.toUpperCase()}`
+      : cli.nomeRazaoSocial.toUpperCase()
   }
 
   const getCondNome = (id?: number | null, includeId = false) => {
@@ -370,9 +369,9 @@ export function ModalNotaCompra({
     return unidade?.nome?.toUpperCase() || ""
   }
 
-  const getProdutoCustoCompra = (id?: number | null) => {
+  const getProdutoPrecoVenda = (id?: number | null) => {
     const prod = produtos.find((p) => p.id === id)
-    return prod?.custoCompra || 0
+    return prod?.precoVenda || 0
   }
 
   const getVeiculoPlaca = (id?: number | null, includeId = false) => {
@@ -383,12 +382,12 @@ export function ModalNotaCompra({
       : veic.placa.toUpperCase()
   }
 
-  const fornecedoresFiltrados = useMemo(() => {
-    const t = searchFornecedor.toUpperCase()
-    return fornecedores
-      .filter((f) => getFornecedorNome(f.id).includes(t))
-      .sort((a, b) => getFornecedorNome(a.id).localeCompare(getFornecedorNome(b.id)))
-  }, [fornecedores, searchFornecedor])
+  const clientesFiltrados = useMemo(() => {
+    const t = searchCliente.toUpperCase()
+    return clientes
+      .filter((c) => getClienteNome(c.id).includes(t))
+      .sort((a, b) => getClienteNome(a.id).localeCompare(getClienteNome(b.id)))
+  }, [clientes, searchCliente])
 
   const condFiltradas = useMemo(() => {
     const t = searchCond.toUpperCase()
@@ -438,8 +437,8 @@ export function ModalNotaCompra({
 
   const adicionarProduto = () => {
     // Validar campos obrigatórios superiores
-    if (!form.modelo || !form.serie || !form.numero || !form.fornecedorId || form.fornecedorId === 0 || !form.dataEmissao) {
-      toast.error('Preencha todos os campos obrigatórios (Modelo, Série, Número, Fornecedor e Data de Emissão) antes de adicionar produtos')
+    if (!form.modelo || !form.serie || !form.numero || !form.clienteId || form.clienteId === 0 || !form.dataEmissao) {
+      toast.error('Preencha todos os campos obrigatórios (Modelo, Série, Número, Cliente e Data de Emissão) antes de adicionar produtos')
       return
     }
 
@@ -478,8 +477,8 @@ export function ModalNotaCompra({
   function validateForm(): boolean {
     const newErrors: { [key: string]: string } = {}
 
-    if (!form.fornecedorId || form.fornecedorId === 0) {
-      newErrors.fornecedorId = "Fornecedor é obrigatório"
+    if (!form.clienteId || form.clienteId === 0) {
+      newErrors.clienteId = "Cliente é obrigatório"
     }
 
     if (produtosAdicionados.length === 0) {
@@ -539,7 +538,7 @@ export function ModalNotaCompra({
         }
       })
 
-      const payload: CreateNotaCompraDto | UpdateNotaCompraDto = {
+      const payload: CreateNotaVendaDto | UpdateNotaVendaDto = {
         ...form,
         modelo: form.modelo.toUpperCase(),
         serie: form.serie.toUpperCase(),
@@ -549,46 +548,17 @@ export function ModalNotaCompra({
       }
 
       if (nota?.id) {
-        await atualizarNotaCompra(nota.id, payload as UpdateNotaCompraDto)
-        toast.success("Nota de compra atualizada com sucesso")
+        await atualizarNotaVenda(nota.id, payload as UpdateNotaVendaDto)
+        toast.success("Nota de venda atualizada com sucesso")
       } else {
-        const notaId = await criarNotaCompra(payload as CreateNotaCompraDto)
-        toast.success("Nota de compra cadastrada com sucesso")
-
-        if (parcelasGeradas.length > 0) {
-          try {
-            for (const parcela of parcelasGeradas) {
-              const contaPagar: CreateContaPagarDto = {
-                notaCompraId: notaId,
-                fornecedorId: form.fornecedorId,
-                modelo: form.modelo.toUpperCase(),
-                serie: form.serie.toUpperCase(),
-                numero: form.numero.toUpperCase(),
-                numParcela: parcela.numero,
-                valorParcela: parcela.valor,
-                dataEmissao: form.dataEmissao,
-                dataVencimento: parcela.dataVencimento,
-                juros: 0,
-                multa: 0,
-                desconto: 0,
-                status: "ABERTO",
-                formaPagamentoId: parcela.formaPagamentoId,
-                observacao: null,
-              }
-              await criarContaPagar(contaPagar)
-            }
-            toast.success(`${parcelasGeradas.length} conta(s) a pagar gerada(s) com sucesso`)
-          } catch (error) {
-            console.error('Erro ao gerar contas a pagar:', error)
-            toast.warning("Nota criada, mas houve erro ao gerar contas a pagar")
-          }
-        }
+        await criarNotaVenda(payload as CreateNotaVendaDto)
+        toast.success("Nota de venda cadastrada com sucesso")
       }
 
       onOpenChange(false)
       await onSave()
     } catch {
-      toast.error("Erro ao salvar nota de compra")
+      toast.error("Erro ao salvar nota de venda")
     }
   }
 
@@ -601,28 +571,28 @@ export function ModalNotaCompra({
     }
 
     try {
-      const payload: UpdateNotaCompraDto = {
+      const payload: UpdateNotaVendaDto = {
         ...form,
         dataCancelamento: new Date().toISOString().slice(0, 10)
       }
 
-      await atualizarNotaCompra(nota.id, payload)
-      toast.success("Nota de compra cancelada com sucesso")
+      await atualizarNotaVenda(nota.id, payload)
+      toast.success("Nota de venda cancelada com sucesso")
       onOpenChange(false)
       await onSave()
     } catch {
-      toast.error("Erro ao cancelar nota de compra")
+      toast.error("Erro ao cancelar nota de venda")
     }
   }
 
   return (
     <>
-      <ModalFornecedores
-        isOpen={modalFornecedorOpen}
-        onOpenChange={setModalFornecedorOpen}
-        carregarFornecedores={async () => {
-          setFornecedores(await getFornecedores())
-          setReopenFornecedor(true)
+      <ModalClientes
+        isOpen={modalClienteOpen}
+        onOpenChange={setModalClienteOpen}
+        carregarClientes={async () => {
+          setClientes(await getClientes())
+          setReopenCliente(true)
         }}
       />
       <ModalCondicaoPagamento
@@ -647,10 +617,10 @@ export function ModalNotaCompra({
           <DialogHeader>
             <DialogTitle>
               {readOnly
-                ? "Visualizar Nota de Compra"
+                ? "Visualizar Nota de Venda"
                 : nota?.id
-                  ? "Editar Nota de Compra"
-                  : "Nova Nota de Compra"}
+                  ? "Editar Nota de Venda"
+                  : "Nova Nota de Venda"}
             </DialogTitle>
           </DialogHeader>
 
@@ -713,21 +683,21 @@ export function ModalNotaCompra({
               </div>
 
               <div className="col-span-1">
-                <Label htmlFor="codFornecedor">Código<span className="text-red-500">*</span></Label>
+                <Label htmlFor="codCliente">Código<span className="text-red-500">*</span></Label>
                 <Input
-                  id="codFornecedor"
+                  id="codCliente"
                   disabled={readOnly}
-                  value={form.fornecedorId || ""}
+                  value={form.clienteId || ""}
                   className="text-center"
                   readOnly
                 />
               </div>
 
               <div className="col-span-3">
-                <Label htmlFor="fornecedor">Fornecedor<span className="text-red-500">*</span></Label>
+                <Label htmlFor="cliente">Cliente<span className="text-red-500">*</span></Label>
                 <Dialog
-                  open={fornecedorSelectorOpen}
-                  onOpenChange={setFornecedorSelectorOpen}
+                  open={clienteSelectorOpen}
+                  onOpenChange={setClienteSelectorOpen}
                 >
                   <DialogTrigger asChild>
                     <Button
@@ -735,64 +705,64 @@ export function ModalNotaCompra({
                       disabled={readOnly || produtosAdicionados.length > 0}
                       className="w-full justify-start uppercase font-normal"
                     >
-                      {getFornecedorNome(form.fornecedorId) || "Selecione..."}
+                      {getClienteNome(form.clienteId) || "Selecione..."}
                     </Button>
                   </DialogTrigger>
                     <DialogContent className="max-w-5xl">
                       <DialogHeader>
-                        <DialogTitle>Selecionar Fornecedor</DialogTitle>
+                        <DialogTitle>Selecionar Cliente</DialogTitle>
                       </DialogHeader>
                       <div className="flex gap-2 items-center">
                         <Input
-                          placeholder="Buscar fornecedor..."
+                          placeholder="Buscar cliente..."
                           className="w-full"
-                          value={searchFornecedor}
-                          onChange={(e) => setSearchFornecedor(e.target.value)}
+                          value={searchCliente}
+                          onChange={(e) => setSearchCliente(e.target.value)}
                         />
                       </div>
                       <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
-                        {fornecedoresFiltrados.map((f) => (
+                        {clientesFiltrados.map((c) => (
                           <Button
-                            key={f.id}
+                            key={c.id}
                             type="button"
                             variant={
-                              form.fornecedorId === f.id ? "default" : "outline"
+                              form.clienteId === c.id ? "default" : "outline"
                             }
                             className="w-full justify-start uppercase font-normal"
                             onClick={() => {
-                              setForm({ ...form, fornecedorId: f.id })
-                              setFornecedorSelectorOpen(false)
-                              if (errors.fornecedorId) {
-                                setErrors({ ...errors, fornecedorId: "" })
+                              setForm({ ...form, clienteId: c.id })
+                              setClienteSelectorOpen(false)
+                              if (errors.clienteId) {
+                                setErrors({ ...errors, clienteId: "" })
                               }
                             }}
                           >
-                            {getFornecedorNome(f.id, true)}
+                            {getClienteNome(c.id, true)}
                           </Button>
                         ))}
                       </div>
                       <DialogFooter className="gap-2">
                         <Button
                           onClick={() => {
-                            setFornecedorSelectorOpen(false)
-                            setModalFornecedorOpen(true)
-                            setReopenFornecedor(true)
+                            setClienteSelectorOpen(false)
+                            setModalClienteOpen(true)
+                            setReopenCliente(true)
                           }}
                         >
-                          Novo Fornecedor
+                          Novo Cliente
                         </Button>
                         <Button
                           variant="outline"
-                          onClick={() => setFornecedorSelectorOpen(false)}
+                          onClick={() => setClienteSelectorOpen(false)}
                         >
                           Voltar
                         </Button>
                       </DialogFooter>
                     </DialogContent>
                   </Dialog>
-                  {errors.fornecedorId && (
+                  {errors.clienteId && (
                     <span className="text-xs text-red-500">
-                      {errors.fornecedorId}
+                      {errors.clienteId}
                     </span>
                   )}
               </div>
@@ -1423,7 +1393,7 @@ export function ModalNotaCompra({
               <Label htmlFor="observacao">Observação</Label>
               <Textarea
                 id="observacao"
-                placeholder="Digite observações sobre a nota de compra..."
+                placeholder="Digite observações sobre a nota de venda..."
                 className="uppercase min-h-16"
                 disabled={readOnly}
                 value={form.observacao || ""}
@@ -1462,12 +1432,12 @@ export function ModalNotaCompra({
         </DialogContent>
       </Dialog>
 
-      <ModalFornecedores
-        isOpen={modalFornecedorOpen}
-        onOpenChange={setModalFornecedorOpen}
-        carregarFornecedores={async () => {
-          const data = await getFornecedores()
-          setFornecedores(data)
+      <ModalClientes
+        isOpen={modalClienteOpen}
+        onOpenChange={setModalClienteOpen}
+        carregarClientes={async () => {
+          const data = await getClientes()
+          setClientes(data)
         }}
       />
 

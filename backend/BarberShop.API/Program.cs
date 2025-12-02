@@ -42,6 +42,10 @@ builder.Services.AddScoped<CargoRepository>();
 builder.Services.AddScoped<VeiculoRepository>();
 builder.Services.AddScoped<TransportadoraRepository>();
 builder.Services.AddScoped<NotaCompraItemRepository>();
+builder.Services.AddScoped<ContaPagarRepository>();
+builder.Services.AddScoped<VendaProdutoRepository>();
+builder.Services.AddScoped<VendaRepository>();
+
 
 
 var app = builder.Build();

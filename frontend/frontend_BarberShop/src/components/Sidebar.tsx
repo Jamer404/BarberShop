@@ -66,6 +66,9 @@ const navItems: NavItem[] = [
     icon: <CreditCard className="h-5 w-5" />,
     submenu: [
       { title: "Nota de Compra", href: "/nota-compra", icon: <CreditCard className="h-4 w-4" /> },
+      { title: "Nota de Venda", href: "/notas-venda", icon: <CreditCard className="h-4 w-4" /> },
+      { title: "Contas a Pagar", href: "/contas-pagar", icon: <Wallet className="h-4 w-4" /> },
+      { title: "Contas a Receber", href: "/contas-receber", icon: <Wallet className="h-4 w-4" /> },
       { title: "Condições de Pagamento", href: "/condicoes-pagamento", icon: <CreditCard className="h-4 w-4" /> },
       { title: "Formas de Pagamento", href: "/formas-pagamento", icon: <Wallet className="h-4 w-4" /> },
     ],

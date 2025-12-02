@@ -873,6 +873,131 @@
         }
       }
     },
+    "/api/ContaPagar": {
+      "get": {
+        "tags": [
+          "ContaPagar"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ContaPagar"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateContaPagarDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateContaPagarDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateContaPagarDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ContaPagar/{id}": {
+      "get": {
+        "tags": [
+          "ContaPagar"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ContaPagar"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateContaPagarDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateContaPagarDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateContaPagarDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ContaPagar"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Estado": {
       "get": {
         "tags": [
@@ -2122,6 +2247,131 @@
           }
         }
       }
+    },
+    "/api/Venda": {
+      "get": {
+        "tags": [
+          "Venda"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Venda"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVendaDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVendaDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVendaDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Venda/{id}": {
+      "get": {
+        "tags": [
+          "Venda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Venda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVendaDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVendaDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVendaDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Venda"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2451,6 +2701,74 @@
         },
         "additionalProperties": false
       },
+      "CreateContaPagarDto": {
+        "type": "object",
+        "properties": {
+          "notaCompraId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "fornecedorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "modelo": {
+            "type": "string",
+            "nullable": true
+          },
+          "serie": {
+            "type": "string",
+            "nullable": true
+          },
+          "numero": {
+            "type": "string",
+            "nullable": true
+          },
+          "numParcela": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "valorParcela": {
+            "type": "number",
+            "format": "double"
+          },
+          "dataEmissao": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dataVencimento": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "juros": {
+            "type": "number",
+            "format": "double"
+          },
+          "multa": {
+            "type": "number",
+            "format": "double"
+          },
+          "desconto": {
+            "type": "number",
+            "format": "double"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "formaPagamentoId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "observacao": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateEstadoDto": {
         "type": "object",
         "properties": {
@@ -2751,6 +3069,66 @@
           },
           "ativo": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateVendaDto": {
+        "type": "object",
+        "properties": {
+          "clienteId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "modelo": {
+            "type": "string",
+            "nullable": true
+          },
+          "serie": {
+            "type": "string",
+            "nullable": true
+          },
+          "numero": {
+            "type": "string",
+            "nullable": true
+          },
+          "dataEmissao": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "transportadoraId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "placaVeiculo": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipoFrete": {
+            "type": "string",
+            "nullable": true
+          },
+          "valorFrete": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalProdutos": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalPagar": {
+            "type": "number",
+            "format": "double"
+          },
+          "condicaoPagamentoId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "observacao": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3099,6 +3477,51 @@
         },
         "additionalProperties": false
       },
+      "UpdateContaPagarDto": {
+        "type": "object",
+        "properties": {
+          "dataVencimento": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dataPagamento": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "valorPago": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "juros": {
+            "type": "number",
+            "format": "double"
+          },
+          "multa": {
+            "type": "number",
+            "format": "double"
+          },
+          "desconto": {
+            "type": "number",
+            "format": "double"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "formaPagamentoId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "observacao": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateEstadoDto": {
         "type": "object",
         "properties": {
@@ -3395,6 +3818,51 @@
           },
           "ativo": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateVendaDto": {
+        "type": "object",
+        "properties": {
+          "transportadoraId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "placaVeiculo": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipoFrete": {
+            "type": "string",
+            "nullable": true
+          },
+          "valorFrete": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalProdutos": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalPagar": {
+            "type": "number",
+            "format": "double"
+          },
+          "condicaoPagamentoId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "observacao": {
+            "type": "string",
+            "nullable": true
+          },
+          "dataCancelamento": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           }
         },
         "additionalProperties": false
