@@ -102,7 +102,6 @@ export default function Fornecedores() {
                   <TableHead>Cidade</TableHead>
                   <TableHead>Condição</TableHead>
                   <TableHead>Forma</TableHead>
-                  <TableHead>Mín. Pedido</TableHead>
                   <TableHead className="text-center">Ações</TableHead>
                 </TableRow>
               </TableHeader>
@@ -116,7 +115,6 @@ export default function Fornecedores() {
                     <TableCell>{cidadeNome(f.idCidade)}</TableCell>
                     <TableCell>{condNome(f.condicaoPagamentoId)}</TableCell>
                     <TableCell>{formaNome(f.formaPagamentoId)}</TableCell>
-                    <TableCell>{f.valorMinimoPedido != null ? f.valorMinimoPedido.toLocaleString("pt-BR", { minimumFractionDigits: 2 }) : "-"}</TableCell>
                     <TableCell className="flex justify-center items-center gap-2">
                       <Button variant="outline" size="icon" onClick={() => openView(f)} title="Visualizar">
                         <Eye className="h-4 w-4" />

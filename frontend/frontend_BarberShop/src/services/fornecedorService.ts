@@ -16,12 +16,10 @@ export interface CreateFornecedorDto {
   numero?: string;
   bairro?: string;
   cep?: string;
-  classificacao?: string;
   complemento?: string;
   formaPagamentoId: number;
   condicaoPagamentoId: number;
   idCidade: number;
-  valorMinimoPedido?: number | null;
 }
 
 export interface UpdateFornecedorDto extends CreateFornecedorDto {}
@@ -45,14 +43,11 @@ export interface Fornecedor {
   numero?: string | null;
   bairro?: string | null;
   cep?: string | null;
-  classificacao?: string | null;
   complemento?: string | null;
 
   formaPagamentoId: number;
   condicaoPagamentoId: number;
   idCidade: number;
-
-  valorMinimoPedido?: number | null;
 }
 
 export async function getFornecedores(): Promise<Fornecedor[]> {
