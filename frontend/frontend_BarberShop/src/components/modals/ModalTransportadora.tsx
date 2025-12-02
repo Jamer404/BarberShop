@@ -3,8 +3,9 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
-import { ChevronDown, Plus, X, Car } from "lucide-react"
+import { ChevronDown, Plus, X } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
 import {
   Transportadora, CreateTransportadoraDto, UpdateTransportadoraDto,
@@ -15,6 +16,7 @@ import { Estado, getEstados } from "@/services/estadoService"
 import { CondicaoPagamento, getCondicoesPagamento } from "@/services/condicaoPagamentoService"
 import { ModalCidades } from "@/components/modals/ModalCidades"
 import { ModalCondicaoPagamento } from "@/components/modals/ModalCondicaoPagamento"
+import { ModalVeiculo } from "@/components/modals/ModalVeiculo"
 import { getVeiculos, Veiculo } from "@/services/veiculoService"
 
 type Props = {
@@ -53,6 +55,8 @@ export function ModalTransportadora({
   // Veículo selector
   const [veiculos, setVeiculos] = useState<Veiculo[]>([])
   const [veiculoSelectorOpen, setVeiculoSelectorOpen] = useState(false)
+  const [modalVeiculoOpen, setModalVeiculoOpen] = useState(false)
+  const [reopenVeiculo, setReopenVeiculo] = useState(false)
 
   const [form, setForm] = useState<CreateTransportadoraDto>({
     tipoPessoa: "J",
@@ -72,6 +76,7 @@ export function ModalTransportadora({
     telefones: [],
     veiculoIds: [],
   })
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   useEffect(() => {
     if (!isOpen) return
@@ -123,18 +128,24 @@ export function ModalTransportadora({
         veiculoIds: [],
       })
     }
+    setErrors({})
   }, [transportadora, isOpen])
 
   useEffect(() => { if (!modalCidadeOpen && reopenCity) { setReopenCity(false); setCitySelectorOpen(true) } }, [modalCidadeOpen, reopenCity])
   useEffect(() => { if (!modalCondOpen && reopenCond) { setReopenCond(false); setCondSelectorOpen(true) } }, [modalCondOpen, reopenCond])
+  useEffect(() => { if (!modalVeiculoOpen && reopenVeiculo) { setReopenVeiculo(false); setVeiculoSelectorOpen(true) } }, [modalVeiculoOpen, reopenVeiculo])
 
-  const getCidadeUf = (id?: number|null) => {
+  const getCidadeUf = (id?: number|null, includeId = false) => {
     const cid = cidades.find(c=>c.id===id)
     const est = estados.find(e=>e.id===cid?.idEstado)
-    return cid && est ? `${cid.nome.toUpperCase()} - ${est.uf}` : "SELECIONE..."
+    if (!cid || !est) return "SELECIONE..."
+    return includeId ? `${cid.id} - ${cid.nome.toUpperCase()} - ${est.uf}` : `${cid.nome.toUpperCase()} - ${est.uf}`
   }
-  const getCondNome = (id?: number|null) =>
-    condicoes.find(c=>c.id===id)?.descricao.toUpperCase() || "SELECIONE..."
+  const getCondNome = (id?: number|null, includeId = false) => {
+    const cond = condicoes.find(c=>c.id===id)
+    if (!cond) return "SELECIONE..."
+    return includeId ? `${cond.id} - ${cond.descricao.toUpperCase()}` : cond.descricao.toUpperCase()
+  }
 
   const cidadesFiltradas = useMemo(() => {
     const t = searchCidade.toUpperCase()
@@ -158,7 +169,32 @@ export function ModalTransportadora({
     }
   }
 
+  function validateForm(): boolean {
+    const newErrors: { [key: string]: string } = {}
+
+    if (!form.razaoSocial.trim()) {
+      newErrors.razaoSocial = "Razão Social é obrigatória"
+    }
+
+    if (!form.idCidade) {
+      newErrors.idCidade = "Cidade é obrigatória"
+    }
+
+    if (!form.idCondicaoPagamento) {
+      newErrors.idCondicaoPagamento = "Condição de Pagamento é obrigatória"
+    }
+
+    if (!form.cnpj?.trim()) {
+      newErrors.cnpj = "CPF/CNPJ é obrigatório"
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
   async function handleSubmit() {
+    if (!validateForm()) return
+
     const payload: CreateTransportadoraDto | UpdateTransportadoraDto = {
       ...form,
       razaoSocial: form.razaoSocial.toUpperCase(),
@@ -192,6 +228,11 @@ export function ModalTransportadora({
         onOpenChange={setModalCondOpen}
         onSave={async ()=>{ setCondicoes(await getCondicoesPagamento()); setReopenCond(true) }}
       />
+      <ModalVeiculo
+        isOpen={modalVeiculoOpen}
+        onOpenChange={setModalVeiculoOpen}
+        carregarVeiculos={async ()=>{ setVeiculos(await getVeiculos()); setReopenVeiculo(true) }}
+      />
 
       <Dialog open={isOpen} onOpenChange={onOpenChange}>
         <DialogContent className="w-[92%] max-w-6xl">
@@ -212,9 +253,14 @@ export function ModalTransportadora({
             </div>
           </DialogHeader>
 
-          <div className="grid grid-cols-4 gap-3 text-sm">
+          <div className="grid grid-cols-4 gap-3 text-sm mt-8">
             <div className="col-span-1">
-              <select className="w-full border rounded px-2 py-2 bg-background"
+              <Label htmlFor="tipoPessoa">
+                Tipo de Pessoa <span className="text-red-500">*</span>
+              </Label>
+              <select
+                id="tipoPessoa"
+                className="w-full border rounded px-2 py-2 bg-background"
                 disabled={readOnly}
                 value={form.tipoPessoa}
                 onChange={e=>setForm({...form, tipoPessoa: e.target.value as "F"|"J"})}>
@@ -223,32 +269,99 @@ export function ModalTransportadora({
               </select>
             </div>
 
-            <Input className="col-span-2 uppercase" placeholder="Transportadora (Razão Social)*"
-              disabled={readOnly} value={form.razaoSocial}
-              onChange={e=>setForm({...form, razaoSocial:e.target.value})}/>
-            <Input className="col-span-1 uppercase" placeholder="Nome Fantasia"
-              disabled={readOnly} value={form.nomeFantasia ?? ""}
-              onChange={e=>setForm({...form, nomeFantasia:e.target.value})}/>
+            <div className="col-span-2">
+              <Label htmlFor="razaoSocial">
+                Razão Social <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="razaoSocial"
+                className="uppercase"
+                placeholder="RAZÃO SOCIAL"
+                disabled={readOnly}
+                value={form.razaoSocial}
+                onChange={e=>{
+                  setForm({...form, razaoSocial:e.target.value})
+                  if (errors.razaoSocial) {
+                    setErrors({...errors, razaoSocial: ""})
+                  }
+                }}
+              />
+              {errors.razaoSocial && (
+                <span className="text-xs text-red-500">{errors.razaoSocial}</span>
+              )}
+            </div>
+            <div className="col-span-1">
+              <Label htmlFor="nomeFantasia">Nome Fantasia</Label>
+              <Input
+                id="nomeFantasia"
+                className="uppercase"
+                placeholder="NOME FANTASIA"
+                disabled={readOnly}
+                value={form.nomeFantasia ?? ""}
+                onChange={e=>setForm({...form, nomeFantasia:e.target.value})}
+              />
+            </div>
 
-            <Input className="col-span-4 uppercase" placeholder="Endereço"
-              disabled={readOnly} value={form.endereco ?? ""}
-              onChange={e=>setForm({...form, endereco:e.target.value})}/>
-            <Input className="col-span-1 uppercase" placeholder="Número"
-              disabled={readOnly} value={form.numero ?? ""}
-              onChange={e=>setForm({...form, numero:e.target.value})}/>
-            <Input className="col-span-1 uppercase" placeholder="Complemento"
-              disabled={readOnly} value={form.complemento ?? ""}
-              onChange={e=>setForm({...form, complemento:e.target.value})}/>
-            <Input className="col-span-1 uppercase" placeholder="Bairro"
-              disabled={readOnly} value={form.bairro ?? ""}
-              onChange={e=>setForm({...form, bairro:e.target.value})}/>
-            <Input className="col-span-1" placeholder="CEP"
-              disabled={readOnly} value={form.cep ?? ""}
-              onChange={e=>setForm({...form, cep:e.target.value})}/>
+            <div className="col-span-4">
+              <Label htmlFor="endereco">Endereço</Label>
+              <Input
+                id="endereco"
+                className="uppercase"
+                placeholder="ENDEREÇO"
+                disabled={readOnly}
+                value={form.endereco ?? ""}
+                onChange={e=>setForm({...form, endereco:e.target.value})}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label htmlFor="numero">Número</Label>
+              <Input
+                id="numero"
+                className="uppercase"
+                placeholder="NÚMERO"
+                disabled={readOnly}
+                value={form.numero ?? ""}
+                onChange={e=>setForm({...form, numero:e.target.value})}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label htmlFor="complemento">Complemento</Label>
+              <Input
+                id="complemento"
+                className="uppercase"
+                placeholder="COMPLEMENTO"
+                disabled={readOnly}
+                value={form.complemento ?? ""}
+                onChange={e=>setForm({...form, complemento:e.target.value})}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label htmlFor="bairro">Bairro</Label>
+              <Input
+                id="bairro"
+                className="uppercase"
+                placeholder="BAIRRO"
+                disabled={readOnly}
+                value={form.bairro ?? ""}
+                onChange={e=>setForm({...form, bairro:e.target.value})}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label htmlFor="cep">CEP</Label>
+              <Input
+                id="cep"
+                placeholder="CEP"
+                disabled={readOnly}
+                value={form.cep ?? ""}
+                onChange={e=>setForm({...form, cep:e.target.value})}
+              />
+            </div>
 
             {/* Cidade */}
             <div className="col-span-2">
-              <label className="block mb-1 font-medium">Cidade</label>
+              <Label htmlFor="cidade">
+                Cidade <span className="text-red-500">*</span>
+              </Label>
               <Dialog open={citySelectorOpen} onOpenChange={setCitySelectorOpen}>
                 <DialogTrigger asChild>
                   <Button variant="outline" disabled={readOnly}
@@ -258,12 +371,12 @@ export function ModalTransportadora({
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-5xl">
+                  <DialogHeader>
+                    <DialogTitle>Selecionar Cidade</DialogTitle>
+                  </DialogHeader>
                   <div className="flex gap-2 items-center">
                     <Input placeholder="Buscar cidade..." className="w-full"
                       value={searchCidade} onChange={e=>setSearchCidade(e.target.value)}/>
-                    <Button type="button" onClick={()=>{ setCitySelectorOpen(false); setModalCidadeOpen(true); setReopenCity(true); }}>
-                      Nova Cidade
-                    </Button>
                   </div>
                   <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                     {cidadesFiltradas.map(cid=>(
@@ -271,17 +384,36 @@ export function ModalTransportadora({
                         type="button"
                         variant={form.idCidade===cid.id?"default":"outline"}
                         className="w-full justify-start uppercase font-normal"
-                        onClick={()=>{ setForm({...form, idCidade: cid.id}); setCitySelectorOpen(false) }}>
-                        {getCidadeUf(cid.id)}
+                        onClick={()=>{ 
+                          setForm({...form, idCidade: cid.id})
+                          setCitySelectorOpen(false)
+                          if (errors.idCidade) {
+                            setErrors({...errors, idCidade: ""})
+                          }
+                        }}>
+                        {getCidadeUf(cid.id, true)}
                       </Button>
                     ))}
                   </div>
+                  <DialogFooter className="gap-2">
+                    <Button onClick={()=>{ setCitySelectorOpen(false); setModalCidadeOpen(true); setReopenCity(true); }}>
+                      Nova Cidade
+                    </Button>
+                    <Button variant="outline" onClick={()=>setCitySelectorOpen(false)}>
+                      Voltar
+                    </Button>
+                  </DialogFooter>
                 </DialogContent>
               </Dialog>
+              {errors.idCidade && (
+                <span className="text-xs text-red-500">{errors.idCidade}</span>
+              )}
             </div>
 
             <div className="col-span-2">
-              <label className="block mb-1 font-medium">Condição de Pagamento</label>
+              <Label htmlFor="condicaoPagamento">
+                Condição de Pagamento <span className="text-red-500">*</span>
+              </Label>
               <Dialog open={condSelectorOpen} onOpenChange={setCondSelectorOpen}>
                 <DialogTrigger asChild>
                   <Button variant="outline" disabled={readOnly}
@@ -291,12 +423,12 @@ export function ModalTransportadora({
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-5xl">
+                  <DialogHeader>
+                    <DialogTitle>Selecionar Condição de Pagamento</DialogTitle>
+                  </DialogHeader>
                   <div className="flex gap-2 items-center">
                     <Input placeholder="Buscar condição..." className="w-full"
                       value={searchCond} onChange={e=>setSearchCond(e.target.value)}/>
-                    <Button type="button" onClick={()=>{ setCondSelectorOpen(false); setModalCondOpen(true); setReopenCond(true); }}>
-                      Nova Condição
-                    </Button>
                   </div>
                   <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                     {condFiltradas.map(c=>(
@@ -304,24 +436,38 @@ export function ModalTransportadora({
                         type="button"
                         variant={form.idCondicaoPagamento===c.id?"default":"outline"}
                         className="w-full justify-start uppercase font-normal"
-                        onClick={()=>{ setForm({...form, idCondicaoPagamento: c.id }); setCondSelectorOpen(false) }}>
-                        {(c.descricao||"").toUpperCase()}
+                        onClick={()=>{ 
+                          setForm({...form, idCondicaoPagamento: c.id })
+                          setCondSelectorOpen(false)
+                          if (errors.idCondicaoPagamento) {
+                            setErrors({...errors, idCondicaoPagamento: ""})
+                          }
+                        }}>
+                        {getCondNome(c.id, true)}
                       </Button>
                     ))}
                   </div>
+                  <DialogFooter className="gap-2">
+                    <Button onClick={()=>{ setCondSelectorOpen(false); setModalCondOpen(true); setReopenCond(true); }}>
+                      Nova Condição
+                    </Button>
+                    <Button variant="outline" onClick={()=>setCondSelectorOpen(false)}>
+                      Voltar
+                    </Button>
+                  </DialogFooter>
                 </DialogContent>
               </Dialog>
+              {errors.idCondicaoPagamento && (
+                <span className="text-xs text-red-500">{errors.idCondicaoPagamento}</span>
+              )}
             </div>
 
-            {/* Veículos vinculados */}
             <div className="col-span-2">
-              <label className="block mb-1 font-medium">Veículos vinculados</label>
-              <Button type="button" variant="outline" className="mb-2 w-full justify-between" onClick={()=>setVeiculoSelectorOpen(true)} disabled={readOnly}>
-                <Car className="mr-2 h-4 w-4" /> Selecionar veículo
+              <Label htmlFor="veiculos">Veículos</Label>
+              <Button type="button" variant="outline" className="mb-2 w-full justify-between uppercase font-normal" onClick={()=>setVeiculoSelectorOpen(true)} disabled={readOnly}>
+                SELECIONE...
+                {!readOnly && <ChevronDown className="h-4 w-4" />}
               </Button>
-              <div className="text-xs text-muted-foreground mb-1">
-                {form.veiculoIds.length} veículo(s) vinculado(s)
-              </div>
               <div className="flex flex-wrap gap-2 mt-2">
                 {form.veiculoIds.map(id=>{
                   const v = veiculos.find(v=>v.id===id)
@@ -337,7 +483,6 @@ export function ModalTransportadora({
                   )
                 })}
               </div>
-              {/* Modal de seleção de veículo */}
               <Dialog open={veiculoSelectorOpen} onOpenChange={setVeiculoSelectorOpen}>
                 <DialogContent className="max-w-3xl">
                   <DialogHeader>
@@ -346,29 +491,58 @@ export function ModalTransportadora({
                   <div className="max-h-[300px] overflow-auto space-y-2 mt-2">
                     {veiculos.length === 0 && <div className="text-center text-muted-foreground">Nenhum veículo cadastrado.</div>}
                     {veiculos.map(v=>(
-                      <Button type="button" key={v.id} variant="outline" className="w-full justify-start" onClick={()=>{ addVeiculo(v.id); setVeiculoSelectorOpen(false) }}>
-                        {v.placa} - {v.modelo} {v.ativo ? "" : <span className="text-red-500 ml-2">(Inativo)</span>}
+                      <Button type="button" key={v.id} variant="outline" className="w-full justify-start uppercase font-normal" onClick={()=>{ addVeiculo(v.id); setVeiculoSelectorOpen(false) }}>
+                        {v.id} - {v.placa} - {v.modelo} {v.ativo ? "" : <span className="text-red-500 ml-2">(Inativo)</span>}
                       </Button>
                     ))}
                   </div>
+                  <DialogFooter className="gap-2">
+                    <Button onClick={()=>{ setVeiculoSelectorOpen(false); setModalVeiculoOpen(true); setReopenVeiculo(true); }}>
+                      Novo Veículo
+                    </Button>
+                    <Button variant="outline" onClick={()=>setVeiculoSelectorOpen(false)}>
+                      Voltar
+                    </Button>
+                  </DialogFooter>
                 </DialogContent>
               </Dialog>
             </div>
 
             <div className="col-span-2">
-              <label className="block mb-1 font-medium">CNPJ</label>
-              <Input placeholder="CNPJ" disabled={readOnly}
-                value={form.cnpj ?? ""} onChange={e=>setForm({...form, cnpj:e.target.value})}/>
+              <Label htmlFor="cnpj">
+                CPF/CNPJ <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="cnpj"
+                placeholder="CPF/CNPJ"
+                disabled={readOnly}
+                value={form.cnpj ?? ""}
+                onChange={e=>{
+                  setForm({...form, cnpj:e.target.value})
+                  if (errors.cnpj) {
+                    setErrors({...errors, cnpj: ""})
+                  }
+                }}
+              />
+              {errors.cnpj && (
+                <span className="text-xs text-red-500">{errors.cnpj}</span>
+              )}
             </div>
             <div className="col-span-2">
-              <label className="block mb-1 font-medium">Inscrição Estadual</label>
-              <Input className="uppercase" placeholder="Inscrição Estadual" disabled={readOnly}
-                value={form.inscricaoEstadual ?? ""} onChange={e=>setForm({...form, inscricaoEstadual:e.target.value})}/>
+              <Label htmlFor="inscricaoEstadual">Inscrição Estadual</Label>
+              <Input
+                id="inscricaoEstadual"
+                className="uppercase"
+                placeholder="INSCRIÇÃO ESTADUAL"
+                disabled={readOnly}
+                value={form.inscricaoEstadual ?? ""}
+                onChange={e=>setForm({...form, inscricaoEstadual:e.target.value})}
+              />
             </div>
 
             {/* Emails */}
             <div className="col-span-2">
-              <label className="block mb-1 font-medium">E-mail(s)</label>
+              <Label htmlFor="emails">E-mail(s)</Label>
               <div className="flex items-center justify-between mb-1">
                 {!readOnly && <Button type="button" size="icon" variant="outline" onClick={()=>setForm(f=>({...f, emails:[...f.emails,""]}))}><Plus className="h-4 w-4"/></Button>}
               </div>
@@ -389,7 +563,7 @@ export function ModalTransportadora({
 
             {/* Telefones */}
             <div className="col-span-2">
-              <label className="block mb-1 font-medium">Telefone(s)</label>
+              <Label htmlFor="telefones">Telefone(s)</Label>
               <div className="flex items-center justify-between mb-1">
                 {!readOnly && <Button type="button" size="icon" variant="outline" onClick={()=>setForm(f=>({...f, telefones:[...f.telefones,""]}))}><Plus className="h-4 w-4"/></Button>}
               </div>
