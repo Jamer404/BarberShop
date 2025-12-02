@@ -127,5 +127,27 @@ namespace BarberShop.API.Repository
             _cnx.ExecuteAsync(@"
                 DELETE FROM ParcelasCondicaoPagamento WHERE CondicaoPagamentoId = @Id;
                 DELETE FROM CondicoesPagamento      WHERE Id = @Id;", new { Id = id });
+
+        public async Task<IEnumerable<ParcelaCondicaoPagamento>> GetParcelasByCondicaoIdAsync(int condicaoPagamentoId)
+        {
+            const string sql = @"
+                SELECT p.*, f.*
+                FROM ParcelasCondicaoPagamento p
+                LEFT JOIN FormasPagamento f ON p.FormaPagamentoId = f.Id
+                WHERE p.CondicaoPagamentoId = @CondicaoPagamentoId
+                ORDER BY p.Numero";
+
+            var parcelas = await _cnx.QueryAsync<ParcelaCondicaoPagamento, FormaPagamento, ParcelaCondicaoPagamento>(
+                sql,
+                (parcela, forma) =>
+                {
+                    parcela.FormaPagamento = forma;
+                    return parcela;
+                },
+                new { CondicaoPagamentoId = condicaoPagamentoId }
+            );
+
+            return parcelas;
+        }
     }
 }

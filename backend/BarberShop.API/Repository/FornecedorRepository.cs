@@ -14,43 +14,94 @@ namespace BarberShop.API.Repository
 
         public Task<IEnumerable<Fornecedor>> GetAllAsync() =>
             _cnx.QueryAsync<Fornecedor>(@"
-SELECT 
-  Id, DataCriacao, DataAtualizacao,
-  TipoPessoa, NomeRazaoSocial, ApelidoNomeFantasia, DataNascimentoCriacao,
-  CpfCnpj, RgInscricaoEstadual, Email, Telefone,
-  Rua, Numero, Bairro, Cep, Complemento,
-  FormaPagamentoId, CondicaoPagamentoId, IdCidade
-FROM dbo.Fornecedores WITH (NOLOCK)
-ORDER BY Id DESC;");
+                                        SELECT 
+                                          Id,
+                                          DataCriacao,
+                                          DataAtualizacao,
+                                          TipoPessoa,
+                                          NomeRazaoSocial,
+                                          ApelidoNomeFantasia,
+                                          DataNascimentoCriacao,
+                                          CpfCnpj,
+                                          RgInscricaoEstadual,
+                                          Email,
+                                          Telefone,
+                                          Rua,
+                                          Numero,
+                                          Bairro,
+                                          Cep,
+                                          Complemento,
+                                          CondicaoPagamentoId,
+                                          IdCidade
+                                        FROM dbo.Fornecedores WITH (NOLOCK)
+                                        ORDER BY Id DESC;");
 
         public Task<Fornecedor?> GetByIdAsync(int id) =>
             _cnx.QuerySingleOrDefaultAsync<Fornecedor>(@"
 SELECT 
-  Id, DataCriacao, DataAtualizacao,
-  TipoPessoa, NomeRazaoSocial, ApelidoNomeFantasia, DataNascimentoCriacao,
-  CpfCnpj, RgInscricaoEstadual, Email, Telefone,
-  Rua, Numero, Bairro, Cep, Complemento,
-  FormaPagamentoId, CondicaoPagamentoId, IdCidade
+  Id,
+  DataCriacao,
+  DataAtualizacao,
+  TipoPessoa,
+  NomeRazaoSocial,
+  ApelidoNomeFantasia,
+  DataNascimentoCriacao,
+  CpfCnpj,
+  RgInscricaoEstadual,
+  Email,
+  Telefone,
+  Rua,
+  Numero,
+  Bairro,
+  Cep,
+  Complemento,
+  CondicaoPagamentoId,
+  IdCidade
 FROM dbo.Fornecedores
-WHERE Id = @id;", new { id });
+WHERE Id = @id;",
+            new { id });
 
         public Task<int> InsertAsync(Fornecedor f) =>
             _cnx.ExecuteScalarAsync<int>(@"
 INSERT INTO dbo.Fornecedores
 (
-  DataCriacao, DataAtualizacao,
-  TipoPessoa, NomeRazaoSocial, ApelidoNomeFantasia, DataNascimentoCriacao,
-  CpfCnpj, RgInscricaoEstadual, Email, Telefone,
-  Rua, Numero, Bairro, Cep, Complemento,
-  FormaPagamentoId, CondicaoPagamentoId, IdCidade
+  DataCriacao,
+  DataAtualizacao,
+  TipoPessoa,
+  NomeRazaoSocial,
+  ApelidoNomeFantasia,
+  DataNascimentoCriacao,
+  CpfCnpj,
+  RgInscricaoEstadual,
+  Email,
+  Telefone,
+  Rua,
+  Numero,
+  Bairro,
+  Cep,
+  Complemento,
+  CondicaoPagamentoId,
+  IdCidade
 )
 VALUES
 (
-  @DataCriacao, @DataAtualizacao,
-  @TipoPessoa, @NomeRazaoSocial, @ApelidoNomeFantasia, @DataNascimentoCriacao,
-  @CpfCnpj, @RgInscricaoEstadual, @Email, @Telefone,
-  @Rua, @Numero, @Bairro, @Cep, @Complemento,
-  @FormaPagamentoId, @CondicaoPagamentoId, @IdCidade
+  @DataCriacao,
+  @DataAtualizacao,
+  @TipoPessoa,
+  @NomeRazaoSocial,
+  @ApelidoNomeFantasia,
+  @DataNascimentoCriacao,
+  @CpfCnpj,
+  @RgInscricaoEstadual,
+  @Email,
+  @Telefone,
+  @Rua,
+  @Numero,
+  @Bairro,
+  @Cep,
+  @Complemento,
+  @CondicaoPagamentoId,
+  @IdCidade
 );
 SELECT CAST(SCOPE_IDENTITY() AS INT);", f);
 
@@ -71,7 +122,6 @@ UPDATE dbo.Fornecedores SET
   Bairro                = @Bairro,
   Cep                   = @Cep,
   Complemento           = @Complemento,
-  FormaPagamentoId      = @FormaPagamentoId,
   CondicaoPagamentoId   = @CondicaoPagamentoId,
   IdCidade              = @IdCidade
 WHERE Id = @Id;",
@@ -92,7 +142,6 @@ WHERE Id = @Id;",
                 f.Bairro,
                 f.Cep,
                 f.Complemento,
-                f.FormaPagamentoId,
                 f.CondicaoPagamentoId,
                 f.IdCidade
             });

@@ -37,10 +37,12 @@ builder.Services.AddScoped<MarcaRepository>();
 builder.Services.AddScoped<ProdutoRepository>();
 builder.Services.AddScoped<CategoriaRepository>();
 builder.Services.AddScoped<UnidadeMedidaRepository>();
-builder.Services.AddScoped<NotaCompraRepository>();
+builder.Services.AddScoped<CompraRepository>();
 builder.Services.AddScoped<CargoRepository>();
 builder.Services.AddScoped<VeiculoRepository>();
 builder.Services.AddScoped<TransportadoraRepository>();
+builder.Services.AddScoped<NotaCompraItemRepository>();
+
 
 var app = builder.Build();
 

@@ -66,4 +66,11 @@ public class CondicaoPagamentoController : ControllerBase
         await _repo.DeleteAsync(id);
         return NoContent();
     }
+
+    [HttpGet("{id:int}/parcelas")]
+    public async Task<IActionResult> GetParcelas(int id)
+    {
+        var parcelas = await _repo.GetParcelasByCondicaoIdAsync(id);
+        return Ok(parcelas);
+    }
 }

@@ -10,7 +10,7 @@ import { getCidades, Cidade } from "@/services/cidadeService";
 import { getFormasPagamento, FormaPagamento } from "@/services/formaPagamentoService";
 import { getCondicoesPagamento, CondicaoPagamento } from "@/services/condicaoPagamentoService";
 
-import { ModalFornecedores } from "@/components/modals/modalFornecedores";
+import { ModalFornecedores } from "@/components/modals/ModalFornecedores";
 import { ModalConfirm } from "@/components/modals/ModalConfirm";
 
 export default function Fornecedores() {
@@ -114,7 +114,6 @@ export default function Fornecedores() {
                     <TableCell>{f.tipoPessoa}</TableCell>
                     <TableCell>{cidadeNome(f.idCidade)}</TableCell>
                     <TableCell>{condNome(f.condicaoPagamentoId)}</TableCell>
-                    <TableCell>{formaNome(f.formaPagamentoId)}</TableCell>
                     <TableCell className="flex justify-center items-center gap-2">
                       <Button variant="outline" size="icon" onClick={() => openView(f)} title="Visualizar">
                         <Eye className="h-4 w-4" />

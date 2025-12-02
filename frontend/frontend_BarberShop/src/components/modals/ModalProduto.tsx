@@ -341,22 +341,8 @@ export function ModalProduto({
             </div>
 
             <div className="col-span-2 space-y-1.5">
-              <div className="flex items-center justify-between">
-                <Label className="uppercase font-medium">Unidade de Medida <span className="text-red-500">*</span></Label>
-                {!readOnly && (
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="secondary"
-                    onClick={() => {
-                      setUnSelOpen(false)
-                      setModalUnOpen(true)
-                      setReopenUn(true)
-                    }}
-                  >
-                    Nova Unidade
-                  </Button>
-                )}
+              <div className="flex justify-between items-center">
+                <Label className="uppercase font-medium">Unidade <span className="text-red-500">*</span></Label>
               </div>
 
               <Dialog open={unSelOpen} onOpenChange={setUnSelOpen}>
@@ -372,23 +358,16 @@ export function ModalProduto({
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl">
-                  <div className="flex gap-2 items-center">
+                  <DialogHeader>
+                    <DialogTitle>Selecionar Unidade de Medida</DialogTitle>
+                  </DialogHeader>
+                  <div className="mt-4">
                     <Input
                       placeholder="Buscar unidade..."
                       className="w-full"
                       value={searchUn}
                       onChange={(e) => setSearchUn(e.target.value)}
                     />
-                    <Button
-                      type="button"
-                      onClick={() => {
-                        setUnSelOpen(false)
-                        setModalUnOpen(true)
-                        setReopenUn(true)
-                      }}
-                    >
-                      Nova Unidade
-                    </Button>
                   </div>
                   <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                     {unidadesFiltradas.map((u) => (
@@ -403,10 +382,29 @@ export function ModalProduto({
                           setErrors((err) => ({ ...err, unidadeId: undefined }))
                         }}
                       >
-                        {u.nome.toUpperCase()}
+                        {u.id} - {u.nome.toUpperCase()}
                       </Button>
                     ))}
                   </div>
+                  <DialogFooter className="gap-2">
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        setUnSelOpen(false)
+                        setModalUnOpen(true)
+                        setReopenUn(true)
+                      }}
+                    >
+                      Cadastrar
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setUnSelOpen(false)}
+                    >
+                      Voltar
+                    </Button>
+                  </DialogFooter>
                 </DialogContent>
               </Dialog>
               {errors.unidadeId && <span className="text-xs text-red-500">{errors.unidadeId}</span>}
@@ -414,22 +412,8 @@ export function ModalProduto({
 
             {/* Marca */}
             <div className="col-span-2 space-y-1.5">
-              <div className="flex items-center justify-between">
+              <div className="flex justify-between items-center">
                 <Label className="uppercase font-medium">Marca <span className="text-red-500">*</span></Label>
-                {!readOnly && (
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="secondary"
-                    onClick={() => {
-                      setMcSelOpen(false)
-                      setModalMcOpen(true)
-                      setReopenMc(true)
-                    }}
-                  >
-                    Nova Marca
-                  </Button>
-                )}
               </div>
 
               <Dialog open={mcSelOpen} onOpenChange={setMcSelOpen}>
@@ -445,23 +429,16 @@ export function ModalProduto({
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl">
-                  <div className="flex gap-2 items-center">
+                  <DialogHeader>
+                    <DialogTitle>Selecionar Marca</DialogTitle>
+                  </DialogHeader>
+                  <div className="mt-4">
                     <Input
                       placeholder="Buscar marca..."
                       className="w-full"
                       value={searchMc}
                       onChange={(e) => setSearchMc(e.target.value)}
                     />
-                    <Button
-                      type="button"
-                      onClick={() => {
-                        setMcSelOpen(false)
-                        setModalMcOpen(true)
-                        setReopenMc(true)
-                      }}
-                    >
-                      Nova Marca
-                    </Button>
                   </div>
                   <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                     {marcasFiltradas.map((m) => (
@@ -476,32 +453,37 @@ export function ModalProduto({
                           setErrors((err) => ({ ...err, marcaId: undefined }))
                         }}
                       >
-                        {m.nome.toUpperCase()}
+                        {m.id} - {m.nome.toUpperCase()}
                       </Button>
                     ))}
                   </div>
+                  <DialogFooter className="gap-2">
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        setMcSelOpen(false)
+                        setModalMcOpen(true)
+                        setReopenMc(true)
+                      }}
+                    >
+                      Cadastrar
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setMcSelOpen(false)}
+                    >
+                      Voltar
+                    </Button>
+                  </DialogFooter>
                 </DialogContent>
               </Dialog>
               {errors.marcaId && <span className="text-xs text-red-500">{errors.marcaId}</span>}
             </div>
 
             <div className="col-span-4 space-y-1.5">
-              <div className="flex items-center justify-between">
+              <div className="flex justify-between items-center">
                 <Label className="uppercase font-medium">Categoria <span className="text-red-500">*</span></Label>
-                {!readOnly && (
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="secondary"
-                    onClick={() => {
-                      setCtSelOpen(false)
-                      setModalCtOpen(true)
-                      setReopenCt(true)
-                    }}
-                  >
-                    Nova Categoria
-                  </Button>
-                )}
               </div>
 
               <Dialog open={ctSelOpen} onOpenChange={setCtSelOpen}>
@@ -517,23 +499,16 @@ export function ModalProduto({
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl">
-                  <div className="flex gap-2 items-center">
+                  <DialogHeader>
+                    <DialogTitle>Selecionar Categoria</DialogTitle>
+                  </DialogHeader>
+                  <div className="mt-4">
                     <Input
                       placeholder="Buscar categoria..."
                       className="w-full"
                       value={searchCt}
                       onChange={(e) => setSearchCt(e.target.value)}
                     />
-                    <Button
-                      type="button"
-                      onClick={() => {
-                        setCtSelOpen(false)
-                        setModalCtOpen(true)
-                        setReopenCt(true)
-                      }}
-                    >
-                      Nova Categoria
-                    </Button>
                   </div>
                   <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                     {categoriasFiltradas.map((c) => (
@@ -550,10 +525,29 @@ export function ModalProduto({
                           setErrors((err) => ({ ...err, categoriaId: undefined }))
                         }}
                       >
-                        {c.nome.toUpperCase()}
+                        {c.id} - {c.nome.toUpperCase()}
                       </Button>
                     ))}
                   </div>
+                  <DialogFooter className="gap-2">
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        setCtSelOpen(false)
+                        setModalCtOpen(true)
+                        setReopenCt(true)
+                      }}
+                    >
+                      Cadastrar
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setCtSelOpen(false)}
+                    >
+                      Voltar
+                    </Button>
+                  </DialogFooter>
                 </DialogContent>
               </Dialog>
               {errors.categoriaId && <span className="text-xs text-red-500">{errors.categoriaId}</span>}

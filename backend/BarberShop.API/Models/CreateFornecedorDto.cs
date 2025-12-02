@@ -18,7 +18,6 @@
         public string Cep { get; set; }
         public string Complemento { get; set; }
 
-        public int FormaPagamentoId { get; set; }
         public int CondicaoPagamentoId { get; set; }
         public int IdCidade { get; set; }
     }

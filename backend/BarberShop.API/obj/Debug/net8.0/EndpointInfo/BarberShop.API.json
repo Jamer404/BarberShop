@@ -577,6 +577,154 @@
         }
       }
     },
+    "/api/Compra": {
+      "get": {
+        "tags": [
+          "Compra"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Compra"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCompraDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCompraDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCompraDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Compra/{id}": {
+      "get": {
+        "tags": [
+          "Compra"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Compra"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCompraDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCompraDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCompraDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Compra"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Compra/{id}/itens": {
+      "get": {
+        "tags": [
+          "Compra"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/CondicaoPagamento": {
       "get": {
         "tags": [
@@ -681,6 +829,29 @@
         }
       },
       "delete": {
+        "tags": [
+          "CondicaoPagamento"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/CondicaoPagamento/{id}/parcelas": {
+      "get": {
         "tags": [
           "CondicaoPagamento"
         ],
@@ -1323,158 +1494,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/notas-compra/{id}": {
-      "get": {
-        "tags": [
-          "NotaCompra"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotaCompraView"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotaCompraView"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotaCompraView"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "NotaCompra"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateNotaCompraDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateNotaCompraDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateNotaCompraDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "NotaCompra"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/notas-compra": {
-      "post": {
-        "tags": [
-          "NotaCompra"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateNotaCompraDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateNotaCompraDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateNotaCompraDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int64"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int64"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int64"
-                }
-              }
-            }
           }
         }
       }
@@ -2281,6 +2300,128 @@
         },
         "additionalProperties": false
       },
+      "CreateCompraDto": {
+        "type": "object",
+        "properties": {
+          "fornecedorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "modelo": {
+            "type": "string",
+            "nullable": true
+          },
+          "serie": {
+            "type": "string",
+            "nullable": true
+          },
+          "numero": {
+            "type": "string",
+            "nullable": true
+          },
+          "dataEmissao": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dataChegada": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "tipoFrete": {
+            "type": "string",
+            "nullable": true
+          },
+          "valorFrete": {
+            "type": "number",
+            "format": "double"
+          },
+          "valorSeguro": {
+            "type": "number",
+            "format": "double"
+          },
+          "outrasDespesas": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalProdutos": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalPagar": {
+            "type": "number",
+            "format": "double"
+          },
+          "condicaoPagamentoId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "transportadoraId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "placaVeiculo": {
+            "type": "string",
+            "nullable": true
+          },
+          "observacao": {
+            "type": "string",
+            "nullable": true
+          },
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateCompraItemDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateCompraItemDto": {
+        "type": "object",
+        "properties": {
+          "produtoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unidadeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantidade": {
+            "type": "number",
+            "format": "double"
+          },
+          "precoUnit": {
+            "type": "number",
+            "format": "double"
+          },
+          "descontoUnit": {
+            "type": "number",
+            "format": "double"
+          },
+          "liquidoUnit": {
+            "type": "number",
+            "format": "double"
+          },
+          "rateio": {
+            "type": "number",
+            "format": "double"
+          },
+          "custoFinalUnit": {
+            "type": "number",
+            "format": "double"
+          },
+          "total": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateCondicaoPagamentoDto": {
         "type": "object",
         "properties": {
@@ -2393,10 +2534,6 @@
             "type": "string",
             "nullable": true
           },
-          "formaPagamentoId": {
-            "type": "integer",
-            "format": "int32"
-          },
           "condicaoPagamentoId": {
             "type": "integer",
             "format": "int32"
@@ -2421,161 +2558,6 @@
           },
           "ativo": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateNotaCompraDto": {
-        "type": "object",
-        "properties": {
-          "modelo": {
-            "type": "string",
-            "nullable": true
-          },
-          "serie": {
-            "type": "string",
-            "nullable": true
-          },
-          "numero": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fornecedorId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "dataEmissao": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "dataChegada": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "tipoFrete": {
-            "type": "string",
-            "nullable": true
-          },
-          "valorFrete": {
-            "type": "number",
-            "format": "double"
-          },
-          "valorSeguro": {
-            "type": "number",
-            "format": "double"
-          },
-          "outrasDespesas": {
-            "type": "number",
-            "format": "double"
-          },
-          "totalProdutos": {
-            "type": "number",
-            "format": "double"
-          },
-          "totalPagar": {
-            "type": "number",
-            "format": "double"
-          },
-          "condicaoPagamentoId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "transportadoraId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "placaVeiculo": {
-            "type": "string",
-            "nullable": true
-          },
-          "observacao": {
-            "type": "string",
-            "nullable": true
-          },
-          "itens": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CreateNotaCompraItemDto"
-            },
-            "nullable": true
-          },
-          "parcelas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CreateNotaCompraParcelaDto"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateNotaCompraItemDto": {
-        "type": "object",
-        "properties": {
-          "produtoId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "unidadeId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "quantidade": {
-            "type": "number",
-            "format": "double"
-          },
-          "precoUnit": {
-            "type": "number",
-            "format": "double"
-          },
-          "descontoUnit": {
-            "type": "number",
-            "format": "double"
-          },
-          "liquidoUnit": {
-            "type": "number",
-            "format": "double"
-          },
-          "total": {
-            "type": "number",
-            "format": "double"
-          },
-          "rateio": {
-            "type": "number",
-            "format": "double"
-          },
-          "custoFinalUnit": {
-            "type": "number",
-            "format": "double"
-          },
-          "custoFinal": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateNotaCompraParcelaDto": {
-        "type": "object",
-        "properties": {
-          "numero": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "formaPagamentoId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "dataVencimento": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "valorParcela": {
-            "type": "number",
-            "format": "double"
           }
         },
         "additionalProperties": false
@@ -2871,182 +2853,6 @@
         },
         "additionalProperties": false
       },
-      "NotaCompraItemView": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "produtoId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "unidadeId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "quantidade": {
-            "type": "number",
-            "format": "double"
-          },
-          "precoUnit": {
-            "type": "number",
-            "format": "double"
-          },
-          "descontoUnit": {
-            "type": "number",
-            "format": "double"
-          },
-          "liquidoUnit": {
-            "type": "number",
-            "format": "double"
-          },
-          "total": {
-            "type": "number",
-            "format": "double"
-          },
-          "rateio": {
-            "type": "number",
-            "format": "double"
-          },
-          "custoFinalUnit": {
-            "type": "number",
-            "format": "double"
-          },
-          "custoFinal": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "additionalProperties": false
-      },
-      "NotaCompraParcelaView": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "numero": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "formaPagamentoId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "dataVencimento": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "valorParcela": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "additionalProperties": false
-      },
-      "NotaCompraView": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "modelo": {
-            "type": "string",
-            "nullable": true
-          },
-          "serie": {
-            "type": "string",
-            "nullable": true
-          },
-          "numero": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fornecedorId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "dataEmissao": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "dataChegada": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "tipoFrete": {
-            "type": "string",
-            "nullable": true
-          },
-          "valorFrete": {
-            "type": "number",
-            "format": "double"
-          },
-          "valorSeguro": {
-            "type": "number",
-            "format": "double"
-          },
-          "outrasDespesas": {
-            "type": "number",
-            "format": "double"
-          },
-          "totalProdutos": {
-            "type": "number",
-            "format": "double"
-          },
-          "totalPagar": {
-            "type": "number",
-            "format": "double"
-          },
-          "condicaoPagamentoId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "transportadoraId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "placaVeiculo": {
-            "type": "string",
-            "nullable": true
-          },
-          "observacao": {
-            "type": "string",
-            "nullable": true
-          },
-          "criadoEm": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "atualizadoEm": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "itens": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/NotaCompraItemView"
-            },
-            "nullable": true
-          },
-          "parcelas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/NotaCompraParcelaView"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "ParcelaDto": {
         "type": "object",
         "properties": {
@@ -3206,6 +3012,64 @@
         },
         "additionalProperties": false
       },
+      "UpdateCompraDto": {
+        "type": "object",
+        "properties": {
+          "dataChegada": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "tipoFrete": {
+            "type": "string",
+            "nullable": true
+          },
+          "valorFrete": {
+            "type": "number",
+            "format": "double"
+          },
+          "valorSeguro": {
+            "type": "number",
+            "format": "double"
+          },
+          "outrasDespesas": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalProdutos": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalPagar": {
+            "type": "number",
+            "format": "double"
+          },
+          "condicaoPagamentoId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "transportadoraId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "placaVeiculo": {
+            "type": "string",
+            "nullable": true
+          },
+          "observacao": {
+            "type": "string",
+            "nullable": true
+          },
+          "dataCancelamento": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateCondicaoPagamentoDto": {
         "type": "object",
         "properties": {
@@ -3318,10 +3182,6 @@
             "type": "string",
             "nullable": true
           },
-          "formaPagamentoId": {
-            "type": "integer",
-            "format": "int32"
-          },
           "condicaoPagamentoId": {
             "type": "integer",
             "format": "int32"
@@ -3346,92 +3206,6 @@
           },
           "ativo": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateNotaCompraDto": {
-        "type": "object",
-        "properties": {
-          "modelo": {
-            "type": "string",
-            "nullable": true
-          },
-          "serie": {
-            "type": "string",
-            "nullable": true
-          },
-          "numero": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fornecedorId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "dataEmissao": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "dataChegada": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "tipoFrete": {
-            "type": "string",
-            "nullable": true
-          },
-          "valorFrete": {
-            "type": "number",
-            "format": "double"
-          },
-          "valorSeguro": {
-            "type": "number",
-            "format": "double"
-          },
-          "outrasDespesas": {
-            "type": "number",
-            "format": "double"
-          },
-          "totalProdutos": {
-            "type": "number",
-            "format": "double"
-          },
-          "totalPagar": {
-            "type": "number",
-            "format": "double"
-          },
-          "condicaoPagamentoId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "transportadoraId": {
-            "type": "integer",
-            "format": "int64",
-            "nullable": true
-          },
-          "placaVeiculo": {
-            "type": "string",
-            "nullable": true
-          },
-          "observacao": {
-            "type": "string",
-            "nullable": true
-          },
-          "itens": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CreateNotaCompraItemDto"
-            },
-            "nullable": true
-          },
-          "parcelas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CreateNotaCompraParcelaDto"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false

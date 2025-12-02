@@ -13,10 +13,8 @@ import {
 import { Cidade, getCidades } from "@/services/cidadeService"
 import { Estado, getEstados } from "@/services/estadoService"
 import { CondicaoPagamento, getCondicoesPagamento } from "@/services/condicaoPagamentoService"
-import { FormaPagamento, getFormasPagamento } from "@/services/formaPagamentoService"
 import { ModalCidades } from "./ModalCidades"
 import { ModalCondicaoPagamento } from "./ModalCondicaoPagamento"
-import { ModalFormaPagamento } from "./ModalFormaPagamento"
 
 type Props = {
   isOpen: boolean
@@ -32,7 +30,6 @@ export function ModalFornecedores({
   const [cidades, setCidades] = useState<Cidade[]>([])
   const [estados, setEstados] = useState<Estado[]>([])
   const [condicoes, setCondicoes] = useState<CondicaoPagamento[]>([])
-  const [formas, setFormas] = useState<FormaPagamento[]>([])
 
   const [form, setForm] = useState<CreateFornecedorDto>({
     tipoPessoa: "J",
@@ -48,7 +45,6 @@ export function ModalFornecedores({
     bairro: "",
     cep: "",
     complemento: "",
-    formaPagamentoId: 0,
     condicaoPagamentoId: 0,
     idCidade: 0,
   })
@@ -57,19 +53,15 @@ export function ModalFornecedores({
 
   const [citySelOpen, setCitySelOpen] = useState(false)
   const [condSelOpen, setCondSelOpen] = useState(false)
-  const [formaSelOpen, setFormaSelOpen] = useState(false)
 
   const [modalCidadeOpen, setModalCidadeOpen] = useState(false)
   const [modalCondOpen, setModalCondOpen] = useState(false)
-  const [modalFormaOpen, setModalFormaOpen] = useState(false)
 
   const [reopenCitySelector, setReopenCitySelector] = useState(false)
   const [reopenCondSelector, setReopenCondSelector] = useState(false)
-  const [reopenFormaSelector, setReopenFormaSelector] = useState(false)
 
   const [searchCidade, setSearchCidade] = useState("")
   const [searchCond, setSearchCond] = useState("")
-  const [searchForma, setSearchForma] = useState("")
 
   const getCidadeUf = (id: number, includeId = false) => {
     const cid = cidades.find((c) => c.id === id)
@@ -90,16 +82,6 @@ export function ModalFornecedores({
     return cond.descricao.toUpperCase()
   }
 
-  const getNomeForma = (id: number, includeId = false) => {
-    if (!id || id === 0) return "SELECIONE..."
-    const forma = formas.find((f) => f.id === id)
-    if (!forma) return "SELECIONE..."
-    if (includeId) {
-      return `${forma.id} - ${forma.descricao.toUpperCase()}`
-    }
-    return forma.descricao.toUpperCase()
-  }
-
   const cidadesFiltradas = useMemo(() => {
     const t = searchCidade.toUpperCase()
     return cidades
@@ -114,25 +96,16 @@ export function ModalFornecedores({
       .sort((a, b) => (a.descricao || "").localeCompare(b.descricao || ""))
   }, [condicoes, searchCond])
 
-  const formasFiltradas = useMemo(() => {
-    const t = searchForma.toUpperCase()
-    return formas
-      .filter((f) => (f.descricao || "").toUpperCase().includes(t))
-      .sort((a, b) => (a.descricao || "").localeCompare(b.descricao || ""))
-  }, [formas, searchForma])
-
   useEffect(() => {
     if (!isOpen) return
     Promise.allSettled([
       getCidades(),
       getEstados(),
       getCondicoesPagamento(),
-      getFormasPagamento()
     ]).then((r) => {
       if (r[0].status === "fulfilled") setCidades(r[0].value)
       if (r[1].status === "fulfilled") setEstados(r[1].value)
       if (r[2].status === "fulfilled") setCondicoes(r[2].value)
-      if (r[3].status === "fulfilled") setFormas(r[3].value)
     })
   }, [isOpen])
 
@@ -152,7 +125,6 @@ export function ModalFornecedores({
         bairro: fornecedor.bairro ?? "",
         cep: fornecedor.cep ?? "",
         complemento: fornecedor.complemento ?? "",
-        formaPagamentoId: fornecedor.formaPagamentoId,
         condicaoPagamentoId: fornecedor.condicaoPagamentoId,
         idCidade: fornecedor.idCidade,
       })
@@ -171,7 +143,6 @@ export function ModalFornecedores({
         bairro: "",
         cep: "",
         complemento: "",
-        formaPagamentoId: 0,
         condicaoPagamentoId: 0,
         idCidade: 0,
       })
@@ -193,13 +164,6 @@ export function ModalFornecedores({
     }
   }, [modalCondOpen, reopenCondSelector])
 
-  useEffect(() => {
-    if (!modalFormaOpen && reopenFormaSelector) {
-      setReopenFormaSelector(false)
-      setFormaSelOpen(true)
-    }
-  }, [modalFormaOpen, reopenFormaSelector])
-
   async function handleSubmit() {
     const newErrors: { [key: string]: string } = {}
 
@@ -215,12 +179,12 @@ export function ModalFornecedores({
       newErrors.dataNascimentoCriacao = "Data de Nascimento/Criação é obrigatória"
     }
 
-    if (form.idCidade === 0) {
-      newErrors.idCidade = "Cidade é obrigatória"
+    if (!form.cpfCnpj?.trim()) {
+      newErrors.cpfCnpj = "CPF / CNPJ é obrigatório"
     }
 
-    if (form.formaPagamentoId === 0) {
-      newErrors.formaPagamentoId = "Forma de Pagamento é obrigatória"
+    if (form.idCidade === 0) {
+      newErrors.idCidade = "Cidade é obrigatória"
     }
 
     if (form.condicaoPagamentoId === 0) {
@@ -240,6 +204,7 @@ export function ModalFornecedores({
       rua: form.rua?.toUpperCase(),
       bairro: form.bairro?.toUpperCase(),
       numero: form.numero?.toUpperCase(),
+      rgInscricaoEstadual: form.rgInscricaoEstadual?.toUpperCase(),
     }
 
     if (fornecedor?.id) {
@@ -279,15 +244,6 @@ export function ModalFornecedores({
         onSave={async () => {
           setCondicoes(await getCondicoesPagamento())
           setReopenCondSelector(true)
-        }}
-      />
-
-      <ModalFormaPagamento
-        isOpen={modalFormaOpen}
-        onOpenChange={setModalFormaOpen}
-        onSave={async () => {
-          setFormas(await getFormasPagamento())
-          setReopenFormaSelector(true)
         }}
       />
 
@@ -371,14 +327,21 @@ export function ModalFornecedores({
           </div>
 
           <div className="col-span-1 flex flex-col gap-1.5">
-            <Label htmlFor="cpfCnpj">CPF / CNPJ</Label>
+            <Label htmlFor="cpfCnpj">
+              CPF / CNPJ <span className="text-red-500">*</span>
+            </Label>
             <Input
               id="cpfCnpj"
               placeholder="Digite o CPF ou CNPJ"
               disabled={readOnly}
               value={form.cpfCnpj ?? ""}
-              onChange={(e) => setForm({ ...form, cpfCnpj: e.target.value })}
+              className={errors.cpfCnpj ? "border-destructive" : ""}
+              onChange={(e) => {
+                setForm({ ...form, cpfCnpj: e.target.value })
+                if (errors.cpfCnpj) setErrors({ ...errors, cpfCnpj: "" })
+              }}
             />
+            {errors.cpfCnpj && <span className="text-xs text-red-500">{errors.cpfCnpj}</span>}
           </div>
 
           <div className="col-span-1 flex flex-col gap-1.5">
@@ -604,72 +567,6 @@ export function ModalFornecedores({
               </DialogContent>
             </Dialog>
             {errors.condicaoPagamentoId && <span className="text-xs text-red-500">{errors.condicaoPagamentoId}</span>}
-          </div>
-
-          <div className="col-span-2 flex flex-col gap-1.5">
-            <Label>
-              Forma de Pagamento <span className="text-red-500">*</span>
-            </Label>
-            <Dialog open={formaSelOpen} onOpenChange={setFormaSelOpen}>
-              <DialogTrigger asChild>
-                <Button
-                  variant="outline"
-                  disabled={readOnly}
-                  className={`w-full justify-between uppercase font-normal ${errors.formaPagamentoId ? "border-destructive" : ""}`}
-                >
-                  {getNomeForma(form.formaPagamentoId)}
-                  {!readOnly && <ChevronDown className="h-4 w-4" />}
-                </Button>
-              </DialogTrigger>
-
-              <DialogContent className="w-[92%] max-w-6xl">
-                <DialogHeader>
-                  <DialogTitle>Selecionar Forma</DialogTitle>
-                </DialogHeader>
-
-                <div className="flex gap-2 items-center mt-8">
-                  <Input
-                    placeholder="Buscar forma..."
-                    className="w-full"
-                    value={searchForma}
-                    onChange={(e) => setSearchForma(e.target.value)}
-                  />
-                </div>
-
-                <div className="space-y-2 max-h-[300px] overflow-auto">
-                  {formasFiltradas.map((f) => (
-                    <Button
-                      key={f.id}
-                      variant={form.formaPagamentoId === f.id ? "default" : "outline"}
-                      className="w-full justify-start font-normal uppercase"
-                      onClick={() => {
-                        setForm({ ...form, formaPagamentoId: f.id })
-                        setFormaSelOpen(false)
-                        if (errors.formaPagamentoId) setErrors({ ...errors, formaPagamentoId: "" })
-                      }}
-                    >
-                      {getNomeForma(f.id, true)}
-                    </Button>
-                  ))}
-                </div>
-
-                <DialogFooter className="gap-2">
-                  <Button
-                    onClick={() => {
-                      setReopenFormaSelector(true)
-                      setFormaSelOpen(false)
-                      setModalFormaOpen(true)
-                    }}
-                  >
-                    Nova Forma
-                  </Button>
-                  <Button variant="outline" onClick={() => setFormaSelOpen(false)}>
-                    Voltar
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-            {errors.formaPagamentoId && <span className="text-xs text-red-500">{errors.formaPagamentoId}</span>}
           </div>
         </div>
 

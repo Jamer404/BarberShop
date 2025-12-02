@@ -10,6 +10,7 @@ namespace BarberShop.API.Controllers
     public class FornecedorController : ControllerBase
     {
         private readonly FornecedorRepository _repo;
+
         public FornecedorController(FornecedorRepository repo)
         {
             _repo = repo;
@@ -48,7 +49,6 @@ namespace BarberShop.API.Controllers
                 Bairro = dto.Bairro,
                 Cep = dto.Cep,
                 Complemento = dto.Complemento,
-                FormaPagamentoId = dto.FormaPagamentoId,
                 CondicaoPagamentoId = dto.CondicaoPagamentoId,
                 IdCidade = dto.IdCidade,
                 DataCriacao = now,
@@ -77,7 +77,6 @@ namespace BarberShop.API.Controllers
                 Bairro = dto.Bairro,
                 Cep = dto.Cep,
                 Complemento = dto.Complemento,
-                FormaPagamentoId = dto.FormaPagamentoId,
                 CondicaoPagamentoId = dto.CondicaoPagamentoId,
                 IdCidade = dto.IdCidade,
                 DataAtualizacao = DateTime.UtcNow

@@ -8,7 +8,13 @@ export interface ParcelaCondicaoPagamento {
   dias: number
   percentual: number
   formaPagamentoId: number
-  formaPagamento?: string
+  formaPagamento?: {
+    id: number
+    descricao: string
+    dataCriacao: string
+    dataAtualizacao: string
+    ativo: boolean
+  }
   dataCriacao: string
   dataAtualizacao: string
 }
@@ -84,4 +90,13 @@ export async function atualizarCondicaoPagamento(
 
 export async function deletarCondicaoPagamento(id: number) {
   await axios.delete(`${BASE_URL}/${id}`)
+}
+
+export async function getParcelasByCondicaoId(
+  id: number,
+): Promise<ParcelaCondicaoPagamento[]> {
+  const { data } = await axios.get<ParcelaCondicaoPagamento[]>(
+    `${BASE_URL}/${id}/parcelas`,
+  )
+  return data
 }

@@ -17,12 +17,29 @@ export interface CreateFornecedorDto {
   bairro?: string;
   cep?: string;
   complemento?: string;
-  formaPagamentoId: number;
   condicaoPagamentoId: number;
   idCidade: number;
 }
 
 export interface UpdateFornecedorDto extends CreateFornecedorDto {}
+
+interface FornecedorApiDto {
+  TipoPessoa: "F" | "J";
+  NomeRazaoSocial: string;
+  ApelidoNomeFantasia: string;
+  DataNascimentoCriacao: string;
+  CpfCnpj: string;
+  RgInscricaoEstadual: string;
+  Email: string;
+  Telefone: string;
+  Rua: string;
+  Numero: string;
+  Bairro: string;
+  Cep: string;
+  Complemento: string;
+  CondicaoPagamentoId: number;
+  IdCidade: number;
+}
 
 export interface Fornecedor {
   id: number;
@@ -45,7 +62,6 @@ export interface Fornecedor {
   cep?: string | null;
   complemento?: string | null;
 
-  formaPagamentoId: number;
   condicaoPagamentoId: number;
   idCidade: number;
 }
@@ -59,11 +75,48 @@ export async function getFornecedorById(id: number): Promise<Fornecedor> {
   return data;
 }
 export async function criarFornecedor(payload: CreateFornecedorDto): Promise<number> {
-  const { data } = await axios.post<number>(API_URL, payload);
+  const apiPayload: FornecedorApiDto = {
+    TipoPessoa: payload.tipoPessoa,
+    NomeRazaoSocial: payload.nomeRazaoSocial,
+    ApelidoNomeFantasia: payload.apelidoNomeFantasia,
+    DataNascimentoCriacao: payload.dataNascimentoCriacao,
+    CpfCnpj: payload.cpfCnpj || "",
+    RgInscricaoEstadual: payload.rgInscricaoEstadual || "",
+    Email: payload.email || "",
+    Telefone: payload.telefone || "",
+    Rua: payload.rua || "",
+    Numero: payload.numero || "",
+    Bairro: payload.bairro || "",
+    Cep: payload.cep || "",
+    Complemento: payload.complemento || "",
+    CondicaoPagamentoId: payload.condicaoPagamentoId,
+    IdCidade: payload.idCidade,
+  };
+  
+  console.log("Payload enviado para API:", JSON.stringify(apiPayload, null, 2));
+  
+  const { data } = await axios.post<number>(API_URL, apiPayload);
   return data;
 }
 export async function atualizarFornecedor(id: number, payload: UpdateFornecedorDto): Promise<void> {
-  await axios.put(`${API_URL}/${id}`, payload);
+  const apiPayload: FornecedorApiDto = {
+    TipoPessoa: payload.tipoPessoa,
+    NomeRazaoSocial: payload.nomeRazaoSocial,
+    ApelidoNomeFantasia: payload.apelidoNomeFantasia,
+    DataNascimentoCriacao: payload.dataNascimentoCriacao,
+    CpfCnpj: payload.cpfCnpj || "",
+    RgInscricaoEstadual: payload.rgInscricaoEstadual || "",
+    Email: payload.email || "",
+    Telefone: payload.telefone || "",
+    Rua: payload.rua || "",
+    Numero: payload.numero || "",
+    Bairro: payload.bairro || "",
+    Cep: payload.cep || "",
+    Complemento: payload.complemento || "",
+    CondicaoPagamentoId: payload.condicaoPagamentoId,
+    IdCidade: payload.idCidade,
+  };
+  await axios.put(`${API_URL}/${id}`, apiPayload);
 }
 export async function deletarFornecedor(id: number): Promise<void> {
   await axios.delete(`${API_URL}/${id}`);

@@ -28,7 +28,7 @@ public class FuncionarioController : ControllerBase
     {
         // carimbos no back
         dto.DataCriacao = DateTime.UtcNow;
-        dto.DataAtualizacao = default; // null no insert
+        dto.DataAtualizacao = default;
 
         var id = await _repo.InsertAsync(dto);
         var novo = await _repo.GetByIdAsync(id);

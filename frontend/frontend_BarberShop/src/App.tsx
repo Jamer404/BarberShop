@@ -10,7 +10,7 @@ import CondicoesPagamento from "@/features/condicaoPagamento/CondicaoPagamento"
 import Fornecedores from "@/features/fornecedores/Fornecedores"
 import Clientes from "@/features/clientes/Clientes"
 import Produtos from "@/features/produtos/Produtos"
-import NotaCompraLista from "@/features/notaCompra/NotaCompraLista";
+import NotaCompra from "@/features/notaCompra/NotaCompra";
 import Marcas from "@/features/marcas/Marcas"
 import UnidadesMedidas from "./features/unidadesMedidas/UnidadesMedidas"
 import Categorias from "./features/categorias/Categorias"
@@ -39,7 +39,7 @@ export default function App() {
           <Route path="/marcas" element={<Marcas />} />
           <Route path="/clientes" element={<Clientes />} />
           <Route path="/produtos" element={<Produtos />} />
-          <Route path="/nota-compra" element={<NotaCompraLista />} />
+          <Route path="/nota-compra" element={<NotaCompra />} />
           <Route path="/unidades-medida" element={<UnidadesMedidas />} />
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/veiculos" element={<Veiculos />} />
