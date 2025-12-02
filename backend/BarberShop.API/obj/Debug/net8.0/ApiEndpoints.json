@@ -329,7 +329,7 @@
       },
       {
         "Name": "dto",
-        "Type": "BarberShop.API.Models.Cliente.CreateClienteDto",
+        "Type": "BarberShop.API.Models.Cliente.UpdateClienteDto",
         "IsRequired": true
       }
     ],

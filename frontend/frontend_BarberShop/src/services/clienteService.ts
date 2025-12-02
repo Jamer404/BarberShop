@@ -6,11 +6,9 @@ export interface Cliente {
   apelidoNomeFantasia: string | null
   cpfCnpj: string
   rgInscricaoEstadual: string | null
-  tipoPessoa: string | null
-  classificacao: string | null
   pf: boolean
   sexo: "M" | "F"
-  dataNascimentoCriacao: string | null 
+  dataNascimento: string | null 
   email: string | null
   telefone: string | null
   rua: string | null
@@ -31,11 +29,9 @@ export interface CreateClienteDto {
   apelidoNomeFantasia?: string | null
   cpfCnpj: string
   rgInscricaoEstadual?: string | null
-  tipoPessoa?: string | null
-  classificacao?: string | null
   pf: boolean
   sexo: "M" | "F"
-  dataNascimentoCriacao: string | null
+  dataNascimento: string | null
   email?: string | null
   telefone?: string | null
   rua?: string | null

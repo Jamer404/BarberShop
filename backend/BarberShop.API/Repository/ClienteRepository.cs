@@ -15,7 +15,7 @@ namespace BarberShop.API.Repository
 
         public async Task<IEnumerable<Cliente>> GetAllAsync()
         {
-            const string sql = "SELECT * FROM Clientes";
+            const string sql = "SELECT * FROM Clientes ORDER BY Id DESC";
             return await _connection.QueryAsync<Cliente>(sql);
         }
 
@@ -29,19 +29,23 @@ namespace BarberShop.API.Repository
         {
             const string sql = @"
                 INSERT INTO Clientes (
-                    NomeRazaoSocial, ApelidoNomeFantasia, CpfCnpj, RgInscricaoEstadual,
-                    TipoPessoa, Classificacao, PF, Sexo, DataNascimento,
-                    Email, Telefone, Rua, Numero, Complemento, Bairro, Cep, 
-                    IdCidade, IdCondicaoPagamento, LimiteCredito, Ativo, 
+                    NomeRazaoSocial, ApelidoNomeFantasia,
+                    CpfCnpj, RgInscricaoEstadual,
+                    Pf, Sexo, DataNascimento,
+                    Email, Telefone, Rua, Numero, Complemento, Bairro, Cep,
+                    IdCidade, IdCondicaoPagamento,
+                    LimiteCredito, Ativo,
                     DataCriacao, DataAtualizacao
                 ) VALUES (
-                    @NomeRazaoSocial, @ApelidoNomeFantasia, @CpfCnpj, @RgInscricaoEstadual,
-                    @TipoPessoa, @Classificacao, @PF, @Sexo, @DataNascimento, 
+                    @NomeRazaoSocial, @ApelidoNomeFantasia,
+                    @CpfCnpj, @RgInscricaoEstadual,
+                    @Pf, @Sexo, @DataNascimento,
                     @Email, @Telefone, @Rua, @Numero, @Complemento, @Bairro, @Cep,
-                    @IdCidade, @IdCondicaoPagamento, @LimiteCredito, @Ativo,
+                    @IdCidade, @IdCondicaoPagamento,
+                    @LimiteCredito, @Ativo,
                     GETDATE(), GETDATE()
                 );
-                SELECT CAST(SCOPE_IDENTITY() AS int);";
+                SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             return await _connection.ExecuteScalarAsync<int>(sql, cliente);
         }
@@ -54,9 +58,7 @@ namespace BarberShop.API.Repository
                     ApelidoNomeFantasia = @ApelidoNomeFantasia,
                     CpfCnpj             = @CpfCnpj,
                     RgInscricaoEstadual = @RgInscricaoEstadual,
-                    TipoPessoa          = @TipoPessoa,
-                    Classificacao       = @Classificacao,
-                    PF                  = @PF,
+                    Pf                  = @Pf,
                     Sexo                = @Sexo,
                     DataNascimento      = @DataNascimento,
                     Email               = @Email,
@@ -73,15 +75,15 @@ namespace BarberShop.API.Repository
                     DataAtualizacao     = GETDATE()
                 WHERE Id = @Id;";
 
-            var affectedRows = await _connection.ExecuteAsync(sql, cliente);
-            return affectedRows > 0;
+            var rows = await _connection.ExecuteAsync(sql, cliente);
+            return rows > 0;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
             const string sql = "DELETE FROM Clientes WHERE Id = @Id";
-            var affectedRows = await _connection.ExecuteAsync(sql, new { Id = id });
-            return affectedRows > 0;
+            var rows = await _connection.ExecuteAsync(sql, new { Id = id });
+            return rows > 0;
         }
     }
 }

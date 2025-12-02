@@ -4,6 +4,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { ChevronDown } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
 import {
@@ -26,8 +27,8 @@ type Props = {
   onSave: () => Promise<void>
 }
 
-type ClienteForm = Omit<CreateClienteDto, "dataNascimentoCriacao"> & {
-  dataNascimentoCriacao: string | null;
+type ClienteForm = Omit<CreateClienteDto, "dataNascimento"> & {
+  dataNascimento: string | null;
 };
 
 export function ModalClientes({
@@ -42,11 +43,9 @@ export function ModalClientes({
     apelidoNomeFantasia: "",
     cpfCnpj: "",
     rgInscricaoEstadual: "",
-    tipoPessoa: "F",
-    classificacao: "CLIENTE",
     pf: true,
     sexo: "M",
-    dataNascimentoCriacao: null,
+    dataNascimento: null,
     email: "",
     telefone: "",
     rua: "",
@@ -67,18 +66,41 @@ export function ModalClientes({
   const [modalCondOpen, setModalCondOpen] = useState(false)
   const [searchCidade, setSearchCidade] = useState("")
   const [searchCond, setSearchCond] = useState("")
+  const [limiteCreditoDisplay, setLimiteCreditoDisplay] = useState("")
 
   const [reopenCitySelector, setReopenCitySelector] = useState(false)
   const [reopenCondSelector, setReopenCondSelector] = useState(false)
 
-  const getCidadeUf = (id: number) => {
+  const formatCurrency = (value: number): string => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value)
+  }
+
+  const parseCurrency = (value: string): number => {
+    const num = value.replace(/[^0-9,]/g, "").replace(",", ".")
+    return parseFloat(num) || 0
+  }
+
+  const getCidadeUf = (id: number, includeId = false) => {
     const cid = cidades.find((c) => c.id === id)
     const est = estados.find((e) => e.id === cid?.idEstado)
+    if (includeId && cid && est) {
+      return `${cid.id} - ${cid.nome.toUpperCase()} - ${est.uf}`
+    }
     return cid && est ? `${cid.nome.toUpperCase()} - ${est.uf}` : "SELECIONE..."
   }
 
-  const getNomeCondicao = (id: number) =>
-    condicoes.find((c) => c.id === id)?.descricao.toUpperCase() || "SELECIONE..."
+  const getNomeCondicao = (id: number, includeId = false) => {
+    if (!id || id === 0) return "SELECIONE..."
+    const cond = condicoes.find((c) => c.id === id)
+    if (!cond) return "SELECIONE..."
+    if (includeId) {
+      return `${cond.id} - ${cond.descricao.toUpperCase()}`
+    }
+    return cond.descricao.toUpperCase()
+  }
 
   const cidadesFiltradas = useMemo(() => {
     const t = searchCidade.toUpperCase()
@@ -119,8 +141,8 @@ export function ModalClientes({
 
   async function salvar() {
     const formData = { ...form }
-    if (formData.dataNascimentoCriacao === "") {
-      formData.dataNascimentoCriacao = null
+    if (formData.dataNascimento === "") {
+      formData.dataNascimento = null
     }
 
     const estadoSel = estados.find(
@@ -171,20 +193,17 @@ export function ModalClientes({
     if (cliente) {
       setForm({
         ...cliente,
-        tipoPessoa: cliente.tipoPessoa ?? "F",
-        classificacao: cliente.classificacao ?? "CLIENTE",
       })
+      setLimiteCreditoDisplay(formatCurrency(cliente.limiteCredito))
     } else {
       setForm({
         nomeRazaoSocial: "",
         apelidoNomeFantasia: "",
         cpfCnpj: "",
         rgInscricaoEstadual: "",
-        tipoPessoa: "F",
-        classificacao: "CLIENTE",
         pf: true,
         sexo: "M",
-        dataNascimentoCriacao: null,
+        dataNascimento: null,
         email: "",
         telefone: "",
         rua: "",
@@ -197,6 +216,7 @@ export function ModalClientes({
         limiteCredito: 0,
         ativo: true,
       })
+      setLimiteCreditoDisplay("R$ 0,00")
     }
     setErrors({})
   }, [cliente, isOpen])
@@ -244,7 +264,9 @@ export function ModalClientes({
           <div className="overflow-y-auto max-h-[70vh] pr-2 grid grid-cols-4 gap-x-4 gap-y-3 text-sm">
 
             <div className="col-span-1 flex flex-col gap-1.5">
-              <label htmlFor="tipoPessoaSelect">Tipo de Pessoa</label>
+              <Label htmlFor="tipoPessoaSelect">
+                Tipo de Pessoa <span className="text-red-500">*</span>
+              </Label>
               <select
                 id="tipoPessoaSelect"
                 disabled={readOnly}
@@ -258,7 +280,9 @@ export function ModalClientes({
             </div>
 
             <div className="col-span-2 flex flex-col gap-1.5">
-              <label htmlFor="nomeRazaoSocial">Nome / Razão Social</label>
+              <Label htmlFor="nomeRazaoSocial">
+                Nome / Razão Social <span className="text-red-500">*</span>
+              </Label>
               <Input
                 id="nomeRazaoSocial"
                 placeholder="Digite o nome completo ou a razão social"
@@ -271,7 +295,7 @@ export function ModalClientes({
             </div>
 
             <div className="col-span-1 flex flex-col gap-1.5">
-              <label htmlFor="apelidoNomeFantasia">Apelido / Nome Fantasia</label>
+              <Label htmlFor="apelidoNomeFantasia">Apelido / Nome Fantasia</Label>
               <Input
                 id="apelidoNomeFantasia"
                 placeholder="Digite o apelido ou nome fantasia"
@@ -283,7 +307,9 @@ export function ModalClientes({
             </div>
 
             <div className="col-span-1 flex flex-col gap-1.5">
-              <label htmlFor="cpfCnpj">CPF / CNPJ</label>
+              <Label htmlFor="cpfCnpj">
+                CPF / CNPJ <span className="text-red-500">*</span>
+              </Label>
               <Input
                 id="cpfCnpj"
                 placeholder="Digite o CPF ou CNPJ"
@@ -296,7 +322,7 @@ export function ModalClientes({
             </div>
 
             <div className="col-span-1 flex flex-col gap-1.5">
-              <label htmlFor="rgInscricaoEstadual">RG / Inscrição Estadual</label>
+              <Label htmlFor="rgInscricaoEstadual">RG / Inscrição Estadual</Label>
               <Input
                 id="rgInscricaoEstadual"
                 placeholder="Digite o RG ou IE"
@@ -308,7 +334,9 @@ export function ModalClientes({
             </div>
 
             <div className="col-span-1 flex flex-col gap-1.5">
-              <label htmlFor="sexo">Sexo</label>
+              <Label htmlFor="sexo">
+                Sexo <span className="text-red-500">*</span>
+              </Label>
               <select
                 id="sexo"
                 disabled={readOnly || !form.pf}
@@ -322,19 +350,19 @@ export function ModalClientes({
             </div>
 
             <div className="col-span-1 flex flex-col gap-1.5">
-              <label htmlFor="dataNascimentoCriacao">Data de Nascimento</label>
+              <Label htmlFor="dataNascimento">Data de Nascimento</Label>
               <Input
-                id="dataNascimentoCriacao"
+                id="dataNascimento"
                 type="date"
                 disabled={readOnly || !form.pf}
-                value={form.dataNascimentoCriacao?.split("T")[0] ?? ""}
-                className={errors.dataNascimentoCriacao ? "border-destructive" : ""}
-                onChange={(e) => setForm({ ...form, dataNascimentoCriacao: e.target.value })}
+                value={form.dataNascimento?.split("T")[0] ?? ""}
+                className={errors.dataNascimento ? "border-destructive" : ""}
+                onChange={(e) => setForm({ ...form, dataNascimento: e.target.value })}
               />
             </div>
 
             <div className="col-span-2 flex flex-col gap-1.5">
-              <label htmlFor="email">Email</label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -348,7 +376,7 @@ export function ModalClientes({
             </div>
 
             <div className="col-span-2 flex flex-col gap-1.5">
-              <label htmlFor="telefone">Telefone</label>
+              <Label htmlFor="telefone">Telefone</Label>
               <Input
                 id="telefone"
                 placeholder="(XX) XXXXX-XXXX"
@@ -360,7 +388,7 @@ export function ModalClientes({
             </div>
 
             <div className="col-span-2 flex flex-col gap-1.5">
-              <label htmlFor="rua">Rua / Logradouro</label>
+              <Label htmlFor="rua">Rua / Logradouro</Label>
               <Input
                 id="rua"
                 placeholder="Ex: Rua das Flores"
@@ -372,7 +400,7 @@ export function ModalClientes({
             </div>
 
             <div className="col-span-1 flex flex-col gap-1.5">
-              <label htmlFor="numero">Número</label>
+              <Label htmlFor="numero">Número</Label>
               <Input
                 id="numero"
                 placeholder="Ex: 123"
@@ -384,7 +412,7 @@ export function ModalClientes({
             </div>
 
             <div className="col-span-1 flex flex-col gap-1.5">
-              <label htmlFor="cep">CEP</label>
+              <Label htmlFor="cep">CEP</Label>
               <Input
                 id="cep"
                 placeholder="XXXXX-XXX"
@@ -396,7 +424,7 @@ export function ModalClientes({
             </div>
 
             <div className="col-span-2 flex flex-col gap-1.5">
-              <label htmlFor="bairro">Bairro</label>
+              <Label htmlFor="bairro">Bairro</Label>
               <Input
                 id="bairro"
                 placeholder="Ex: Centro"
@@ -408,7 +436,7 @@ export function ModalClientes({
             </div>
 
             <div className="col-span-2 flex flex-col gap-1.5">
-              <label htmlFor="complemento">Complemento</label>
+              <Label htmlFor="complemento">Complemento</Label>
               <Input
                 id="complemento"
                 placeholder="Ex: Apto 101, Bloco B"
@@ -421,7 +449,9 @@ export function ModalClientes({
 
 
             <div className="col-span-2 flex flex-col gap-1.5">
-              <label>Cidade</label>
+              <Label>
+                Cidade <span className="text-red-500">*</span>
+              </Label>
               <Dialog open={citySelectorOpen} onOpenChange={setCitySelectorOpen}>
                 <DialogTrigger asChild>
                   <Button
@@ -434,27 +464,18 @@ export function ModalClientes({
                   </Button>
                 </DialogTrigger>
 
-                <DialogContent className="max-w-6xl">
+                <DialogContent className="w-[92%] max-w-6xl">
                   <DialogHeader>
                     <DialogTitle>Selecionar Cidade</DialogTitle>
                   </DialogHeader>
 
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 items-center mt-8">
                     <Input
                       placeholder="Buscar cidade ou estado..."
                       className="w-full"
                       value={searchCidade}
                       onChange={(e) => setSearchCidade(e.target.value)}
                     />
-                    <Button
-                      onClick={() => {
-                        setReopenCitySelector(true)
-                        setCitySelectorOpen(false)
-                        setModalCidadeOpen(true)
-                      }}
-                    >
-                      Nova Cidade
-                    </Button>
                   </div>
 
                   <div className="space-y-2 max-h-[300px] overflow-auto">
@@ -464,19 +485,38 @@ export function ModalClientes({
                         variant={form.idCidade === cid.id ? "default" : "outline"}
                         className="w-full justify-start font-normal uppercase"
                         onClick={() => handleCidadePicked(cid.id)}
-                        onDoubleClick={() => handleCidadePicked(cid.id)}
                       >
-                        {getCidadeUf(cid.id)}
+                        {getCidadeUf(cid.id, true)}
                       </Button>
                     ))}
                   </div>
+
+                  <DialogFooter className="gap-2">
+                    <Button
+                      onClick={() => {
+                        setReopenCitySelector(true)
+                        setCitySelectorOpen(false)
+                        setModalCidadeOpen(true)
+                      }}
+                    >
+                      Nova Cidade
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => setCitySelectorOpen(false)}
+                    >
+                      Voltar
+                    </Button>
+                  </DialogFooter>
                 </DialogContent>
               </Dialog>
               {errors.idCidade && <p className="text-xs text-destructive">{errors.idCidade[0]}</p>}
             </div>
 
             <div className="col-span-2 flex flex-col gap-1.5">
-              <label>Condição de Pagamento</label>
+              <Label>
+                Condição de Pagamento <span className="text-red-500">*</span>
+              </Label>
               <Dialog open={condSelectorOpen} onOpenChange={setCondSelectorOpen}>
                 <DialogTrigger asChild>
                   <Button
@@ -489,27 +529,18 @@ export function ModalClientes({
                   </Button>
                 </DialogTrigger>
 
-                <DialogContent className="max-w-5xl">
+                <DialogContent className="w-[92%] max-w-6xl">
                   <DialogHeader>
                     <DialogTitle>Selecionar Condição</DialogTitle>
                   </DialogHeader>
 
-                  <div className="flex gap-2 items-center">
+                  <div className="flex gap-2 items-center mt-8">
                     <Input
                       placeholder="Buscar condição..."
                       className="w-full"
                       value={searchCond}
                       onChange={(e) => setSearchCond(e.target.value)}
                     />
-                    <Button
-                      onClick={() => {
-                        setReopenCondSelector(true)
-                        setCondSelectorOpen(false)
-                        setModalCondOpen(true)
-                      }}
-                    >
-                      Nova Condição
-                    </Button>
                   </div>
 
                   <div className="space-y-2 max-h-[300px] overflow-auto">
@@ -519,41 +550,50 @@ export function ModalClientes({
                         variant={form.idCondicaoPagamento === c.id ? "default" : "outline"}
                         className="w-full justify-start font-normal uppercase"
                         onClick={() => handleCondicaoPicked(c.id)}
-                        onDoubleClick={() => handleCondicaoPicked(c.id)}
                       >
-                        {(c.descricao || "").toUpperCase()}
+                        {getNomeCondicao(c.id, true)}
                       </Button>
                     ))}
                   </div>
+
+                  <DialogFooter className="gap-2">
+                    <Button
+                      onClick={() => {
+                        setReopenCondSelector(true)
+                        setCondSelectorOpen(false)
+                        setModalCondOpen(true)
+                      }}
+                    >
+                      Nova Condição
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => setCondSelectorOpen(false)}
+                    >
+                      Voltar
+                    </Button>
+                  </DialogFooter>
                 </DialogContent>
               </Dialog>
               {errors.idCondicaoPagamento && <p className="text-xs text-destructive">{errors.idCondicaoPagamento[0]}</p>}
             </div>
 
             <div className="col-span-2 flex flex-col gap-1.5">
-              <label htmlFor="limiteCredito">Limite de Crédito</label>
+              <Label htmlFor="limiteCredito">Limite de Crédito</Label>
               <Input
                 id="limiteCredito"
-                type="number"
                 placeholder="R$ 0,00"
                 disabled={readOnly}
-                value={form.limiteCredito}
-                className={errors.limiteCredito ? "border-destructive" : ""}
-                onChange={(e) => setForm({ ...form, limiteCredito: Number(e.target.value) })}
+                value={limiteCreditoDisplay}
+                className={`text-right ${errors.limiteCredito ? "border-destructive" : ""}`}
+                onChange={(e) => {
+                  setLimiteCreditoDisplay(e.target.value)
+                  const parsed = parseCurrency(e.target.value)
+                  setForm({ ...form, limiteCredito: parsed })
+                }}
+                onBlur={() => setLimiteCreditoDisplay(formatCurrency(form.limiteCredito))}
               />
               {errors.limiteCredito && <p className="text-xs text-destructive">{errors.limiteCredito[0]}</p>}
-            </div>
-
-            <div className="col-span-2 flex flex-col gap-1.5">
-              <label htmlFor="classificacao">Classificação</label>
-              <Input
-                id="classificacao"
-                placeholder="Ex: CLIENTE, FORNECEDOR"
-                disabled={readOnly}
-                value={form.classificacao ?? ""}
-                className={`uppercase ${errors.classificacao ? "border-destructive" : ""}`}
-                onChange={(e) => setForm({ ...form, classificacao: e.target.value.toUpperCase() })}
-              />
             </div>
           </div>
 

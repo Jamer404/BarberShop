@@ -36,11 +36,27 @@ export function ModalCargo({
     ativo: true,
   })
 
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
+
+  const [salarioDisplay, setSalarioDisplay] = useState("")
+
   const formatDate = (s?: string) => {
     if (!s) return ""
     const d = new Date(s)
     d.setHours(d.getHours() - 3)
     return d.toLocaleString("pt-BR")
+  }
+
+  const formatCurrency = (value: number): string => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value)
+  }
+
+  const parseCurrency = (value: string): number => {
+    const num = value.replace(/[^0-9,]/g, "").replace(",", ".")
+    return parseFloat(num) || 0
   }
 
   useEffect(() => {
@@ -52,14 +68,28 @@ export function ModalCargo({
         exigeCnh: cargo.exigeCnh,
         ativo: cargo.ativo,
       })
+      setSalarioDisplay(formatCurrency(cargo.salarioBase))
     } else {
       setForm({ nome: "", setor: "", salarioBase: 0, exigeCnh: false, ativo: true })
+      setSalarioDisplay("R$ 0,00")
     }
+    setErrors({})
   }, [cargo])
 
   async function handleSubmit() {
+    const newErrors: { [key: string]: string } = {}
+
     if (!form.nome.trim()) {
-      toast.error("Informe o nome do cargo")
+      newErrors.nome = "Nome do cargo é obrigatório"
+    }
+
+    if (form.salarioBase <= 0) {
+      newErrors.salarioBase = "Salário base deve ser maior que zero"
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      toast.error("Preencha todos os campos obrigatórios")
       return
     }
 
@@ -115,14 +145,20 @@ export function ModalCargo({
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label>Cargo*</Label>
+              <Label>
+                Cargo <span className="text-red-500">*</span>
+              </Label>
               <Input
-                placeholder="Nome do Cargo*"
+                placeholder="Nome do Cargo"
                 disabled={readOnly}
                 value={form.nome}
-                onChange={(e) => setForm({ ...form, nome: e.target.value })}
+                onChange={(e) => {
+                  setForm({ ...form, nome: e.target.value })
+                  if (errors.nome) setErrors({ ...errors, nome: "" })
+                }}
                 className="uppercase"
               />
+              {errors.nome && <span className="text-xs text-red-500">{errors.nome}</span>}
             </div>
 
             <div className="space-y-1.5">
@@ -139,17 +175,23 @@ export function ModalCargo({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label>Salário Base</Label>
+              <Label>
+                Salário Base <span className="text-red-500">*</span>
+              </Label>
               <Input
-                type="number"
-                step="0.01"
-                placeholder="0,00"
+                placeholder="R$ 0,00"
                 disabled={readOnly}
-                value={form.salarioBase}
-                onChange={(e) =>
-                  setForm({ ...form, salarioBase: Number(e.target.value) || 0 })
-                }
+                value={salarioDisplay}
+                onChange={(e) => {
+                  setSalarioDisplay(e.target.value)
+                  const parsed = parseCurrency(e.target.value)
+                  setForm({ ...form, salarioBase: parsed })
+                  if (errors.salarioBase) setErrors({ ...errors, salarioBase: "" })
+                }}
+                onBlur={() => setSalarioDisplay(formatCurrency(form.salarioBase))}
+                className="text-right"
               />
+              {errors.salarioBase && <span className="text-xs text-red-500">{errors.salarioBase}</span>}
             </div>
 
             <div className="space-y-1.5">

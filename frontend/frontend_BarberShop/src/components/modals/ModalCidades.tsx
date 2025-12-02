@@ -179,28 +179,27 @@ export function ModalCidades({
                         key={e.id}
                         variant={form.estadoId === e.id ? "default" : "outline"}
                         className="w-full justify-start font-normal uppercase"
-                        onDoubleClick={() => {
+                        onClick={() => {
                           updateFormField("estadoId", e.id)
                           setSelectorOpen(false)
                         }}
                       >
-                        {e.nome.toUpperCase()} ({e.uf})
+                        {e.id} - {e.nome.toUpperCase()} ({e.uf})
                       </Button>
                     ))}
                   </div>
 
                   <div className="pt-4 flex justify-end gap-2">
                     <Button
-                      variant="secondary"
                       onClick={() => {
                         setSelectorOpen(false)
                         setModalEstadoOpen(true)
                       }}
                     >
-                      CADASTRAR NOVO ESTADO
+                      Cadastrar novo estado
                     </Button>
                     <Button variant="outline" onClick={() => setSelectorOpen(false)}>
-                      VOLTAR
+                      Voltar
                     </Button>
                   </div>
                 </DialogContent>
@@ -212,8 +211,8 @@ export function ModalCidades({
             <div className="text-xs text-muted-foreground mr-auto pl-1 space-y-0.5">
               {cidade && (
                 <>
-                  <div>Data Criação: {formatDate(cidade.dataCriacao)}</div>
-                  <div>Data Atualização: {formatDate(cidade.dataAtualizacao)}</div>
+                  <div>DATA CRIAÇÃO: {formatDate(cidade.dataCriacao)}</div>
+                  <div>DATA ATUALIZAÇÃO: {formatDate(cidade.dataAtualizacao)}</div>
                 </>
               )}
             </div>

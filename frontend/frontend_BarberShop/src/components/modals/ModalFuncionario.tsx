@@ -3,6 +3,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { ChevronDown } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
@@ -69,6 +70,17 @@ export function ModalFuncionario({
     telefone: null,
     ativo: true,
   })
+
+  const [errors, setErrors] = useState<{
+    nome?: string
+    cpf?: string
+    dataNascimento?: string
+    dataAdmissao?: string
+    idCargo?: string
+    salario?: string
+    email?: string
+    telefone?: string
+  }>({})
 
   const formatDate = (s?: string | null) => {
     if (!s) return ""
@@ -138,18 +150,23 @@ export function ModalFuncionario({
         ativo: true,
       })
     }
+    setErrors({})
   }, [funcionario, isOpen])
 
-  const getCidadeUf = (id?: number | null) => {
+  const getCidadeUf = (id?: number | null, includeId = false) => {
     const cid = cidades.find((c) => c.id === id)
     const est = estados.find((e) => e.id === cid?.idEstado)
-    return cid && est ? `${cid.nome.toUpperCase()} - ${est.uf}` : "SELECIONE..."
+    if (!cid || !est) return "SELECIONE..."
+    return includeId ? `${cid.id} - ${cid.nome.toUpperCase()} - ${est.uf}` : `${cid.nome.toUpperCase()} - ${est.uf}`
   }
 
   const cidadesFiltradas = useMemo(() => {
     const t = searchCidade.toUpperCase()
     return cidades
-      .filter((c) => getCidadeUf(c.id).toUpperCase().includes(t))
+      .filter((c) => {
+        const searchText = `${c.id} ${getCidadeUf(c.id, true)}`.toUpperCase()
+        return searchText.includes(t)
+      })
       .sort((a, b) => getCidadeUf(a.id).localeCompare(getCidadeUf(b.id)))
   }, [cidades, estados, searchCidade])
 
@@ -161,8 +178,50 @@ export function ModalFuncionario({
   }, [cargos, searchCargo])
 
   async function handleSubmit() {
-    if (!form.nome.trim()) { toast.warn("Informe o nome do funcionário."); return }
-    if (!form.dataAdmissao) { toast.warn("Informe a data de admissão."); return }
+    const newErrors: {
+      nome?: string
+      cpf?: string
+      dataNascimento?: string
+      dataAdmissao?: string
+      idCargo?: string
+      salario?: string
+      email?: string
+      telefone?: string
+    } = {}
+
+    if (!form.nome.trim()) {
+      newErrors.nome = "Nome do funcionário é obrigatório"
+    }
+    if (!form.cpf || form.cpf.trim() === "") {
+      newErrors.cpf = "CPF é obrigatório"
+    }
+    if (!form.dataNascimento) {
+      newErrors.dataNascimento = "Data de nascimento é obrigatória"
+    }
+    if (!form.dataAdmissao) {
+      newErrors.dataAdmissao = "Data de admissão é obrigatória"
+    }
+    if (!form.idCargo) {
+      newErrors.idCargo = "Cargo é obrigatório"
+    }
+    if (!form.salario || form.salario <= 0) {
+      newErrors.salario = "Salário deve ser maior que zero"
+    }
+    if (!form.email || form.email.trim() === "") {
+      newErrors.email = "E-mail é obrigatório"
+    }
+    if (!form.telefone || form.telefone.trim() === "") {
+      newErrors.telefone = "Telefone é obrigatório"
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      toast.error("Preencha todos os campos obrigatórios")
+      return
+    }
+
+    setErrors({})
+
     if (form.sexo !== "M" && form.sexo !== "F") { toast.warn("Sexo inválido."); return }
 
     // Normalizações leves
@@ -245,36 +304,62 @@ export function ModalFuncionario({
           </DialogHeader>
 
           <div className="grid grid-cols-4 gap-3 text-sm">
-            <Input
-              placeholder="Funcionário*"
-              className="col-span-3 uppercase"
-              disabled={readOnly}
-              value={form.nome}
-              onChange={(e) => setForm({ ...form, nome: e.target.value })}
-            />
+            <div className="col-span-3 space-y-1.5">
+              <Label className="uppercase font-medium">Nome do Funcionário <span className="text-red-500">*</span></Label>
+              <Input
+                placeholder="Nome do Funcionário"
+                className="uppercase"
+                disabled={readOnly}
+                value={form.nome}
+                onChange={(e) => {
+                  setForm({ ...form, nome: e.target.value })
+                  setErrors((err) => ({ ...err, nome: undefined }))
+                }}
+              />
+              {errors.nome && <span className="text-xs text-red-500">{errors.nome}</span>}
+            </div>
 
-            <select
-              className="col-span-1 border rounded px-2 py-2 bg-background"
-              disabled={readOnly}
-              value={form.sexo}
-              onChange={(e) => setForm({ ...form, sexo: e.target.value as "M" | "F" })}
-            >
-              <option value="M">MASCULINO</option>
-              <option value="F">FEMININO</option>
-            </select>
+            <div className="col-span-1 space-y-1.5">
+              <Label className="uppercase font-medium">Sexo <span className="text-red-500">*</span></Label>
+              <select
+                className="border rounded px-2 py-2 bg-background w-full h-10"
+                disabled={readOnly}
+                value={form.sexo}
+                onChange={(e) => setForm({ ...form, sexo: e.target.value as "M" | "F" })}
+              >
+                <option value="M">MASCULINO</option>
+                <option value="F">FEMININO</option>
+              </select>
+            </div>
 
-            <Input className="col-span-2 uppercase" placeholder="Endereço" disabled={readOnly}
-              value={form.endereco ?? ""} onChange={(e)=>setForm({...form, endereco:e.target.value})}/>
-            <Input className="col-span-1 uppercase" placeholder="Número" disabled={readOnly}
-              value={form.numero ?? ""} onChange={(e)=>setForm({...form, numero:e.target.value})}/>
-            <Input className="col-span-1 uppercase" placeholder="Complemento" disabled={readOnly}
-              value={form.complemento ?? ""} onChange={(e)=>setForm({...form, complemento:e.target.value})}/>
-            <Input className="col-span-1 uppercase" placeholder="Bairro" disabled={readOnly}
-              value={form.bairro ?? ""} onChange={(e)=>setForm({...form, bairro:e.target.value})}/>
-            <Input className="col-span-1" placeholder="CEP" disabled={readOnly}
-              value={form.cep ?? ""} onChange={(e)=>setForm({...form, cep:e.target.value})}/>
+            <div className="col-span-2 space-y-1.5">
+              <Label className="uppercase font-medium">Endereço</Label>
+              <Input className="uppercase" placeholder="Endereço" disabled={readOnly}
+                value={form.endereco ?? ""} onChange={(e)=>setForm({...form, endereco:e.target.value})}/>
+            </div>
+            <div className="col-span-1 space-y-1.5">
+              <Label className="uppercase font-medium">Número</Label>
+              <Input className="uppercase" placeholder="Número" disabled={readOnly}
+                value={form.numero ?? ""} onChange={(e)=>setForm({...form, numero:e.target.value})}/>
+            </div>
+            <div className="col-span-1 space-y-1.5">
+              <Label className="uppercase font-medium">Complemento</Label>
+              <Input className="uppercase" placeholder="Complemento" disabled={readOnly}
+                value={form.complemento ?? ""} onChange={(e)=>setForm({...form, complemento:e.target.value})}/>
+            </div>
+            <div className="col-span-1 space-y-1.5">
+              <Label className="uppercase font-medium">Bairro</Label>
+              <Input className="uppercase" placeholder="Bairro" disabled={readOnly}
+                value={form.bairro ?? ""} onChange={(e)=>setForm({...form, bairro:e.target.value})}/>
+            </div>
+            <div className="col-span-1 space-y-1.5">
+              <Label className="uppercase font-medium">CEP</Label>
+              <Input placeholder="CEP" disabled={readOnly}
+                value={form.cep ?? ""} onChange={(e)=>setForm({...form, cep:e.target.value})}/>
+            </div>
 
             <div className="col-span-2 flex flex-col gap-1.5">
+              <Label className="uppercase font-medium">Cidade</Label>
               <Dialog open={citySelectorOpen} onOpenChange={setCitySelectorOpen}>
                 <DialogTrigger asChild>
                   <Button
@@ -286,23 +371,14 @@ export function ModalFuncionario({
                     {!readOnly && <ChevronDown className="h-4 w-4" />}
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-4xl">
-                  <div className="flex gap-2 items-center">
+                <DialogContent className="w-[92%] max-w-6xl">
+                  <div className="flex gap-2 items-center mt-8">
                     <Input
                       placeholder="Buscar cidade..."
                       className="w-full"
                       value={searchCidade}
                       onChange={(e) => setSearchCidade(e.target.value)}
                     />
-                    <Button
-                      onClick={() => {
-                        setCitySelectorOpen(false)
-                        setModalCidadeOpen(true)
-                        setReopenCitySelector(true)
-                      }}
-                    >
-                      Nova Cidade
-                    </Button>
                   </div>
                   <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                     {cidadesFiltradas.map((cid) => (
@@ -315,30 +391,78 @@ export function ModalFuncionario({
                           setCitySelectorOpen(false)
                         }}
                       >
-                        {getCidadeUf(cid.id)}
+                        {getCidadeUf(cid.id, true)}
                       </Button>
                     ))}
+                  </div>
+                  <div className="flex justify-end gap-2 mt-4">
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        setCitySelectorOpen(false)
+                        setModalCidadeOpen(true)
+                        setReopenCitySelector(true)
+                      }}
+                    >
+                      Nova Cidade
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setCitySelectorOpen(false)}
+                    >
+                      Voltar
+                    </Button>
                   </div>
                 </DialogContent>
               </Dialog>
             </div>
 
-            <Input className="col-span-1" placeholder="CPF" disabled={readOnly}
-              value={form.cpf ?? ""} onChange={(e)=>setForm({...form, cpf:e.target.value})}/>
-            <Input className="col-span-1 uppercase" placeholder="RG" disabled={readOnly}
-              value={form.rg ?? ""} onChange={(e)=>setForm({...form, rg:e.target.value})}/>
+            <div className="col-span-1 space-y-1.5">
+              <Label className="uppercase font-medium">CPF <span className="text-red-500">*</span></Label>
+              <Input placeholder="CPF" disabled={readOnly}
+                value={form.cpf ?? ""} onChange={(e)=>{
+                  setForm({...form, cpf:e.target.value})
+                  setErrors((err) => ({ ...err, cpf: undefined }))
+                }}/>
+              {errors.cpf && <span className="text-xs text-red-500">{errors.cpf}</span>}
+            </div>
+            <div className="col-span-1 space-y-1.5">
+              <Label className="uppercase font-medium">RG</Label>
+              <Input className="uppercase" placeholder="RG" disabled={readOnly}
+                value={form.rg ?? ""} onChange={(e)=>setForm({...form, rg:e.target.value})}/>
+            </div>
 
-            <Input className="col-span-1" type="date" placeholder="Nascimento" disabled={readOnly}
-              value={form.dataNascimento ?? ""} onChange={(e)=>setForm({...form, dataNascimento:e.target.value || null})}/>
-            <Input className="col-span-1" type="date" placeholder="Admissão*" disabled={readOnly}
-              value={form.dataAdmissao} onChange={(e)=>setForm({...form, dataAdmissao:e.target.value})}/>
-            <Input className="col-span-1" type="date" placeholder="Demissão" disabled={readOnly}
-              value={form.dataDemissao ?? ""} onChange={(e)=>setForm({...form, dataDemissao:e.target.value || null})}/>
+            <div className="col-span-1 space-y-1.5">
+              <Label className="uppercase font-medium">Data Nascimento <span className="text-red-500">*</span></Label>
+              <Input type="date" placeholder="Nascimento" disabled={readOnly}
+                value={form.dataNascimento ?? ""} onChange={(e)=>{
+                  setForm({...form, dataNascimento:e.target.value || null})
+                  setErrors((err) => ({ ...err, dataNascimento: undefined }))
+                }}/>
+              {errors.dataNascimento && <span className="text-xs text-red-500">{errors.dataNascimento}</span>}
+            </div>
+            <div className="col-span-1 space-y-1.5">
+              <Label className="uppercase font-medium">Data Admissão <span className="text-red-500">*</span></Label>
+              <Input type="date" placeholder="Admissão" disabled={readOnly}
+                value={form.dataAdmissao} onChange={(e)=>{
+                  setForm({...form, dataAdmissao:e.target.value})
+                  setErrors((err) => ({ ...err, dataAdmissao: undefined }))
+                }}/>
+              {errors.dataAdmissao && <span className="text-xs text-red-500">{errors.dataAdmissao}</span>}
+            </div>
+            <div className="col-span-1 space-y-1.5">
+              <Label className="uppercase font-medium">Data Demissão</Label>
+              <Input type="date" placeholder="Demissão" disabled={readOnly}
+                value={form.dataDemissao ?? ""} onChange={(e)=>setForm({...form, dataDemissao:e.target.value || null})}/>
+            </div>
 
             <div className="col-span-2 flex flex-col gap-1.5">
+              <Label className="uppercase font-medium">Cargo <span className="text-red-500">*</span></Label>
               <Dialog open={cargoSelectorOpen} onOpenChange={setCargoSelectorOpen}>
                 <DialogTrigger asChild>
                   <Button
+                    type="button"
                     variant="outline"
                     disabled={readOnly}
                     className="w-full justify-between uppercase font-normal"
@@ -347,27 +471,19 @@ export function ModalFuncionario({
                     {!readOnly && <ChevronDown className="h-4 w-4" />}
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-4xl">
-                  <div className="flex gap-2 items-center">
+                <DialogContent className="w-[92%] max-w-6xl">
+                  <div className="flex gap-2 items-center mt-8">
                     <Input
                       placeholder="Buscar cargo..."
                       className="w-full"
                       value={searchCargo}
                       onChange={(e) => setSearchCargo(e.target.value)}
                     />
-                    <Button
-                      onClick={() => {
-                        setCargoSelectorOpen(false)
-                        setModalCargoOpen(true)
-                        setReopenCargoSelector(true)
-                      }}
-                    >
-                      Novo Cargo
-                    </Button>
                   </div>
                   <div className="space-y-2 max-h-[300px] overflow-auto mt-2">
                     {cargosFiltrados.map((cargo) => (
                       <Button
+                        type="button"
                         key={cargo.id}
                         variant={form.idCargo === cargo.id ? "default" : "outline"}
                         className="w-full justify-start uppercase font-normal"
@@ -378,25 +494,75 @@ export function ModalFuncionario({
                             salario: cargo.salarioBase ?? form.salario ?? null,
                           })
                           setCargoSelectorOpen(false)
+                          setErrors((err) => ({ ...err, idCargo: undefined }))
                         }}
                       >
-                        {cargo.nome}
+                        {cargo.id} - {cargo.nome}
                       </Button>
                     ))}
                   </div>
+                  <div className="flex justify-end gap-2 mt-4">
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        setCargoSelectorOpen(false)
+                        setModalCargoOpen(true)
+                        setReopenCargoSelector(true)
+                      }}
+                    >
+                      Novo Cargo
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setCargoSelectorOpen(false)}
+                    >
+                      Voltar
+                    </Button>
+                  </div>
                 </DialogContent>
               </Dialog>
+              {errors.idCargo && <span className="text-xs text-red-500">{errors.idCargo}</span>}
             </div>
 
-            <Input className="col-span-1 uppercase" placeholder="Carga Horária" disabled={readOnly}
-              value={form.cargaHoraria ?? ""} onChange={(e)=>setForm({...form, cargaHoraria:e.target.value})}/>
-            <Input className="col-span-1" type="number" step="0.01" placeholder="Salário (R$)" disabled={readOnly}
-              value={form.salario ?? ""} onChange={(e)=>setForm({...form, salario: e.target.value ? Number(e.target.value) : null})}/>
+            <div className="col-span-1 space-y-1.5">
+              <Label className="uppercase font-medium">Carga Horária</Label>
+              <Input className="uppercase" placeholder="Carga Horária" disabled={readOnly}
+                value={form.cargaHoraria ?? ""} onChange={(e)=>setForm({...form, cargaHoraria:e.target.value})}/>
+            </div>
+            <div className="col-span-1 space-y-1.5">
+              <Label className="uppercase font-medium">Salário <span className="text-red-500">*</span></Label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
+                  R$
+                </span>
+                <Input className="pl-8 text-right" type="number" step="0.01" placeholder="Salário" disabled={readOnly}
+                  value={form.salario ?? ""} onChange={(e)=>{
+                    setForm({...form, salario: e.target.value ? Number(e.target.value) : null})
+                    setErrors((err) => ({ ...err, salario: undefined }))
+                  }}/>
+              </div>
+              {errors.salario && <span className="text-xs text-red-500">{errors.salario}</span>}
+            </div>
 
-            <Input className="col-span-2" placeholder="E-mail" disabled={readOnly}
-              value={form.email ?? ""} onChange={(e)=>setForm({...form, email:e.target.value || null})}/>
-            <Input className="col-span-2" placeholder="Telefone" disabled={readOnly}
-              value={form.telefone ?? ""} onChange={(e)=>setForm({...form, telefone:e.target.value || null})}/>
+            <div className="col-span-2 space-y-1.5">
+              <Label className="uppercase font-medium">E-mail <span className="text-red-500">*</span></Label>
+              <Input placeholder="E-mail" disabled={readOnly}
+                value={form.email ?? ""} onChange={(e)=>{
+                  setForm({...form, email:e.target.value || null})
+                  setErrors((err) => ({ ...err, email: undefined }))
+                }}/>
+              {errors.email && <span className="text-xs text-red-500">{errors.email}</span>}
+            </div>
+            <div className="col-span-2 space-y-1.5">
+              <Label className="uppercase font-medium">Telefone <span className="text-red-500">*</span></Label>
+              <Input placeholder="Telefone" disabled={readOnly}
+                value={form.telefone ?? ""} onChange={(e)=>{
+                  setForm({...form, telefone:e.target.value || null})
+                  setErrors((err) => ({ ...err, telefone: undefined }))
+                }}/>
+              {errors.telefone && <span className="text-xs text-red-500">{errors.telefone}</span>}
+            </div>
           </div>
 
           <DialogFooter>

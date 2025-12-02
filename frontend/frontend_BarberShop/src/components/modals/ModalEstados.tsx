@@ -168,7 +168,6 @@ export function ModalEstados({
 
                   <div className="pt-4 flex justify-end gap-2">
                     <Button
-                      variant="secondary"
                       onClick={() => {
                         setSelectorOpen(false)
                         setModalPaisOpen(true)

@@ -1,5 +1,4 @@
-﻿// Repository/FornecedorRepository.cs
-using System.Data;
+﻿using System.Data;
 using Dapper;
 using BarberShop.API.Entities;
 
@@ -8,7 +7,10 @@ namespace BarberShop.API.Repository
     public class FornecedorRepository
     {
         private readonly IDbConnection _cnx;
-        public FornecedorRepository(IDbConnection cnx) => _cnx = cnx;
+        public FornecedorRepository(IDbConnection cnx)
+        {
+            _cnx = cnx;
+        }
 
         public Task<IEnumerable<Fornecedor>> GetAllAsync() =>
             _cnx.QueryAsync<Fornecedor>(@"
@@ -16,8 +18,8 @@ SELECT
   Id, DataCriacao, DataAtualizacao,
   TipoPessoa, NomeRazaoSocial, ApelidoNomeFantasia, DataNascimentoCriacao,
   CpfCnpj, RgInscricaoEstadual, Email, Telefone,
-  Rua, Numero, Bairro, Cep, Classificacao, Complemento,
-  FormaPagamentoId, CondicaoPagamentoId, IdCidade, ValorMinimoPedido
+  Rua, Numero, Bairro, Cep, Complemento,
+  FormaPagamentoId, CondicaoPagamentoId, IdCidade
 FROM dbo.Fornecedores WITH (NOLOCK)
 ORDER BY Id DESC;");
 
@@ -27,8 +29,8 @@ SELECT
   Id, DataCriacao, DataAtualizacao,
   TipoPessoa, NomeRazaoSocial, ApelidoNomeFantasia, DataNascimentoCriacao,
   CpfCnpj, RgInscricaoEstadual, Email, Telefone,
-  Rua, Numero, Bairro, Cep, Classificacao, Complemento,
-  FormaPagamentoId, CondicaoPagamentoId, IdCidade, ValorMinimoPedido
+  Rua, Numero, Bairro, Cep, Complemento,
+  FormaPagamentoId, CondicaoPagamentoId, IdCidade
 FROM dbo.Fornecedores
 WHERE Id = @id;", new { id });
 
@@ -39,16 +41,16 @@ INSERT INTO dbo.Fornecedores
   DataCriacao, DataAtualizacao,
   TipoPessoa, NomeRazaoSocial, ApelidoNomeFantasia, DataNascimentoCriacao,
   CpfCnpj, RgInscricaoEstadual, Email, Telefone,
-  Rua, Numero, Bairro, Cep, Classificacao, Complemento,
-  FormaPagamentoId, CondicaoPagamentoId, IdCidade, ValorMinimoPedido
+  Rua, Numero, Bairro, Cep, Complemento,
+  FormaPagamentoId, CondicaoPagamentoId, IdCidade
 )
 VALUES
 (
   @DataCriacao, @DataAtualizacao,
   @TipoPessoa, @NomeRazaoSocial, @ApelidoNomeFantasia, @DataNascimentoCriacao,
   @CpfCnpj, @RgInscricaoEstadual, @Email, @Telefone,
-  @Rua, @Numero, @Bairro, @Cep, @Classificacao, @Complemento,
-  @FormaPagamentoId, @CondicaoPagamentoId, @IdCidade, @ValorMinimoPedido
+  @Rua, @Numero, @Bairro, @Cep, @Complemento,
+  @FormaPagamentoId, @CondicaoPagamentoId, @IdCidade
 );
 SELECT CAST(SCOPE_IDENTITY() AS INT);", f);
 
@@ -68,12 +70,10 @@ UPDATE dbo.Fornecedores SET
   Numero                = @Numero,
   Bairro                = @Bairro,
   Cep                   = @Cep,
-  Classificacao         = @Classificacao,
   Complemento           = @Complemento,
   FormaPagamentoId      = @FormaPagamentoId,
   CondicaoPagamentoId   = @CondicaoPagamentoId,
-  IdCidade              = @IdCidade,
-  ValorMinimoPedido     = @ValorMinimoPedido
+  IdCidade              = @IdCidade
 WHERE Id = @Id;",
             new
             {
@@ -91,12 +91,10 @@ WHERE Id = @Id;",
                 f.Numero,
                 f.Bairro,
                 f.Cep,
-                f.Classificacao,
                 f.Complemento,
                 f.FormaPagamentoId,
                 f.CondicaoPagamentoId,
-                f.IdCidade,
-                f.ValorMinimoPedido
+                f.IdCidade
             });
 
         public Task DeleteAsync(int id) =>

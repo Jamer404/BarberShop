@@ -6,12 +6,10 @@ export const buildClienteSchema = (isBrasil: boolean) => {
     apelidoNomeFantasia: z.string().optional(),
     cpfCnpj: z.string().nonempty({ message: "O CPF/CNPJ é obrigatório." }),
     rgInscricaoEstadual: z.string().optional(),
-    tipoPessoa: z.string().optional(),
-    classificacao: z.string().optional(),
     pf: z.boolean(),
     sexo: z.enum(["M", "F"]),
-    dataNascimentoCriacao: z.string().nullable(),
-    email: z.string().email({ message: "Formato de e-mail inválido." }).optional().or(z.literal('')),
+    dataNascimento: z.string().nullable(),
+    email: z.string().optional().or(z.literal('')),
     telefone: z.string().optional(),
     rua: z.string().optional(),
     numero: z.string().optional(),
@@ -44,6 +42,14 @@ export const buildClienteSchema = (isBrasil: boolean) => {
           });
         }
       }
+    }
+
+    if (data.email && data.email.trim() !== '' && !data.email.includes('@')) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "O e-mail deve conter o caractere @.",
+        path: ["email"],
+      });
     }
   });
 }
