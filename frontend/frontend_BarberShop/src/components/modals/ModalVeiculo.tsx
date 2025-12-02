@@ -2,6 +2,7 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
@@ -33,6 +34,7 @@ export function ModalVeiculo({
     descricao: "",
     ativo: true,
   })
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   const formatDate = (s?: string) => {
     if (!s) return ""
@@ -53,14 +55,26 @@ export function ModalVeiculo({
       setPlaca("")
       setForm({ modelo: "", descricao: "", ativo: true })
     }
-  }, [veiculo])
+    setErrors({})
+  }, [veiculo, isOpen])
+
+  function validateForm(): boolean {
+    const newErrors: { [key: string]: string } = {}
+
+    if (!veiculo?.id && !placa.trim()) {
+      newErrors.placa = "Placa é obrigatória"
+    }
+
+    if (!form.modelo.trim()) {
+      newErrors.modelo = "Modelo é obrigatório"
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
 
   async function handleSubmit() {
-    // validação simples
-    if ((!veiculo?.id && !placa.trim()) || !form.modelo.trim()) {
-      toast.error("Preencha os campos obrigatórios")
-      return
-    }
+    if (!validateForm()) return
 
     try {
       if (veiculo?.id) {
@@ -110,30 +124,62 @@ export function ModalVeiculo({
 
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input
-              placeholder="Placa*"
-              maxLength={10}
-              className="uppercase"
-              value={placa}
-              disabled={readOnly || Boolean(veiculo?.id)} // só na criação
-              onChange={(e) => setPlaca(e.target.value.toUpperCase())}
-            />
-            <Input
-              placeholder="Modelo*"
-              className="uppercase"
-              disabled={readOnly}
-              value={form.modelo}
-              onChange={(e) => setForm({ ...form, modelo: e.target.value.toUpperCase() })}
-            />
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="placa">
+                Placa <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="placa"
+                placeholder="ABC1234"
+                maxLength={10}
+                className="uppercase"
+                value={placa}
+                disabled={readOnly || Boolean(veiculo?.id)}
+                onChange={(e) => {
+                  setPlaca(e.target.value.toUpperCase())
+                  if (errors.placa) {
+                    setErrors({ ...errors, placa: "" })
+                  }
+                }}
+              />
+              {errors.placa && (
+                <span className="text-xs text-red-500">{errors.placa}</span>
+              )}
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor="modelo">
+                Modelo <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="modelo"
+                placeholder="Ex: CAMINHÃO FORD"
+                className="uppercase"
+                disabled={readOnly}
+                value={form.modelo}
+                onChange={(e) => {
+                  setForm({ ...form, modelo: e.target.value.toUpperCase() })
+                  if (errors.modelo) {
+                    setErrors({ ...errors, modelo: "" })
+                  }
+                }}
+              />
+              {errors.modelo && (
+                <span className="text-xs text-red-500">{errors.modelo}</span>
+              )}
+            </div>
           </div>
 
-          <Textarea
-            placeholder="Descrição"
-            className="uppercase min-h-28"
-            disabled={readOnly}
-            value={form.descricao}
-            onChange={(e) => setForm({ ...form, descricao: e.target.value.toUpperCase() })}
-          />
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="descricao">Descrição</Label>
+            <Textarea
+              id="descricao"
+              placeholder="Descrição do veículo"
+              className="uppercase min-h-28"
+              disabled={readOnly}
+              value={form.descricao}
+              onChange={(e) => setForm({ ...form, descricao: e.target.value.toUpperCase() })}
+            />
+          </div>
         </div>
 
         <DialogFooter>

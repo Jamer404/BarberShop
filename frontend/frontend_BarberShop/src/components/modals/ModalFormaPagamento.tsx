@@ -8,6 +8,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import {
@@ -32,6 +33,7 @@ export function ModalFormaPagamento({
   readOnly = false,
 }: ModalFormaPagamentoProps) {
   const [form, setForm] = useState({ descricao: "", ativo: true })
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   useEffect(() => {
     if (forma) {
@@ -39,10 +41,24 @@ export function ModalFormaPagamento({
     } else {
       setForm({ descricao: "", ativo: true })
     }
+    setErrors({})
   }, [forma, isOpen])
+
+  function validateForm(): boolean {
+    const newErrors: { [key: string]: string } = {}
+
+    if (!form.descricao.trim()) {
+      newErrors.descricao = "Descrição é obrigatória"
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
 
   async function handleSubmit() {
     if (readOnly) return
+    if (!validateForm()) return
+
     if (forma) {
       await atualizarFormaPagamento(forma.id, form)
     } else {
@@ -80,15 +96,25 @@ export function ModalFormaPagamento({
 
         <div className="space-y-4 py-4">
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="descricao">Descrição</label>
+            <Label htmlFor="descricao">
+              Descrição <span className="text-red-500">*</span>
+            </Label>
             <Input
               id="descricao"
               placeholder="Ex: Cartão de Crédito"
               disabled={readOnly}
               value={form.descricao}
               className="uppercase"
-              onChange={(e) => setForm({ ...form, descricao: e.target.value.toUpperCase() })}
+              onChange={(e) => {
+                setForm({ ...form, descricao: e.target.value.toUpperCase() })
+                if (errors.descricao) {
+                  setErrors({ ...errors, descricao: "" })
+                }
+              }}
             />
+            {errors.descricao && (
+              <span className="text-xs text-red-500">{errors.descricao}</span>
+            )}
           </div>
         </div>
 

@@ -10,7 +10,7 @@ import { getCidades, Cidade } from "@/services/cidadeService";
 import { getFormasPagamento, FormaPagamento } from "@/services/formaPagamentoService";
 import { getCondicoesPagamento, CondicaoPagamento } from "@/services/condicaoPagamentoService";
 
-import ModalFornecedores from "@/components/modals/ModalFornecedores";
+import { ModalFornecedores } from "@/components/modals/modalFornecedores";
 import { ModalConfirm } from "@/components/modals/ModalConfirm";
 
 export default function Fornecedores() {
