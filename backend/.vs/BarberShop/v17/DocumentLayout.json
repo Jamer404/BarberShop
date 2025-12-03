@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\vendacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\vendacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\vendaprodutorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\vendaprodutorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\vendarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\vendarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\venda.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\venda.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\vendacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\vendacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\updatevendadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -62,11 +70,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Program.cs",
+              "RelativeDocumentMoniker": "BarberShop.API\\Program.cs",
+              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Program.cs",
+              "RelativeToolTip": "BarberShop.API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T22:38:00.602Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VendaProdutoRepository.cs",
+              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\VendaProdutoRepository.cs",
+              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\VendaProdutoRepository.cs",
+              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\VendaProdutoRepository.cs",
+              "RelativeToolTip": "BarberShop.API\\Repository\\VendaProdutoRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T22:37:56.92Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "UpdateVendaProdutoDto.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateVendaProdutoDto.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateVendaProdutoDto.cs",
@@ -79,7 +113,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "CreateVendaProdutoDto.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateVendaProdutoDto.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateVendaProdutoDto.cs",
@@ -92,20 +126,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "VendaController.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\VendaController.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\VendaController.cs",
               "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\VendaController.cs",
               "RelativeToolTip": "BarberShop.API\\Controllers\\VendaController.cs",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAswJkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAD8AAAAAAAAAAIAwwH4AAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-02T20:11:23.754Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "VendaRepository.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\VendaRepository.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Repository\\VendaRepository.cs",
@@ -118,7 +152,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "UpdateVendaDto.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\UpdateVendaDto.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Repository\\UpdateVendaDto.cs",
@@ -131,7 +165,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "CreateVendaDto.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateVendaDto.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateVendaDto.cs",
@@ -144,7 +178,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "VendaProduto.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\VendaProduto.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Entities\\VendaProduto.cs",
@@ -157,7 +191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "Venda.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Venda.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Venda.cs",
@@ -170,7 +204,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "ContaPagarController.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\ContaPagarController.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\ContaPagarController.cs",
@@ -183,7 +217,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "ContaPagarRepository.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\ContaPagarRepository.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Repository\\ContaPagarRepository.cs",
@@ -196,7 +230,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "UpdateContaPagarDto.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateContaPagarDto.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateContaPagarDto.cs",
@@ -209,7 +243,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "CreateContaPagarDto.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateContaPagarDto.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateContaPagarDto.cs",
@@ -222,7 +256,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "ContaPagar.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\ContaPagar.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Entities\\ContaPagar.cs",

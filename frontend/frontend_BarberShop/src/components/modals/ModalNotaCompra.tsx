@@ -31,7 +31,7 @@ import {
   Transportadora,
   getTransportadoras,
 } from "@/services/transportadoraService"
-import { Produto, getProdutos } from "@/services/produtoService"
+import { Produto, getProdutos, atualizarEstoque } from "@/services/produtoService"
 import { Veiculo, getVeiculos } from "@/services/veiculoService"
 import { UnidadeMedida, getUnidadesMedida } from "@/services/unidadeMedidaService"
 import { criarContaPagar, CreateContaPagarDto } from "@/services/contaPagarService"
@@ -554,6 +554,17 @@ export function ModalNotaCompra({
       } else {
         const notaId = await criarNotaCompra(payload as CreateNotaCompraDto)
         toast.success("Nota de compra cadastrada com sucesso")
+
+        // Atualizar estoque dos produtos
+        try {
+          for (const item of produtosAdicionados) {
+            await atualizarEstoque(item.produtoId, item.quantidade)
+          }
+          toast.success("Estoque atualizado com sucesso")
+        } catch (error) {
+          console.error('Erro ao atualizar estoque:', error)
+          toast.warning("Nota criada, mas houve erro ao atualizar estoque")
+        }
 
         if (parcelasGeradas.length > 0) {
           try {

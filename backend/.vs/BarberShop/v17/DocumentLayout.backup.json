@@ -7,24 +7,40 @@
       "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\vendacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\vendaprodutorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\vendaprodutorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\vendarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\vendarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\updatevendadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\updatevendadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createvendaprodutodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createvendaprodutodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createvendadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createvendadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\vendaproduto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\vendaproduto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\venda.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\venda.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\updatevendadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\updatevendadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\updatevendaprodutodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\updatevendaprodutodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\contapagarcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -45,338 +61,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\contapagar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\contapagar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\notacompraitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\notacompraitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\comprarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\comprarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\compracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\compracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createcompradto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createcompradto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createcompraitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createcompraitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\notacompraitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\notacompraitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\compra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\compra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\fornecedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\fornecedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\connection\\dbconnectionfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\connection\\dbconnectionfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\condicaopagamentocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\condicaopagamentocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\condicaopagamentorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\condicaopagamentorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\fornecedorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\fornecedorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\fornecedorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\fornecedorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\updatefornecedordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\updatefornecedordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createfornecedordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createfornecedordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\funcionariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\funcionariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\fornecedordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\fornecedordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\updatenotacompraitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\updatenotacompraitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\updatecompradto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\updatecompradto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createnotacompraitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createnotacompraitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\transportadorarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\transportadorarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\estadorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\estadorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\updateclientedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\updateclientedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createclientedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createclientedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\clienterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\clienterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\modelopessoa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\modelopessoa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\updateunidademedidadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\updateunidademedidadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createunidademedidadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createunidademedidadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\unidademedida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\unidademedida.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\unidademedidacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\unidademedidacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\marcarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\marcarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\updatemarcadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\updatemarcadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createmarcadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createmarcadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\marcacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\marcacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\marca.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\marca.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\categoriarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\categoriarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\updatecategoriadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\updatecategoriadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createcategoriadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createcategoriadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\categoriacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\categoriacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\categoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\categoria.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\transportadora.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\transportadora.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createtransportadoradto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createtransportadoradto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\transportadoracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\transportadoracontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\produtocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\produtocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\funcionario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\funcionario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createfuncionariodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createfuncionariodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\funcionariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\funcionariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\cargocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\cargocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\cargorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\cargorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\cargo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\cargo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\cargoview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\cargoview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\updatecargodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\updatecargodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createcargodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createcargodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\notacompraview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\notacompraview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\produtorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\produtorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createprodutodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createprodutodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\produto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\produto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\parceladto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\parceladto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\formapagamentocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\formapagamentocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\updatefuncionariodto .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\updatefuncionariodto .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\veiculocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\veiculocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\veiculorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\veiculorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\updateveiculodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\updateveiculodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createveiculodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createveiculodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\veiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\veiculo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\unidademedidarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\unidademedidarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\cidade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\cidade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\controllers\\cidadecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\controllers\\cidadecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\repository\\cidaderepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\repository\\cidaderepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createcondicaopagamentodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createcondicaopagamentodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\condicaopagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\condicaopagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\parcelacondicaopagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\parcelacondicaopagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createformapagamentodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createformapagamentodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\formapagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\formapagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\updatecondicaopagamentodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\updatecondicaopagamentodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\formapagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\formapagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\modelobase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\modelobase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\entities\\pais.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\entities\\pais.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|c:\\users\\jamel\\source\\repos\\barbershop\\backend\\barbershop.api\\models\\createcidadedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{58A42907-EF59-43E0-8A72-7C1BE7C066A2}|BarberShop.API\\BarberShop.API.csproj|solutionrelative:barbershop.api\\models\\createcidadedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -386,8 +70,60 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Program.cs",
+              "RelativeDocumentMoniker": "BarberShop.API\\Program.cs",
+              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Program.cs",
+              "RelativeToolTip": "BarberShop.API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T22:38:00.602Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VendaProdutoRepository.cs",
+              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\VendaProdutoRepository.cs",
+              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\VendaProdutoRepository.cs",
+              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\VendaProdutoRepository.cs",
+              "RelativeToolTip": "BarberShop.API\\Repository\\VendaProdutoRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T22:37:56.92Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "UpdateVendaProdutoDto.cs",
+              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateVendaProdutoDto.cs",
+              "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateVendaProdutoDto.cs",
+              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateVendaProdutoDto.cs",
+              "RelativeToolTip": "BarberShop.API\\Models\\UpdateVendaProdutoDto.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAADwvwkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T22:27:07.928Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CreateVendaProdutoDto.cs",
+              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateVendaProdutoDto.cs",
+              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateVendaProdutoDto.cs",
+              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateVendaProdutoDto.cs",
+              "RelativeToolTip": "BarberShop.API\\Models\\CreateVendaProdutoDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T22:26:59.196Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -396,66 +132,79 @@
               "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\VendaController.cs",
               "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\VendaController.cs",
               "RelativeToolTip": "BarberShop.API\\Controllers\\VendaController.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAowFMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAMwJYAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-02T20:11:23.754Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "VendaRepository.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\VendaRepository.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Repository\\VendaRepository.cs",
               "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\VendaRepository.cs",
               "RelativeToolTip": "BarberShop.API\\Repository\\VendaRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAJQAAAAAAAAAAAAAwK8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-02T20:11:10.727Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "UpdateVendaDto.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\UpdateVendaDto.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Repository\\UpdateVendaDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\UpdateVendaDto.cs*",
-              "RelativeToolTip": "BarberShop.API\\Repository\\UpdateVendaDto.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\UpdateVendaDto.cs",
+              "RelativeToolTip": "BarberShop.API\\Repository\\UpdateVendaDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-02T20:09:51.763Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "CreateVendaDto.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateVendaDto.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateVendaDto.cs",
               "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateVendaDto.cs",
               "RelativeToolTip": "BarberShop.API\\Models\\CreateVendaDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAA5wBwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-02T20:09:40.363Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
+              "Title": "VendaProduto.cs",
+              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\VendaProduto.cs",
+              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\VendaProduto.cs",
+              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\VendaProduto.cs",
+              "RelativeToolTip": "BarberShop.API\\Entities\\VendaProduto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T22:11:50.996Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "Venda.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Venda.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Venda.cs",
               "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Venda.cs",
               "RelativeToolTip": "BarberShop.API\\Entities\\Venda.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAA1wB0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAgwBwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-02T20:09:30.192Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "ContaPagarController.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\ContaPagarController.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\ContaPagarController.cs",
@@ -468,7 +217,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "ContaPagarRepository.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\ContaPagarRepository.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Repository\\ContaPagarRepository.cs",
@@ -481,7 +230,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "UpdateContaPagarDto.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateContaPagarDto.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateContaPagarDto.cs",
@@ -494,7 +243,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "CreateContaPagarDto.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateContaPagarDto.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateContaPagarDto.cs",
@@ -507,7 +256,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "ContaPagar.cs",
               "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\ContaPagar.cs",
               "RelativeDocumentMoniker": "BarberShop.API\\Entities\\ContaPagar.cs",
@@ -517,1047 +266,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-02T18:24:01.123Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "CreateCompraItemDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateCompraItemDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateCompraItemDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateCompraItemDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateCompraItemDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T17:35:02.872Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\appsettings.json",
-              "RelativeDocumentMoniker": "BarberShop.API\\appsettings.json",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\appsettings.json",
-              "RelativeToolTip": "BarberShop.API\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-29T23:24:09.669Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "CreateCompraDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateCompraDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateCompraDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateCompraDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateCompraDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T01:23:08.482Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Program.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Program.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Program.cs",
-              "RelativeToolTip": "BarberShop.API\\Program.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAtwDEAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-01T20:52:44.897Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "NotaCompraItemRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\NotaCompraItemRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\NotaCompraItemRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\NotaCompraItemRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\NotaCompraItemRepository.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBwAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T01:36:26.583Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Fornecedor.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Fornecedor.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Fornecedor.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Fornecedor.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\Fornecedor.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T01:55:51.189Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "NotaCompraItem.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\NotaCompraItem.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\NotaCompraItem.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\NotaCompraItem.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\NotaCompraItem.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T01:35:35.535Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "CompraRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\CompraRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\CompraRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\CompraRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\CompraRepository.cs",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAQwGsAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T01:24:01.648Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "CompraController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\CompraController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\CompraController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\CompraController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\CompraController.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAowEcAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T01:09:58.497Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "Compra.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Compra.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Compra.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Compra.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\Compra.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAYwCEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T01:22:50.688Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "BarberShop.API\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Properties\\launchSettings.json",
-              "RelativeToolTip": "BarberShop.API\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-29T23:23:43.576Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "DbConnectionFactory.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Connection\\DbConnectionFactory.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Connection\\DbConnectionFactory.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Connection\\DbConnectionFactory.cs",
-              "RelativeToolTip": "BarberShop.API\\Connection\\DbConnectionFactory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T23:23:49.437Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "CondicaoPagamentoController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\CondicaoPagamentoController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\CondicaoPagamentoController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\CondicaoPagamentoController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\CondicaoPagamentoController.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAcwEoAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-30T15:32:12.092Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "CondicaoPagamentoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\CondicaoPagamentoRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\CondicaoPagamentoRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\CondicaoPagamentoRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\CondicaoPagamentoRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAsAAABFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-30T15:32:31.707Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "FuncionarioController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\FuncionarioController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\FuncionarioController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\FuncionarioController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\FuncionarioController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:27:17.121Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "FornecedorRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\FornecedorRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\FornecedorRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\FornecedorRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\FornecedorRepository.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAHcAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T01:56:27.378Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "UpdateFornecedorDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateFornecedorDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateFornecedorDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateFornecedorDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\UpdateFornecedorDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T02:01:26.247Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "CreateFornecedorDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateFornecedorDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateFornecedorDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateFornecedorDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateFornecedorDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T01:39:57.468Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "FornecedorDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\FornecedorDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\FornecedorDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\FornecedorDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\FornecedorDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T01:56:07.671Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "FornecedorController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\FornecedorController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\FornecedorController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\FornecedorController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\FornecedorController.cs",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAwwGAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:45:31.231Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "UpdateNotaCompraItemDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateNotaCompraItemDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateNotaCompraItemDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateNotaCompraItemDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\UpdateNotaCompraItemDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T01:36:17.933Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "UpdateCompraDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateCompraDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateCompraDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateCompraDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\UpdateCompraDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T01:23:15.508Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "CreateNotaCompraItemDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateNotaCompraItemDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateNotaCompraItemDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateNotaCompraItemDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateNotaCompraItemDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-02T01:36:09.343Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "Cliente.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Cliente.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Cliente.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Cliente.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\Cliente.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-29T19:37:59.954Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
-              "Title": "ModeloPessoa.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\ModeloPessoa.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\ModeloPessoa.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\ModeloPessoa.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\ModeloPessoa.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-29T23:39:57.466Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "TransportadoraRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\TransportadoraRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\TransportadoraRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\TransportadoraRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\TransportadoraRepository.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAIwMIAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:48:24.263Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "EstadoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\EstadoRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\EstadoRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\EstadoRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\EstadoRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T23:58:35.977Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "ClienteRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\ClienteRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\ClienteRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\ClienteRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\ClienteRepository.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAowFkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:40:54.786Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "UpdateClienteDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateClienteDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateClienteDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateClienteDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\UpdateClienteDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAQwB4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-29T23:33:41.629Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "CreateClienteDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateClienteDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateClienteDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateClienteDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateClienteDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAQwB4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-29T23:33:32.412Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 39,
-              "Title": "ClienteController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\ClienteController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\ClienteController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\ClienteController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\ClienteController.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAgwF8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-29T23:32:15.775Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 41,
-              "Title": "UpdateUnidadeMedidaDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateUnidadeMedidaDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateUnidadeMedidaDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateUnidadeMedidaDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\UpdateUnidadeMedidaDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T00:40:28.972Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 44,
-              "Title": "UnidadeMedidaController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\UnidadeMedidaController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\UnidadeMedidaController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\UnidadeMedidaController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\UnidadeMedidaController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAowCUAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T00:40:59.706Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "CreateUnidadeMedidaDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateUnidadeMedidaDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateUnidadeMedidaDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateUnidadeMedidaDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateUnidadeMedidaDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T00:35:41.403Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 43,
-              "Title": "UnidadeMedida.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\UnidadeMedida.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\UnidadeMedida.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\UnidadeMedida.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\UnidadeMedida.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T00:35:24.667Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 54,
-              "Title": "Categoria.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Categoria.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Categoria.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Categoria.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\Categoria.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:57:01.285Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 45,
-              "Title": "MarcaRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\MarcaRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\MarcaRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\MarcaRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\MarcaRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:43:39.083Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 46,
-              "Title": "UpdateMarcaDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateMarcaDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateMarcaDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateMarcaDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\UpdateMarcaDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:43:17.714Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 47,
-              "Title": "CreateMarcaDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateMarcaDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateMarcaDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateMarcaDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateMarcaDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:43:00.822Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 49,
-              "Title": "Marca.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Marca.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Marca.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Marca.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\Marca.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:42:40.312Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 48,
-              "Title": "MarcaController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\MarcaController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\MarcaController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\MarcaController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\MarcaController.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAIwCUAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:44:06.195Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 50,
-              "Title": "CategoriaRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\CategoriaRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\CategoriaRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\CategoriaRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\CategoriaRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:59:32.066Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 51,
-              "Title": "UpdateCategoriaDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateCategoriaDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateCategoriaDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateCategoriaDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\UpdateCategoriaDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:57:25.446Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 52,
-              "Title": "CreateCategoriaDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateCategoriaDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateCategoriaDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateCategoriaDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateCategoriaDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:57:15.182Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 53,
-              "Title": "CategoriaController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\CategoriaController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\CategoriaController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\CategoriaController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\CategoriaController.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAwwCoAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:59:45.574Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 56,
-              "Title": "CreateTransportadoraDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateTransportadoraDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateTransportadoraDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateTransportadoraDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateTransportadoraDto.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAA5wB0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:48:02.92Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 55,
-              "Title": "Transportadora.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Transportadora.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Transportadora.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Transportadora.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\Transportadora.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:47:53.113Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 57,
-              "Title": "TransportadoraController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\TransportadoraController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\TransportadoraController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\TransportadoraController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\TransportadoraController.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAQwEoAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:47:29.333Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 68,
-              "Title": "NotaCompraView.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\NotaCompraView.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\NotaCompraView.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\NotaCompraView.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\NotaCompraView.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAA9wB0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-01T00:39:39.485Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 58,
-              "Title": "ProdutoController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\ProdutoController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\ProdutoController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\ProdutoController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\ProdutoController.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAcwEUAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-01T00:14:12.628Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 59,
-              "Title": "Funcionario.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Funcionario.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Funcionario.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Funcionario.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\Funcionario.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAmwB0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:35:25.129Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 64,
-              "Title": "Cargo.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Cargo.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Cargo.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Cargo.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\Cargo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T02:21:36.446Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 60,
-              "Title": "CreateFuncionarioDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateFuncionarioDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateFuncionarioDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateFuncionarioDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateFuncionarioDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:26:10.882Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 67,
-              "Title": "CreateCargoDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateCargoDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateCargoDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateCargoDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateCargoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T02:18:52.012Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 61,
-              "Title": "FuncionarioRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\FuncionarioRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\FuncionarioRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\FuncionarioRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\FuncionarioRepository.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAkwJYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:27:01.215Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 66,
-              "Title": "UpdateCargoDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateCargoDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateCargoDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateCargoDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\UpdateCargoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T02:19:04.271Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 65,
-              "Title": "CargoView.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CargoView.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CargoView.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CargoView.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CargoView.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T02:19:13.229Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 63,
-              "Title": "CargoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\CargoRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\CargoRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\CargoRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\CargoRepository.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAA5wBgAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T02:22:08.323Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 62,
-              "Title": "CargoController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\CargoController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\CargoController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\CargoController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\CargoController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-04T02:22:25.937Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 69,
-              "Title": "ProdutoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\ProdutoRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\ProdutoRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\ProdutoRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\ProdutoRepository.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAswFEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-01T00:14:46.495Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 70,
-              "Title": "CreateProdutoDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateProdutoDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateProdutoDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateProdutoDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateProdutoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-01T00:14:29.521Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 71,
-              "Title": "Produto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Produto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Produto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Produto.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\Produto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-01T00:14:01.472Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 72,
-              "Title": "ParcelaDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\ParcelaDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\ParcelaDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\ParcelaDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\ParcelaDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:36:37.552Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 73,
-              "Title": "FormaPagamentoController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\FormaPagamentoController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\FormaPagamentoController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\FormaPagamentoController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\FormaPagamentoController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwB0AAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:30:00.096Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 74,
-              "Title": "UpdateFuncionarioDto .cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateFuncionarioDto .cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateFuncionarioDto .cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateFuncionarioDto .cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\UpdateFuncionarioDto .cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAywBgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-31T23:26:35.702Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 75,
-              "Title": "VeiculoController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\VeiculoController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\VeiculoController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\VeiculoController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\VeiculoController.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAAADwAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T23:22:48.467Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 77,
-              "Title": "UpdateVeiculoDTO.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateVeiculoDTO.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateVeiculoDTO.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateVeiculoDTO.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\UpdateVeiculoDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T23:21:53.844Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 78,
-              "Title": "CreateVeiculoDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateVeiculoDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateVeiculoDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateVeiculoDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateVeiculoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T23:21:20.936Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 79,
-              "Title": "Veiculo.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Veiculo.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Veiculo.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Veiculo.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\Veiculo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T23:21:02.302Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 80,
-              "Title": "UnidadeMedidaRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\UnidadeMedidaRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\UnidadeMedidaRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\UnidadeMedidaRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\UnidadeMedidaRepository.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAswEMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T00:40:44.823Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 76,
-              "Title": "VeiculoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\VeiculoRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\VeiculoRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\VeiculoRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\VeiculoRepository.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAowCEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T23:22:13.746Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 83,
-              "Title": "CidadeRepository.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\CidadeRepository.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Repository\\CidadeRepository.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Repository\\CidadeRepository.cs",
-              "RelativeToolTip": "BarberShop.API\\Repository\\CidadeRepository.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAYwDoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-01T21:19:13.134Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 82,
-              "Title": "CidadeController.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\CidadeController.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Controllers\\CidadeController.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Controllers\\CidadeController.cs",
-              "RelativeToolTip": "BarberShop.API\\Controllers\\CidadeController.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAYwDEAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T01:10:03.255Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 81,
-              "Title": "Cidade.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Cidade.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Cidade.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Cidade.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\Cidade.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-29T22:40:47.837Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 85,
-              "Title": "CondicaoPagamento.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\CondicaoPagamento.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\CondicaoPagamento.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\CondicaoPagamento.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\CondicaoPagamento.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-30T02:32:22.912Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 86,
-              "Title": "ParcelaCondicaoPagamento.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\ParcelaCondicaoPagamento.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\ParcelaCondicaoPagamento.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\ParcelaCondicaoPagamento.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\ParcelaCondicaoPagamento.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-30T15:30:50.425Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 84,
-              "Title": "CreateCondicaoPagamentoDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateCondicaoPagamentoDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateCondicaoPagamentoDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateCondicaoPagamentoDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateCondicaoPagamentoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-30T15:32:21.453Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 87,
-              "Title": "CreateFormaPagamentoDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateFormaPagamentoDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateFormaPagamentoDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateFormaPagamentoDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateFormaPagamentoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-01T20:50:30.799Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 88,
-              "Title": "FormaPagamento.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\FormaPagamento.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\FormaPagamento.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\FormaPagamento.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\FormaPagamento.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-30T15:54:38.765Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 89,
-              "Title": "UpdateCondicaoPagamentoDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateCondicaoPagamentoDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\UpdateCondicaoPagamentoDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\UpdateCondicaoPagamentoDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\UpdateCondicaoPagamentoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-30T15:51:37.842Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 93,
-              "Title": "CreateCidadeDto.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateCidadeDto.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Models\\CreateCidadeDto.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Models\\CreateCidadeDto.cs",
-              "RelativeToolTip": "BarberShop.API\\Models\\CreateCidadeDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-29T23:43:33.737Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 91,
-              "Title": "ModeloBase.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\ModeloBase.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\ModeloBase.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\ModeloBase.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\ModeloBase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-29T23:21:10.235Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 92,
-              "Title": "Pais.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Pais.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\Pais.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\Pais.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\Pais.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-30T02:22:47.545Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 90,
-              "Title": "FormaPagamento.cs",
-              "DocumentMoniker": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\FormaPagamento.cs",
-              "RelativeDocumentMoniker": "BarberShop.API\\Entities\\FormaPagamento.cs",
-              "ToolTip": "C:\\Users\\jamel\\source\\repos\\BarberShop\\backend\\BarberShop.API\\Entities\\FormaPagamento.cs",
-              "RelativeToolTip": "BarberShop.API\\Entities\\FormaPagamento.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-29T23:20:57.12Z"
             }
           ]
         }

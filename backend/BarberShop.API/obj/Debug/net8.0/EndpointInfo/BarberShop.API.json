@@ -2289,19 +2289,43 @@
         }
       }
     },
-    "/api/Venda/{id}": {
+    "/api/Venda/{numeroNota}/{modelo}/{serie}/{clienteId}": {
       "get": {
         "tags": [
           "Venda"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "numeroNota",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "modelo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serie",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "clienteId",
             "in": "path",
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32"
             }
           }
         ],
@@ -2317,12 +2341,36 @@
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "numeroNota",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "modelo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serie",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "clienteId",
             "in": "path",
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32"
             }
           }
         ],
@@ -2357,12 +2405,36 @@
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "numeroNota",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "modelo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serie",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "clienteId",
             "in": "path",
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32"
             }
           }
         ],
@@ -3076,9 +3148,9 @@
       "CreateVendaDto": {
         "type": "object",
         "properties": {
-          "clienteId": {
-            "type": "integer",
-            "format": "int32"
+          "numeroNota": {
+            "type": "string",
+            "nullable": true
           },
           "modelo": {
             "type": "string",
@@ -3088,9 +3160,9 @@
             "type": "string",
             "nullable": true
           },
-          "numero": {
-            "type": "string",
-            "nullable": true
+          "clienteId": {
+            "type": "integer",
+            "format": "int32"
           },
           "dataEmissao": {
             "type": "string",
@@ -3129,6 +3201,35 @@
           "observacao": {
             "type": "string",
             "nullable": true
+          },
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateVendaProdutoDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateVendaProdutoDto": {
+        "type": "object",
+        "properties": {
+          "produtoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantidade": {
+            "type": "number",
+            "format": "double"
+          },
+          "precoUnit": {
+            "type": "number",
+            "format": "double"
+          },
+          "desconto": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -3825,6 +3926,10 @@
       "UpdateVendaDto": {
         "type": "object",
         "properties": {
+          "dataEmissao": {
+            "type": "string",
+            "format": "date-time"
+          },
           "transportadoraId": {
             "type": "integer",
             "format": "int32",

@@ -110,44 +110,44 @@ namespace BarberShop.API.Controllers
             return NoContent();
         }
 
-        [HttpGet("{numeroNota}/{modelo}/{serie}/{clienteId:int}/itens")]
-        public async Task<IActionResult> GetItens(string numeroNota, string modelo, string serie, int clienteId)
-        {
-            var itens = await _produtoRepo.GetByVendaAsync(numeroNota, modelo, serie, clienteId);
-            return Ok(itens);
-        }
+        //[HttpGet("{numeroNota}/{modelo}/{serie}/{clienteId:int}/itens")]
+        //public async Task<IActionResult> GetItens(string numeroNota, string modelo, string serie, int clienteId)
+        //{
+        //    var itens = await _produtoRepo.GetByVendaAsync(numeroNota, modelo, serie, clienteId);
+        //    return Ok(itens);
+        //}
 
-        [HttpGet("{numeroNota}/{modelo}/{serie}/{clienteId:int}/itens/{produtoId:int}")]
-        public async Task<IActionResult> GetItem(string numeroNota, string modelo, string serie, int clienteId, int produtoId)
-        {
-            var item = await _produtoRepo.GetByIdAsync(numeroNota, modelo, serie, clienteId, produtoId);
-            return item is null ? NotFound() : Ok(item);
-        }
+        //[HttpGet("{numeroNota}/{modelo}/{serie}/{clienteId:int}/itens/{produtoId:int}")]
+        //public async Task<IActionResult> GetItem(string numeroNota, string modelo, string serie, int clienteId, int produtoId)
+        //{
+        //    var item = await _produtoRepo.GetByIdAsync(numeroNota, modelo, serie, clienteId, produtoId);
+        //    return item is null ? NotFound() : Ok(item);
+        //}
 
-        [HttpPut("{numeroNota}/{modelo}/{serie}/{clienteId:int}/itens/{produtoId:int}")]
-        public async Task<IActionResult> UpdateItem(string numeroNota, string modelo, string serie, int clienteId, int produtoId, UpdateVendaProdutoDto dto)
-        {
-            var item = new VendaProduto
-            {
-                NumeroNota = numeroNota,
-                Modelo = modelo,
-                Serie = serie,
-                ClienteId = clienteId,
-                ProdutoId = produtoId,
-                Quantidade = dto.Quantidade,
-                PrecoUnit = dto.PrecoUnit,
-                Desconto = dto.Desconto
-            };
+        //[HttpPut("{numeroNota}/{modelo}/{serie}/{clienteId:int}/itens/{produtoId:int}")]
+        //public async Task<IActionResult> UpdateItem(string numeroNota, string modelo, string serie, int clienteId, int produtoId, UpdateVendaProdutoDto dto)
+        //{
+        //    var item = new VendaProduto
+        //    {
+        //        NumeroNota = numeroNota,
+        //        Modelo = modelo,
+        //        Serie = serie,
+        //        ClienteId = clienteId,
+        //        ProdutoId = produtoId,
+        //        Quantidade = dto.Quantidade,
+        //        PrecoUnit = dto.PrecoUnit,
+        //        Desconto = dto.Desconto
+        //    };
 
-            await _produtoRepo.UpdateAsync(item);
-            return NoContent();
-        }
+        //    await _produtoRepo.UpdateAsync(item);
+        //    return NoContent();
+        //}
 
-        [HttpDelete("{numeroNota}/{modelo}/{serie}/{clienteId:int}/itens/{produtoId:int}")]
-        public async Task<IActionResult> DeleteItem(string numeroNota, string modelo, string serie, int clienteId, int produtoId)
-        {
-            await _produtoRepo.DeleteAsync(numeroNota, modelo, serie, clienteId, produtoId);
-            return NoContent();
-        }
+        //[HttpDelete("{numeroNota}/{modelo}/{serie}/{clienteId:int}/itens/{produtoId:int}")]
+        //public async Task<IActionResult> DeleteItem(string numeroNota, string modelo, string serie, int clienteId, int produtoId)
+        //{
+        //    await _produtoRepo.DeleteAsync(numeroNota, modelo, serie, clienteId, produtoId);
+        //    return NoContent();
+        //}
     }
 }

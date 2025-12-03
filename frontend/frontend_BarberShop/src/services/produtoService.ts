@@ -59,3 +59,27 @@ export async function atualizarProduto(id: number, payload: UpdateProdutoDto): P
 export async function deletarProduto(id: number): Promise<void> {
   await axios.delete(`${API_URL}/${id}`)
 }
+
+export async function atualizarEstoque(id: number, quantidade: number): Promise<void> {
+  // Buscar o produto completo
+  const produto = await getProdutoById(id)
+  
+  // Incrementar o estoque
+  const payload: UpdateProdutoDto = {
+    descricao: produto.descricao,
+    unidadeId: produto.unidadeId,
+    marcaId: produto.marcaId,
+    categoriaId: produto.categoriaId,
+    codigoBarras: produto.codigoBarras,
+    referencia: produto.referencia,
+    custoCompra: produto.custoCompra,
+    precoVenda: produto.precoVenda,
+    lucroPercentual: produto.lucroPercentual,
+    estoque: produto.estoque + quantidade,
+    estoqueMinimo: produto.estoqueMinimo,
+    ativo: produto.ativo,
+  }
+  
+  // Atualizar o produto
+  await atualizarProduto(id, payload)
+}
