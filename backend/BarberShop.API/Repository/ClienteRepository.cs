@@ -8,12 +8,14 @@ namespace BarberShop.API.Repository
     {
         private readonly IDbConnection _connection;
 
-        public ClienteRepository(IDbConnection connection) =>
+        public ClienteRepository(IDbConnection connection)
+        {
             _connection = connection;
+        }
 
         public async Task<IEnumerable<Cliente>> GetAllAsync()
         {
-            const string sql = "SELECT * FROM Clientes";
+            const string sql = "SELECT * FROM Clientes ORDER BY Id DESC";
             return await _connection.QueryAsync<Cliente>(sql);
         }
 
@@ -26,62 +28,62 @@ namespace BarberShop.API.Repository
         public async Task<int> InsertAsync(Cliente cliente)
         {
             const string sql = @"
-                                INSERT INTO Clientes
-                                ( TipoPessoa, NomeRazaoSocial, ApelidoNomeFantasia, DataNascimentoCriacao,
-                                  CpfCnpj, RgInscricaoEstadual, Email, Telefone,
-                                  Rua, Numero, Bairro, Cep, Classificacao, Complemento,
-                                  Pf, Sexo, IdCidade, IdCondicaoPagamento, LimiteCredito,
-                                  DataCriacao, DataAtualizacao, Ativo )
-                                VALUES
-                                ( @TipoPessoa, @NomeRazaoSocial, @ApelidoNomeFantasia, @DataNascimentoCriacao,
-                                  @CpfCnpj, @RgInscricaoEstadual, @Email, @Telefone,
-                                  @Rua, @Numero, @Bairro, @Cep, @Classificacao, @Complemento,
-                                  @Pf, @Sexo, @IdCidade, @IdCondicaoPagamento, @LimiteCredito,
-                                  @DataCriacao, @DataAtualizacao, @Ativo );
+                INSERT INTO Clientes (
+                    NomeRazaoSocial, ApelidoNomeFantasia,
+                    CpfCnpj, RgInscricaoEstadual,
+                    Pf, Sexo, DataNascimento,
+                    Email, Telefone, Rua, Numero, Complemento, Bairro, Cep,
+                    IdCidade, IdCondicaoPagamento,
+                    LimiteCredito, Ativo,
+                    DataCriacao, DataAtualizacao
+                ) VALUES (
+                    @NomeRazaoSocial, @ApelidoNomeFantasia,
+                    @CpfCnpj, @RgInscricaoEstadual,
+                    @Pf, @Sexo, @DataNascimento,
+                    @Email, @Telefone, @Rua, @Numero, @Complemento, @Bairro, @Cep,
+                    @IdCidade, @IdCondicaoPagamento,
+                    @LimiteCredito, @Ativo,
+                    GETDATE(), GETDATE()
+                );
+                SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
-                                SELECT CAST(SCOPE_IDENTITY() AS int);";
-
-            cliente.DataCriacao = cliente.DataAtualizacao = DateTime.UtcNow;
             return await _connection.ExecuteScalarAsync<int>(sql, cliente);
         }
 
         public async Task<bool> UpdateAsync(Cliente cliente)
         {
             const string sql = @"
-                                UPDATE Clientes SET
-                                  TipoPessoa            = @TipoPessoa,
-                                  NomeRazaoSocial       = @NomeRazaoSocial,
-                                  ApelidoNomeFantasia   = @ApelidoNomeFantasia,
-                                  DataNascimentoCriacao = @DataNascimentoCriacao,
-                                  CpfCnpj               = @CpfCnpj,
-                                  RgInscricaoEstadual   = @RgInscricaoEstadual,
-                                  Email                 = @Email,
-                                  Telefone              = @Telefone,
-                                  Rua                   = @Rua,
-                                  Numero                = @Numero,
-                                  Bairro                = @Bairro,
-                                  Cep                   = @Cep,
-                                  Classificacao         = @Classificacao,
-                                  Complemento           = @Complemento,
-                                  Pf                    = @Pf,
-                                  Sexo                  = @Sexo,
-                                  IdCidade              = @IdCidade,
-                                  IdCondicaoPagamento   = @IdCondicaoPagamento,
-                                  LimiteCredito         = @LimiteCredito,
-                                  DataAtualizacao       = @DataAtualizacao,
-                                  Ativo                 = @Ativo
-                                WHERE Id = @Id;";
+                UPDATE Clientes SET
+                    NomeRazaoSocial     = @NomeRazaoSocial,
+                    ApelidoNomeFantasia = @ApelidoNomeFantasia,
+                    CpfCnpj             = @CpfCnpj,
+                    RgInscricaoEstadual = @RgInscricaoEstadual,
+                    Pf                  = @Pf,
+                    Sexo                = @Sexo,
+                    DataNascimento      = @DataNascimento,
+                    Email               = @Email,
+                    Telefone            = @Telefone,
+                    Rua                 = @Rua,
+                    Numero              = @Numero,
+                    Bairro              = @Bairro,
+                    Cep                 = @Cep,
+                    Complemento         = @Complemento,
+                    IdCidade            = @IdCidade,
+                    IdCondicaoPagamento = @IdCondicaoPagamento,
+                    LimiteCredito       = @LimiteCredito,
+                    Ativo               = @Ativo,
+                    DataAtualizacao     = GETDATE()
+                WHERE Id = @Id;";
 
-            cliente.DataAtualizacao = DateTime.UtcNow;
-            var affected = await _connection.ExecuteAsync(sql, cliente);
-            return affected > 0;
+            var rows = await _connection.ExecuteAsync(sql, cliente);
+            return rows > 0;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
             const string sql = "DELETE FROM Clientes WHERE Id = @Id";
-            var affected = await _connection.ExecuteAsync(sql, new { Id = id });
-            return affected > 0;
+            var rows = await _connection.ExecuteAsync(sql, new { Id = id });
+            return rows > 0;
         }
     }
 }

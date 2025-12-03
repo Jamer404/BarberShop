@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import {
   Table,
@@ -30,7 +31,6 @@ import {
   getFormasPagamento,
 } from "@/services/formaPagamentoService"
 import { ModalFormaPagamento } from "@/components/modals/ModalFormaPagamento"
-import { z } from "zod"
 
 interface Props {
   isOpen: boolean
@@ -39,28 +39,6 @@ interface Props {
   onSave: () => void
   readOnly?: boolean
 }
-
-const schema = z
-  .object({
-    descricao: z.string().nonempty(),
-    taxaJuros: z.number().min(0),
-    multa: z.number().min(0),
-    desconto: z.number().min(0),
-    parcelas: z
-      .array(
-        z.object({
-          numero: z.number().int().positive(),
-          dias: z.number().int().nonnegative(),
-          percentual: z.number().positive(),
-          formaPagamentoId: z.number().int().positive(),
-        }),
-      )
-      .nonempty(),
-  })
-  .refine(
-    (d) => d.parcelas.reduce((s, p) => s + p.percentual, 0) === 100,
-    { message: "A soma dos percentuais deve ser exatamente 100%", path: ["parcelas"] },
-  )
 
 export function ModalCondicaoPagamento({
   isOpen,
@@ -80,7 +58,7 @@ export function ModalCondicaoPagamento({
   const [formaSelectorOpen, setFormaSelectorOpen] = useState(false)
   const [modalFormaOpen, setModalFormaOpen] = useState(false)
   const [parcelaIndex, setParcelaIndex] = useState(-1)
-  const [erro, setErro] = useState("")
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   useEffect(() => {
     ;(async () => setFormas(await getFormasPagamento()))()
@@ -106,7 +84,7 @@ export function ModalCondicaoPagamento({
       setForm({ descricao: "", taxaJuros: 0, multa: 0, desconto: 0 })
       setParcelas([])
     }
-    setErro("")
+    setErrors({})
   }, [condicao])
 
   function addParcela() {
@@ -128,26 +106,58 @@ export function ModalCondicaoPagamento({
     )
   }
 
+  function validateForm(): boolean {
+    const newErrors: { [key: string]: string } = {}
+
+    if (!form.descricao.trim()) {
+      newErrors.descricao = "Descrição é obrigatória"
+    }
+
+    if (form.taxaJuros < 0) {
+      newErrors.taxaJuros = "Taxa de juros não pode ser negativa"
+    }
+
+    if (form.multa < 0) {
+      newErrors.multa = "Multa não pode ser negativa"
+    }
+
+    if (form.desconto < 0) {
+      newErrors.desconto = "Desconto não pode ser negativo"
+    }
+
+    if (form.desconto > 100) {
+      newErrors.desconto = "Desconto não pode ser maior que 100%"
+    }
+
+    if (parcelas.length === 0) {
+      newErrors.parcelas = "É obrigatório ter pelo menos uma parcela"
+    } else {
+      const totalPercentual = parcelas.reduce((sum, p) => sum + p.percentual, 0)
+      if (totalPercentual !== 100) {
+        newErrors.parcelas = `A soma dos percentuais deve ser exatamente 100% (atual: ${totalPercentual.toFixed(2)}%)`
+      }
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
   async function handleSubmit() {
     if (readOnly) return
+    if (!validateForm()) return
+
     const dto = { ...form, parcelas }
-    const parsed = schema.safeParse(dto)
-    if (!parsed.success) {
-      const msg =
-        parsed.error.issues.find((i) => i.path[0] === "parcelas")?.message ||
-        "Dados inválidos"
-      setErro(msg)
-      return
-    }
-    setErro("")
     if (condicao) await atualizarCondicaoPagamento(condicao.id, dto)
     else await criarCondicaoPagamento(dto)
     onOpenChange(false)
     await onSave()
   }
 
-  const getNomeForma = (id: number) =>
-    formas.find((f) => f.id === id)?.descricao.toUpperCase() || "SELECIONE..."
+  const getNomeForma = (id: number, includeId = false) => {
+    const forma = formas.find((f) => f.id === id)
+    if (!forma) return "SELECIONE..."
+    return includeId ? `${forma.id} - ${forma.descricao.toUpperCase()}` : forma.descricao.toUpperCase()
+  }
 
   return (
     <>
@@ -155,7 +165,7 @@ export function ModalCondicaoPagamento({
         isOpen={modalFormaOpen}
         onOpenChange={setModalFormaOpen}
         forma={null}
-        carregarFormas={async () => setFormas(await getFormasPagamento())}
+        onSave={async () => setFormas(await getFormasPagamento())}
       />
 
       <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -172,62 +182,94 @@ export function ModalCondicaoPagamento({
 
           <div className="space-y-4 py-4">
             <div>
-              <label className="block text-sm mb-1">Descrição</label>
+              <Label htmlFor="descricao">
+                Descrição <span className="text-red-500">*</span>
+              </Label>
               <Input
+                id="descricao"
                 placeholder="EX: 30/60/90 DIAS"
                 disabled={readOnly}
                 value={form.descricao}
-                onChange={(e) =>
+                onChange={(e) => {
                   setForm({ ...form, descricao: e.target.value.toUpperCase() })
-                }
+                  if (errors.descricao) {
+                    setErrors({ ...errors, descricao: "" })
+                  }
+                }}
               />
+              {errors.descricao && (
+                <span className="text-xs text-red-500">{errors.descricao}</span>
+              )}
             </div>
 
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm mb-1">Taxa de Juros (%)</label>
+                <Label htmlFor="taxaJuros">Taxa de Juros (%)</Label>
                 <Input
+                  id="taxaJuros"
                   type="number"
                   step="0.01"
                   placeholder="0,00"
                   disabled={readOnly}
                   value={form.taxaJuros}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setForm({ ...form, taxaJuros: Number(e.target.value) })
-                  }
+                    if (errors.taxaJuros) {
+                      setErrors({ ...errors, taxaJuros: "" })
+                    }
+                  }}
                 />
+                {errors.taxaJuros && (
+                  <span className="text-xs text-red-500">{errors.taxaJuros}</span>
+                )}
               </div>
               <div>
-                <label className="block text-sm mb-1">Multa (%)</label>
+                <Label htmlFor="multa">Multa (%)</Label>
                 <Input
+                  id="multa"
                   type="number"
                   step="0.01"
                   placeholder="0,00"
                   disabled={readOnly}
                   value={form.multa}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setForm({ ...form, multa: Number(e.target.value) })
-                  }
+                    if (errors.multa) {
+                      setErrors({ ...errors, multa: "" })
+                    }
+                  }}
                 />
+                {errors.multa && (
+                  <span className="text-xs text-red-500">{errors.multa}</span>
+                )}
               </div>
               <div>
-                <label className="block text-sm mb-1">Desconto (%)</label>
+                <Label htmlFor="desconto">Desconto (%)</Label>
                 <Input
+                  id="desconto"
                   type="number"
                   step="0.01"
                   placeholder="0,00"
                   disabled={readOnly}
                   value={form.desconto}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setForm({ ...form, desconto: Number(e.target.value) })
-                  }
+                    if (errors.desconto) {
+                      setErrors({ ...errors, desconto: "" })
+                    }
+                  }}
                 />
+                {errors.desconto && (
+                  <span className="text-xs text-red-500">{errors.desconto}</span>
+                )}
               </div>
             </div>
 
             <div className="border rounded p-3">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-medium">Parcelas</span>
+                <span className="font-medium">
+                  Parcelas <span className="text-red-500">*</span>
+                </span>
                 {!readOnly && (
                   <Button variant="secondary" size="sm" onClick={addParcela}>
                     <Plus className="h-4 w-4 mr-1" /> Adicionar
@@ -319,14 +361,13 @@ export function ModalCondicaoPagamento({
                                       setFormaSelectorOpen(false)
                                     }}
                                   >
-                                    {f.descricao}
+                                    {f.id} - {f.descricao}
                                   </Button>
                                 ))}
                               </div>
 
                               <div className="pt-4 flex justify-end gap-2">
                                 <Button
-                                  variant="secondary"
                                   onClick={() => {
                                     setFormaSelectorOpen(false)
                                     setModalFormaOpen(true)
@@ -360,7 +401,9 @@ export function ModalCondicaoPagamento({
                   </TableBody>
                 </Table>
               )}
-              {erro && <p className="text-sm text-destructive mt-2">{erro}</p>}
+              {errors.parcelas && (
+                <p className="text-xs text-red-500 mt-2">{errors.parcelas}</p>
+              )}
             </div>
           </div>
 

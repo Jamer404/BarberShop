@@ -2,11 +2,13 @@ import axios from "axios"
 
 export interface Cliente {
   id: number
-  nome: string
+  nomeRazaoSocial: string
+  apelidoNomeFantasia: string | null
   cpfCnpj: string
+  rgInscricaoEstadual: string | null
   pf: boolean
   sexo: "M" | "F"
-  dataNascimento: string
+  dataNascimento: string | null 
   email: string | null
   telefone: string | null
   rua: string | null
@@ -23,25 +25,27 @@ export interface Cliente {
 }
 
 export interface CreateClienteDto {
-  nome: string
+  nomeRazaoSocial: string
+  apelidoNomeFantasia?: string | null
   cpfCnpj: string
+  rgInscricaoEstadual?: string | null
   pf: boolean
   sexo: "M" | "F"
-  dataNascimento: string
-  email: string | null
-  telefone: string | null
-  rua: string | null
-  numero: string | null
-  complemento: string | null
-  bairro: string | null
-  cep: string | null
+  dataNascimento: string | null
+  email?: string | null
+  telefone?: string | null
+  rua?: string | null
+  numero?: string | null
+  complemento?: string | null
+  bairro?: string | null
+  cep?: string | null
   idCidade: number
   idCondicaoPagamento: number
   limiteCredito: number
   ativo: boolean
 }
 
-export interface UpdateClienteDto extends Omit<CreateClienteDto, "cpfCnpj"> {}
+export interface UpdateClienteDto extends CreateClienteDto {}
 
 const BASE_URL = "https://localhost:7145/api/Cliente"
 

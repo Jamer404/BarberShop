@@ -9,12 +9,16 @@ public class ClienteController : ControllerBase
 {
     private readonly ClienteRepository _repository;
 
-    public ClienteController(ClienteRepository repository) =>
+    public ClienteController(ClienteRepository repository)
+    {
         _repository = repository;
+    }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll() =>
-        Ok(await _repository.GetAllAsync());
+    public async Task<IActionResult> GetAll()
+    {
+        return Ok(await _repository.GetAllAsync());
+    }
 
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Get(int id)
@@ -28,10 +32,9 @@ public class ClienteController : ControllerBase
     {
         var cliente = new Cliente
         {
-            TipoPessoa = dto.TipoPessoa,
             NomeRazaoSocial = dto.NomeRazaoSocial,
             ApelidoNomeFantasia = dto.ApelidoNomeFantasia,
-            DataNascimentoCriacao = dto.DataNascimentoCriacao,
+            DataNascimento = dto.DataNascimento,
             CpfCnpj = dto.CpfCnpj,
             RgInscricaoEstadual = dto.RgInscricaoEstadual,
             Email = dto.Email,
@@ -40,9 +43,7 @@ public class ClienteController : ControllerBase
             Numero = dto.Numero,
             Bairro = dto.Bairro,
             Cep = dto.Cep,
-            Classificacao = dto.Classificacao,
             Complemento = dto.Complemento,
-
             Pf = dto.Pf,
             Sexo = dto.Sexo,
             IdCidade = dto.IdCidade,
@@ -52,20 +53,20 @@ public class ClienteController : ControllerBase
         };
 
         var id = await _repository.InsertAsync(cliente);
+        cliente.Id = id;
+
         return CreatedAtAction(nameof(Get), new { id }, cliente);
     }
 
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, CreateClienteDto dto)
+    public async Task<IActionResult> Update(int id, UpdateClienteDto dto)
     {
         var cliente = new Cliente
         {
             Id = id,
-
-            TipoPessoa = dto.TipoPessoa,
             NomeRazaoSocial = dto.NomeRazaoSocial,
             ApelidoNomeFantasia = dto.ApelidoNomeFantasia,
-            DataNascimentoCriacao = dto.DataNascimentoCriacao,
+            DataNascimento = dto.DataNascimento,
             CpfCnpj = dto.CpfCnpj,
             RgInscricaoEstadual = dto.RgInscricaoEstadual,
             Email = dto.Email,
@@ -74,9 +75,7 @@ public class ClienteController : ControllerBase
             Numero = dto.Numero,
             Bairro = dto.Bairro,
             Cep = dto.Cep,
-            Classificacao = dto.Classificacao,
             Complemento = dto.Complemento,
-
             Pf = dto.Pf,
             Sexo = dto.Sexo,
             IdCidade = dto.IdCidade,
@@ -89,6 +88,8 @@ public class ClienteController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete(int id) =>
-        await _repository.DeleteAsync(id) ? NoContent() : NotFound();
+    public async Task<IActionResult> Delete(int id)
+    {
+        return await _repository.DeleteAsync(id) ? NoContent() : NotFound();
+    }
 }

@@ -29,12 +29,16 @@ export function Header() {
           </div> */}
         </form>
       </div>
-      <div className="flex items-center gap-2">
+
+
+      <div className="ml-auto flex items-center gap-2">
         <ThemeToggle />
+
         {/* <Button variant="outline" size="icon" className="rounded-full">
           <Bell className="h-4 w-4" />
           <span className="sr-only">Notificações</span>
         </Button> */}
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             {/* <Button variant="outline" size="icon" className="rounded-full">

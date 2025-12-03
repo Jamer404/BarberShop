@@ -149,7 +149,7 @@ export default function CondicoesPagamento() {
               <TableBody>
                 {condicoes.map((c) => (
                   <TableRow key={c.id}>
-                    <TableCell>{c.id}</TableCell>
+                    <TableCell className="text-right">{c.id}</TableCell>
                     <TableCell>{c.descricao}</TableCell>
                     <TableCell>{c.taxaJuros}</TableCell>
                     <TableCell>{c.multa}</TableCell>

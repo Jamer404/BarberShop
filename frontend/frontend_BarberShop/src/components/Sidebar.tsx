@@ -3,7 +3,6 @@ import { useLocation, Link } from "react-router-dom"
 import { cn } from "@/lib/utils"
 import {
   Users,
-  Home,
   Map,
   MapPin,
   Globe,
@@ -12,9 +11,10 @@ import {
   Package,
   CreditCard,
   Wallet,
-  Settings,
   ChevronDown,
   ChevronRight,
+  CarFront,
+  CarTaxiFront,
 } from "lucide-react"
 import { useState } from "react"
 
@@ -28,7 +28,6 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  // { title: "Dashboard", href: "/", icon: <Home className="h-5 w-5" /> },
   {
     title: "Localização",
     href: "#",
@@ -39,13 +38,50 @@ const navItems: NavItem[] = [
       { title: "Cidades", href: "/cidades", icon: <MapPin className="h-4 w-4" /> },
     ],
   },
-  { title: "Produtos", href: "/produtos", icon: <Package className="h-5 w-5" /> },
-  { title: "Funcionários", href: "/funcionarios", icon: <Briefcase className="h-5 w-5" /> },
-  { title: "Clientes", href: "/clientes", icon: <Users className="h-5 w-5" /> },
-  { title: "Fornecedores", href: "/fornecedores", icon: <ShoppingBag className="h-5 w-5" /> },
-  { title: "Condições de Pagamento", href: "/condicoes-pagamento", icon: <CreditCard className="h-5 w-5" /> },
-  { title: "Formas de Pagamento", href: "/formas-pagamento", icon: <Wallet className="h-5 w-5" /> },
-  // { title: "Configurações", href: "/configuracoes", icon: <Settings className="h-5 w-5" /> },
+  {
+    title: "Cadastros",
+    href: "#",
+    icon: <Package className="h-5 w-5" />,
+    submenu: [
+      { title: "Produtos", href: "/produtos", icon: <Package className="h-4 w-4" /> },
+      { title: "Marcas", href: "/marcas", icon: <Package className="h-4 w-4" /> },
+      { title: "Categorias", href: "/categorias", icon: <Package className="h-4 w-4" /> },
+      { title: "Unidades de Medida", href: "/unidades-medida", icon: <Package className="h-4 w-4" /> },
+    ],
+  },
+  {
+    title: "Pessoas",
+    href: "#",
+    icon: <Users className="h-5 w-5" />,
+    submenu: [
+      { title: "Funcionários", href: "/funcionarios", icon: <Briefcase className="h-4 w-4" /> },
+      { title: "Cargos", href: "/cargos", icon: <Briefcase className="h-4 w-4" /> },
+      { title: "Clientes", href: "/clientes", icon: <Users className="h-4 w-4" /> },
+      { title: "Fornecedores", href: "/fornecedores", icon: <ShoppingBag className="h-4 w-4" /> },
+    ],
+  },
+  {
+    title: "Financeiro",
+    href: "#",
+    icon: <CreditCard className="h-5 w-5" />,
+    submenu: [
+      { title: "Nota de Compra", href: "/nota-compra", icon: <CreditCard className="h-4 w-4" /> },
+      { title: "Nota de Venda", href: "/notas-venda", icon: <CreditCard className="h-4 w-4" /> },
+      { title: "Contas a Pagar", href: "/contas-pagar", icon: <Wallet className="h-4 w-4" /> },
+      { title: "Contas a Receber", href: "/contas-receber", icon: <Wallet className="h-4 w-4" /> },
+      { title: "Condições de Pagamento", href: "/condicoes-pagamento", icon: <CreditCard className="h-4 w-4" /> },
+      { title: "Formas de Pagamento", href: "/formas-pagamento", icon: <Wallet className="h-4 w-4" /> },
+    ],
+  },
+  {
+    title: "Logística",
+    href: "#",
+    icon: <CarFront className="h-5 w-5" />,
+    submenu: [
+      { title: "Veículos", href: "/veiculos", icon: <CarFront className="h-4 w-4" /> },
+      { title: "Transportadoras", href: "/transportadoras", icon: <CarTaxiFront className="h-4 w-4" /> },
+    ],
+  },
 ]
 
 export function Sidebar({ isOpen }: SidebarProps) {
@@ -111,4 +147,4 @@ export function Sidebar({ isOpen }: SidebarProps) {
       </div>
     </aside>
   )
-}
+} 

@@ -32,6 +32,21 @@ builder.Services.AddScoped<FuncionarioRepository>();
 builder.Services.AddScoped<ClienteRepository>();
 builder.Services.AddScoped<FornecedorRepository>();
 builder.Services.AddScoped<FormaPagamentoRepository>();
+builder.Services.AddScoped<CondicaoPagamentoRepository>();
+builder.Services.AddScoped<MarcaRepository>();
+builder.Services.AddScoped<ProdutoRepository>();
+builder.Services.AddScoped<CategoriaRepository>();
+builder.Services.AddScoped<UnidadeMedidaRepository>();
+builder.Services.AddScoped<CompraRepository>();
+builder.Services.AddScoped<CargoRepository>();
+builder.Services.AddScoped<VeiculoRepository>();
+builder.Services.AddScoped<TransportadoraRepository>();
+builder.Services.AddScoped<NotaCompraItemRepository>();
+builder.Services.AddScoped<ContaPagarRepository>();
+builder.Services.AddScoped<VendaProdutoRepository>();
+builder.Services.AddScoped<VendaRepository>();
+
+
 
 var app = builder.Build();
 

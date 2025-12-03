@@ -12,97 +12,142 @@ namespace BarberShop.API.Repository
         public async Task<IEnumerable<CondicaoPagamento>> GetAllAsync()
         {
             const string sql = @"
-                                SELECT c.*, p.*
-                                FROM   CondicoesPagamento c
-                                LEFT  JOIN ParcelasCondicaoPagamento p ON p.CondicaoPagamentoId = c.Id";
+                SELECT c.*, p.*, f.*
+                FROM CondicoesPagamento c
+                LEFT JOIN ParcelasCondicaoPagamento p ON p.CondicaoPagamentoId = c.Id
+                LEFT JOIN FormasPagamento f ON p.FormaPagamentoId = f.Id";
 
             var cache = new Dictionary<int, CondicaoPagamento>();
 
-            await _cnx.QueryAsync<CondicaoPagamento, ParcelaCondicaoPagamento, CondicaoPagamento>(
+            await _cnx.QueryAsync<CondicaoPagamento, ParcelaCondicaoPagamento, FormaPagamento, CondicaoPagamento>(
                 sql,
-                (c, p) =>
+                (condicao, parcela, forma) =>
                 {
-                    if (!cache.TryGetValue(c.Id, out var cond))
+                    if (!cache.TryGetValue(condicao.Id, out var cond))
                     {
-                        cond = c;
+                        cond = condicao;
                         cond.Parcelas = new List<ParcelaCondicaoPagamento>();
                         cache.Add(cond.Id, cond);
                     }
-                    if (p != null) cond.Parcelas.Add(p);
+                    if (parcela != null)
+                    {
+                        parcela.FormaPagamento = forma;
+                        cond.Parcelas.Add(parcela);
+                    }
                     return cond;
                 });
 
             return cache.Values;
         }
 
-        public async Task<CondicaoPagamento?> GetByIdAsync(int id) =>
-            (await GetAllAsync()).FirstOrDefault(x => x.Id == id);
+        public async Task<CondicaoPagamento?> GetByIdAsync(int id)
+        {
+            return (await GetAllAsync()).FirstOrDefault(x => x.Id == id);
+        }
 
         public async Task<int> InsertAsync(CondicaoPagamento c)
         {
+            _cnx.Open();
             using var tran = _cnx.BeginTransaction();
-
-            const string sqlHeader = @"
-                                        INSERT INTO CondicoesPagamento (Descricao, TaxaJuros, Multa, Desconto, DataCriacao, DataAtualizacao)
-                                        VALUES (@Descricao, @TaxaJuros, @Multa, @Desconto, GETDATE(), GETDATE());
-                                        SELECT CAST(SCOPE_IDENTITY() AS INT);";
-
-            var id = await _cnx.ExecuteScalarAsync<int>(sqlHeader, c, tran);
-
-            if (c.Parcelas.Any())
+            try
             {
-                const string sqlParcela = @"
-                                            INSERT INTO ParcelasCondicaoPagamento
-                                            (Numero, Dias, Percentual, FormaPagamentoId, CondicaoPagamentoId, DataCriacao, DataAtualizacao)
-                                            VALUES (@Numero, @Dias, @Percentual, @FormaPagamentoId, @CondicaoPagamentoId, GETDATE(), GETDATE());";
+                const string sqlHeader = @"
+                    INSERT INTO CondicoesPagamento (Descricao, TaxaJuros, Multa, Desconto, DataCriacao, DataAtualizacao)
+                    VALUES (@Descricao, @TaxaJuros, @Multa, @Desconto, GETDATE(), GETDATE());
+                    SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
-                foreach (var p in c.Parcelas)
+                var id = await _cnx.ExecuteScalarAsync<int>(sqlHeader, c, tran);
+
+                if (c.Parcelas != null && c.Parcelas.Any())
                 {
-                    p.CondicaoPagamentoId = id;
-                    await _cnx.ExecuteAsync(sqlParcela, p, tran);
-                }
-            }
+                    const string sqlParcela = @"
+                        INSERT INTO ParcelasCondicaoPagamento
+                        (Numero, Dias, Percentual, FormaPagamentoId, CondicaoPagamentoId, DataCriacao, DataAtualizacao)
+                        VALUES (@Numero, @Dias, @Percentual, @FormaPagamentoId, @CondicaoPagamentoId, GETDATE(), GETDATE());";
 
-            tran.Commit();
-            return id;
+                    foreach (var p in c.Parcelas)
+                    {
+                        p.CondicaoPagamentoId = id;
+                        await _cnx.ExecuteAsync(sqlParcela, p, tran);
+                    }
+                }
+
+                tran.Commit();
+                return id;
+            }
+            catch
+            {
+                tran.Rollback();
+                throw;
+            }
         }
 
         public async Task UpdateAsync(int id, CondicaoPagamento c)
         {
+            _cnx.Open();
             using var tran = _cnx.BeginTransaction();
-
-            await _cnx.ExecuteAsync(@"
-                                    UPDATE CondicoesPagamento SET
-                                        Descricao       = @Descricao,
-                                        TaxaJuros       = @TaxaJuros,
-                                        Multa           = @Multa,
-                                        Desconto        = @Desconto,
-                                        DataAtualizacao = GETDATE()
-                                    WHERE Id = @Id;",
-            new { Id = id, c.Descricao, c.TaxaJuros, c.Multa, c.Desconto }, tran);
-
-            await _cnx.ExecuteAsync("DELETE FROM ParcelasCondicaoPagamento WHERE CondicaoPagamentoId = @Id", new { Id = id }, tran);
-
-            if (c.Parcelas.Any())
+            try
             {
-                const string sqlParc = @"
-                                        INSERT INTO ParcelasCondicaoPagamento
-                                        (Numero, Dias, Percentual, FormaPagamentoId, CondicaoPagamentoId, DataCriacao, DataAtualizacao)
-                                        VALUES (@Numero, @Dias, @Percentual, @FormaPagamentoId, @CondicaoPagamentoId, GETDATE(), GETDATE());";
+                await _cnx.ExecuteAsync(@"
+                    UPDATE CondicoesPagamento SET
+                        Descricao       = @Descricao,
+                        TaxaJuros       = @TaxaJuros,
+                        Multa           = @Multa,
+                        Desconto        = @Desconto,
+                        DataAtualizacao = GETDATE()
+                    WHERE Id = @Id;",
+                new { Id = id, c.Descricao, c.TaxaJuros, c.Multa, c.Desconto }, tran);
 
-                foreach (var p in c.Parcelas)
+                await _cnx.ExecuteAsync("DELETE FROM ParcelasCondicaoPagamento WHERE CondicaoPagamentoId = @Id", new { Id = id }, tran);
+
+                if (c.Parcelas != null && c.Parcelas.Any())
                 {
-                    p.CondicaoPagamentoId = id;
-                    await _cnx.ExecuteAsync(sqlParc, p, tran);
-                }
-            }
+                    const string sqlParc = @"
+                        INSERT INTO ParcelasCondicaoPagamento
+                        (Numero, Dias, Percentual, FormaPagamentoId, CondicaoPagamentoId, DataCriacao, DataAtualizacao)
+                        VALUES (@Numero, @Dias, @Percentual, @FormaPagamentoId, @CondicaoPagamentoId, GETDATE(), GETDATE());";
 
-            tran.Commit();
+                    foreach (var p in c.Parcelas)
+                    {
+                        p.CondicaoPagamentoId = id;
+                        await _cnx.ExecuteAsync(sqlParc, p, tran);
+                    }
+                }
+
+                tran.Commit();
+            }
+            catch
+            {
+                tran.Rollback();
+                throw;
+            }
         }
 
         public Task DeleteAsync(int id) =>
             _cnx.ExecuteAsync(@"
-                                DELETE FROM ParcelasCondicaoPagamento WHERE CondicaoPagamentoId = @Id;
-                                DELETE FROM CondicoesPagamento     WHERE Id = @Id;", new { Id = id });
+                DELETE FROM ParcelasCondicaoPagamento WHERE CondicaoPagamentoId = @Id;
+                DELETE FROM CondicoesPagamento      WHERE Id = @Id;", new { Id = id });
+
+        public async Task<IEnumerable<ParcelaCondicaoPagamento>> GetParcelasByCondicaoIdAsync(int condicaoPagamentoId)
+        {
+            const string sql = @"
+                SELECT p.*, f.*
+                FROM ParcelasCondicaoPagamento p
+                LEFT JOIN FormasPagamento f ON p.FormaPagamentoId = f.Id
+                WHERE p.CondicaoPagamentoId = @CondicaoPagamentoId
+                ORDER BY p.Numero";
+
+            var parcelas = await _cnx.QueryAsync<ParcelaCondicaoPagamento, FormaPagamento, ParcelaCondicaoPagamento>(
+                sql,
+                (parcela, forma) =>
+                {
+                    parcela.FormaPagamento = forma;
+                    return parcela;
+                },
+                new { CondicaoPagamentoId = condicaoPagamentoId }
+            );
+
+            return parcelas;
+        }
     }
 }

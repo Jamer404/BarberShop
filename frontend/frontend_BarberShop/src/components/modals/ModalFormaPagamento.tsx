@@ -8,20 +8,20 @@ import {
   DialogClose,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import {
   FormaPagamento,
   criarFormaPagamento,
   atualizarFormaPagamento,
-  getFormasPagamento,
 } from "@/services/formaPagamentoService"
 
 interface ModalFormaPagamentoProps {
   isOpen: boolean
   onOpenChange: (open: boolean) => void
   forma?: FormaPagamento | null
-  carregarFormas: () => Promise<void>
+  onSave: () => Promise<void>
   readOnly?: boolean
 }
 
@@ -29,57 +29,92 @@ export function ModalFormaPagamento({
   isOpen,
   onOpenChange,
   forma,
-  carregarFormas,
+  onSave,
   readOnly = false,
 }: ModalFormaPagamentoProps) {
   const [form, setForm] = useState({ descricao: "", ativo: true })
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   useEffect(() => {
-    if (forma) setForm({ descricao: forma.descricao, ativo: forma.ativo })
-    else setForm({ descricao: "", ativo: true })
-  }, [forma])
+    if (forma) {
+      setForm({ descricao: forma.descricao, ativo: forma.ativo })
+    } else {
+      setForm({ descricao: "", ativo: true })
+    }
+    setErrors({})
+  }, [forma, isOpen])
+
+  function validateForm(): boolean {
+    const newErrors: { [key: string]: string } = {}
+
+    if (!form.descricao.trim()) {
+      newErrors.descricao = "Descrição é obrigatória"
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
 
   async function handleSubmit() {
     if (readOnly) return
-    if (forma) await atualizarFormaPagamento(forma.id, form)
-    else await criarFormaPagamento(form)
+    if (!validateForm()) return
+
+    if (forma) {
+      await atualizarFormaPagamento(forma.id, form)
+    } else {
+      await criarFormaPagamento(form)
+    }
     onOpenChange(false)
-    await carregarFormas()
+    await onSave()
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-xl">
         <DialogHeader>
-          <DialogTitle>
-            {readOnly
-              ? "Visualizar Forma de Pagamento"
-              : forma
-              ? "Editar Forma de Pagamento"
-              : "Nova Forma de Pagamento"}
-          </DialogTitle>
+          <div className="flex items-center justify-between">
+            <DialogTitle>
+              {readOnly
+                ? "Visualizar Forma de Pagamento"
+                : forma
+                  ? "Editar Forma de Pagamento"
+                  : "Nova Forma de Pagamento"}
+            </DialogTitle>
+
+            <div className="flex items-center gap-2 mr-8">
+              <span className="text-sm text-muted-foreground">
+                Habilitado
+              </span>
+              <Switch
+                checked={form.ativo}
+                onCheckedChange={(v) => setForm({ ...form, ativo: v })}
+                disabled={readOnly}
+              />
+            </div>
+          </div>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
-          <div>
-            <label className="block text-sm mb-1">Descrição</label>
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="descricao">
+              Descrição <span className="text-red-500">*</span>
+            </Label>
             <Input
+              id="descricao"
               placeholder="Ex: Cartão de Crédito"
               disabled={readOnly}
               value={form.descricao}
-              onChange={(e) => setForm({ ...form, descricao: e.target.value })}
+              className="uppercase"
+              onChange={(e) => {
+                setForm({ ...form, descricao: e.target.value.toUpperCase() })
+                if (errors.descricao) {
+                  setErrors({ ...errors, descricao: "" })
+                }
+              }}
             />
-          </div>
-          <div className="flex items-center gap-2">
-            <Switch
-              id="ativo"
-              disabled={readOnly}
-              checked={form.ativo}
-              onCheckedChange={(v) => setForm({ ...form, ativo: v })}
-            />
-            <label htmlFor="ativo" className="text-sm">
-              Ativo
-            </label>
+            {errors.descricao && (
+              <span className="text-xs text-red-500">{errors.descricao}</span>
+            )}
           </div>
         </div>
 

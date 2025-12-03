@@ -1,57 +1,209 @@
-    import { useEffect, useMemo, useState } from "react"
-    import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogFooter,
-    DialogClose,
-    DialogTrigger,
-    } from "@/components/ui/dialog"
-    import { Button } from "@/components/ui/button"
-    import { Input } from "@/components/ui/input"
-    import { ChevronDown } from "lucide-react"
-    import {
-    Cliente,
-    criarCliente,
-    atualizarCliente,
-    CreateClienteDto,
-    UpdateClienteDto,
-    } from "@/services/clienteService"
-    import { Cidade, getCidades } from "@/services/cidadeService"
-    import { Estado, getEstados } from "@/services/estadoService"
-    import {
-    CondicaoPagamento,
-    getCondicoesPagamento,
-    } from "@/services/condicaoPagamentoService"
-    import { buildClienteSchema } from "@/schemas/clienteSchema"
-    import { ModalCidades } from "./ModalCidades"
-    import { ModalCondicaoPagamento } from "./ModalCondicaoPagamento"
+import { useEffect, useMemo, useState } from "react"
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose, DialogTrigger,
+} from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { ChevronDown } from "lucide-react"
+import { Switch } from "@/components/ui/switch"
+import {
+  Cliente, criarCliente, atualizarCliente, CreateClienteDto, UpdateClienteDto,
+} from "@/services/clienteService"
+import { Cidade, getCidades } from "@/services/cidadeService"
+import { Estado, getEstados } from "@/services/estadoService"
+import {
+  CondicaoPagamento, getCondicoesPagamento,
+} from "@/services/condicaoPagamentoService"
+import { buildClienteSchema } from "@/validations/cliente"
+import { ModalCidades } from "./ModalCidades"
+import { ModalCondicaoPagamento } from "./ModalCondicaoPagamento"
 
-    type Props = {
-    isOpen: boolean
-    onOpenChange: (o: boolean) => void
-    cliente: Cliente | null
-    readOnly: boolean
-    onSave: () => Promise<void>
+type Props = {
+  isOpen: boolean
+  onOpenChange: (o: boolean) => void
+  cliente: Cliente | null
+  readOnly: boolean
+  onSave: () => Promise<void>
+}
+
+type ClienteForm = Omit<CreateClienteDto, "dataNascimento"> & {
+  dataNascimento: string | null;
+};
+
+export function ModalClientes({
+  isOpen, onOpenChange, cliente, readOnly, onSave,
+}: Props) {
+  const [cidades, setCidades] = useState<Cidade[]>([])
+  const [estados, setEstados] = useState<Estado[]>([])
+  const [condicoes, setCondicoes] = useState<CondicaoPagamento[]>([])
+
+  const [form, setForm] = useState<ClienteForm>({
+    nomeRazaoSocial: "",
+    apelidoNomeFantasia: "",
+    cpfCnpj: "",
+    rgInscricaoEstadual: "",
+    pf: true,
+    sexo: "M",
+    dataNascimento: null,
+    email: "",
+    telefone: "",
+    rua: "",
+    numero: "",
+    complemento: "",
+    bairro: "",
+    cep: "",
+    idCidade: 0,
+    idCondicaoPagamento: 0,
+    limiteCredito: 0,
+    ativo: true,
+  })
+
+  const [errors, setErrors] = useState<Record<string, string[]>>({})
+  const [citySelectorOpen, setCitySelectorOpen] = useState(false)
+  const [condSelectorOpen, setCondSelectorOpen] = useState(false)
+  const [modalCidadeOpen, setModalCidadeOpen] = useState(false)
+  const [modalCondOpen, setModalCondOpen] = useState(false)
+  const [searchCidade, setSearchCidade] = useState("")
+  const [searchCond, setSearchCond] = useState("")
+  const [limiteCreditoDisplay, setLimiteCreditoDisplay] = useState("")
+
+  const [reopenCitySelector, setReopenCitySelector] = useState(false)
+  const [reopenCondSelector, setReopenCondSelector] = useState(false)
+
+  const formatCurrency = (value: number): string => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value)
+  }
+
+  const parseCurrency = (value: string): number => {
+    const num = value.replace(/[^0-9,]/g, "").replace(",", ".")
+    return parseFloat(num) || 0
+  }
+
+  const getCidadeUf = (id: number, includeId = false) => {
+    const cid = cidades.find((c) => c.id === id)
+    const est = estados.find((e) => e.id === cid?.idEstado)
+    if (includeId && cid && est) {
+      return `${cid.id} - ${cid.nome.toUpperCase()} - ${est.uf}`
+    }
+    return cid && est ? `${cid.nome.toUpperCase()} - ${est.uf}` : "SELECIONE..."
+  }
+
+  const getNomeCondicao = (id: number, includeId = false) => {
+    if (!id || id === 0) return "SELECIONE..."
+    const cond = condicoes.find((c) => c.id === id)
+    if (!cond) return "SELECIONE..."
+    if (includeId) {
+      return `${cond.id} - ${cond.descricao.toUpperCase()}`
+    }
+    return cond.descricao.toUpperCase()
+  }
+
+  const cidadesFiltradas = useMemo(() => {
+    const t = searchCidade.toUpperCase()
+    return cidades
+      .filter((c) => getCidadeUf(c.id).toUpperCase().includes(t))
+      .sort((a, b) => getCidadeUf(a.id).localeCompare(getCidadeUf(b.id)))
+  }, [cidades, estados, searchCidade])
+
+  const condicoesFiltradas = useMemo(() => {
+    const t = searchCond.toUpperCase()
+    return condicoes
+      .filter((c) => (c.descricao || "").toUpperCase().includes(t))
+      .sort((a, b) => (a.descricao || "").localeCompare(b.descricao || ""))
+  }, [condicoes, searchCond])
+
+  async function carregarAux() {
+    try {
+      const results = await Promise.allSettled([
+        getCidades(), getEstados(), getCondicoesPagamento(),
+      ])
+      if (results[0].status === "fulfilled") setCidades(results[0].value || [])
+      if (results[1].status === "fulfilled") setEstados(results[1].value || [])
+      if (results[2].status === "fulfilled") setCondicoes(results[2].value || [])
+    } catch (error) {
+      console.error("Falha ao carregar dados do modal de clientes:", error)
+    }
+  }
+
+  function handleCidadePicked(id: number) {
+    setForm({ ...form, idCidade: id })
+    setCitySelectorOpen(false)
+  }
+
+  function handleCondicaoPicked(id: number) {
+    setForm({ ...form, idCondicaoPagamento: id })
+    setCondSelectorOpen(false)
+  }
+
+  async function salvar() {
+    const formData = { ...form }
+    if (formData.dataNascimento === "") {
+      formData.dataNascimento = null
     }
 
-    export function ModalClientes({
-    isOpen,
-    onOpenChange,
-    cliente,
-    readOnly,
-    onSave,
-    }: Props) {
-    const [cidades, setCidades] = useState<Cidade[]>([])
-    const [estados, setEstados] = useState<Estado[]>([])
-    const [condicoes, setCondicoes] = useState<CondicaoPagamento[]>([])
-    const [form, setForm] = useState<CreateClienteDto>({
-        nome: "",
+    const estadoSel = estados.find(
+      (e) => e.id === cidades.find((c) => c.id === formData.idCidade)?.idEstado
+    )
+    const isBrasil = estadoSel?.idPais === 1
+    const schema = buildClienteSchema(isBrasil)
+    const parse = schema.safeParse(formData)
+
+    if (!parse.success) {
+      setErrors(parse.error.flatten().fieldErrors)
+      return
+    }
+
+    const dataToSend = { ...parse.data }
+
+    if (cliente) {
+      await atualizarCliente(cliente.id, dataToSend as UpdateClienteDto)
+    } else {
+      await criarCliente(dataToSend as CreateClienteDto)
+    }
+
+    onOpenChange(false)
+    await onSave()
+  }
+
+  useEffect(() => {
+    if (isOpen) {
+      carregarAux()
+    }
+  }, [isOpen])
+
+  useEffect(() => {
+    if (!modalCidadeOpen && reopenCitySelector) {
+      setReopenCitySelector(false)
+      setCitySelectorOpen(true)
+    }
+  }, [modalCidadeOpen, reopenCitySelector])
+
+  useEffect(() => {
+    if (!modalCondOpen && reopenCondSelector) {
+      setReopenCondSelector(false)
+      setCondSelectorOpen(true)
+    }
+  }, [modalCondOpen, reopenCondSelector])
+
+  useEffect(() => {
+    if (cliente) {
+      setForm({
+        ...cliente,
+      })
+      setLimiteCreditoDisplay(formatCurrency(cliente.limiteCredito))
+    } else {
+      setForm({
+        nomeRazaoSocial: "",
+        apelidoNomeFantasia: "",
         cpfCnpj: "",
+        rgInscricaoEstadual: "",
         pf: true,
         sexo: "M",
-        dataNascimento: "",
+        dataNascimento: null,
         email: "",
         telefone: "",
         rua: "",
@@ -63,406 +215,407 @@
         idCondicaoPagamento: 0,
         limiteCredito: 0,
         ativo: true,
-    })
-    const [errors, setErrors] = useState<Record<string, string[]>>({})
-    const [citySelectorOpen, setCitySelectorOpen] = useState(false)
-    const [condSelectorOpen, setCondSelectorOpen] = useState(false)
-    const [modalCidadeOpen, setModalCidadeOpen] = useState(false)
-    const [modalCondOpen, setModalCondOpen] = useState(false)
-    const [searchCidade, setSearchCidade] = useState("")
-
-    const getCidadeUf = (id: number) => {
-        const cid = cidades.find((c) => c.id === id)
-        const est = estados.find((e) => e.id === cid?.idEstado)
-        return cid && est ? `${cid.nome.toUpperCase()} - ${est.uf}` : "N/A"
+      })
+      setLimiteCreditoDisplay("R$ 0,00")
     }
+    setErrors({})
+  }, [cliente, isOpen])
 
-    const getNomeCondicao = (id: number) =>
-        condicoes.find((c) => c.id === id)?.descricao.toUpperCase() || "SELECIONE..."
+  return (
+    <>
+      <ModalCidades
+        isOpen={modalCidadeOpen}
+        onOpenChange={(open) => setModalCidadeOpen(open)}
+        onSave={async () => {
+          await carregarAux()
+          setReopenCitySelector(true)
+        }}
+        estados={estados}
+      />
 
-    const cidadesFiltradas = useMemo(() => {
-        const t = searchCidade.toLowerCase()
-        return cidades
-        .filter((c) => getCidadeUf(c.id).toLowerCase().includes(t))
-        .sort((a, b) => getCidadeUf(a.id).localeCompare(getCidadeUf(b.id)))
-    }, [cidades, estados, searchCidade])
+      <ModalCondicaoPagamento
+        isOpen={modalCondOpen}
+        onOpenChange={setModalCondOpen}
+        onSave={async () => {
+          setCondicoes(await getCondicoesPagamento())
+          setReopenCondSelector(true)
+        }}
+      />
 
-    async function carregarAux() {
-        try {
-            console.log("Iniciando carregamento de dados auxiliares...");
-            
-            const results = await Promise.allSettled([
-            getCidades(),
-            getEstados(),
-            getCondicoesPagamento(),
-            ]);
+      <Dialog open={isOpen} onOpenChange={onOpenChange}>
+        <DialogContent className="max-w-7xl w-full max-h-[90vh]">
+          <DialogHeader>
+            <div className="flex items-center justify-between">
+              <DialogTitle>{cliente ? "Editar Cliente" : "Novo Cliente"}</DialogTitle>
 
-            const cidadesResult = results[0];
-            if (cidadesResult.status === 'fulfilled') {
-            setCidades(cidadesResult.value || []); 
-            console.log("Cidades carregadas com sucesso:", cidadesResult.value);
-            } else {
-            console.error("Erro ao carregar cidades:", cidadesResult.reason);
-            setCidades([]); 
-            }
-
-            const estadosResult = results[1];
-            if (estadosResult.status === 'fulfilled') {
-            setEstados(estadosResult.value || []);
-            console.log("Estados carregados com sucesso:", estadosResult.value);
-            } else {
-            console.error("Erro ao carregar estados:", estadosResult.reason);
-            setEstados([]); 
-            }
-
-            const condicoesResult = results[2];
-            if (condicoesResult.status === 'fulfilled') {
-            setCondicoes(condicoesResult.value || []); 
-            } else {
-            console.error("Erro ao carregar condições de pagamento:", condicoesResult.reason);
-            setCondicoes([]);
-            }
-
-        } catch (error) {
-            console.error("Falha geral ao carregar dados auxiliares:", error);
-            setCidades([]);
-            setEstados([]);
-            setCondicoes([]);
-        }
-        }
-
-    async function salvar() {
-        const estadoSel = estados.find(
-        (e) => e.id === cidades.find((c) => c.id === form.idCidade)?.idEstado
-        )
-        const isBrasil = estadoSel?.idPais === 1
-        const schema = buildClienteSchema(isBrasil)
-        const parse = schema.safeParse(form)
-        if (!parse.success) {
-        setErrors(parse.error.flatten().fieldErrors)
-        return
-        }
-        if (cliente) {
-        await atualizarCliente(cliente.id, form as UpdateClienteDto)
-        } else {
-        await criarCliente(form as CreateClienteDto)
-        }
-        onOpenChange(false)
-        await onSave()
-    }
-
-    useEffect(() => {
-        carregarAux()
-    }, [])
-
-    useEffect(() => {
-        if (cliente) {
-        setForm({ ...cliente })
-        } else {
-        setForm({
-            nome: "",
-            cpfCnpj: "",
-            pf: true,
-            sexo: "M",
-            dataNascimento: "",
-            email: "",
-            telefone: "",
-            rua: "",
-            numero: "",
-            complemento: "",
-            bairro: "",
-            cep: "",
-            idCidade: 0,
-            idCondicaoPagamento: 0,
-            limiteCredito: 0,
-            ativo: true,
-        })
-        }
-        setErrors({})
-    }, [cliente, isOpen])
-    console.log("Cidades no estado:", cidades);
-    console.log("Estados no estado:", estados);
-    return (
-        <>
-        <ModalCidades
-            isOpen={modalCidadeOpen}
-            onOpenChange={setModalCidadeOpen}
-            onSave={carregarAux}
-            estados={estados}
-        />
-        <ModalCondicaoPagamento
-            isOpen={modalCondOpen}
-            onOpenChange={setModalCondOpen}
-            condicao={null}
-            onSave={async () => setCondicoes(await getCondicoesPagamento())}
-        />
-
-        <Dialog open={isOpen} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-7xl w-full max-h-[90vh]">
-            <DialogHeader>
-                <DialogTitle>
-                {cliente
-                    ? readOnly
-                    ? "VISUALIZAR CLIENTE"
-                    : "EDITAR CLIENTE"
-                    : "NOVO CLIENTE"}
-                </DialogTitle>
-            </DialogHeader>
-
-            <div className="overflow-y-auto max-h-[70vh] pr-2 grid grid-cols-3 gap-4 py-4 text-sm">
-                <div className="col-span-1 flex flex-col">
-                <label>TIPO</label>
-                <select
-                    disabled={readOnly}
-                    className={`w-full border rounded px-2 py-1 ${errors.pf ? "border-destructive" : ""
-                    }`}
-                    value={form.pf ? "pf" : "pj"}
-                    onChange={(e) =>
-                    setForm({ ...form, pf: e.target.value === "pf" })
-                    }
-                >
-                    <option value="pf">PESSOA FÍSICA</option>
-                    <option value="pj">PESSOA JURÍDICA</option>
-                </select>
-                </div>
-                <div className="col-span-1 flex flex-col">
-                <label>SEXO</label>
-                <select
-                    disabled={readOnly}
-                    className={`w-full border rounded px-2 py-1 ${errors.sexo ? "border-destructive" : ""
-                    }`}
-                    value={form.sexo}
-                    onChange={(e) =>
-                    setForm({ ...form, sexo: e.target.value as "M" | "F" })
-                    }
-                >
-                    <option value="M">MASCULINO</option>
-                    <option value="F">FEMININO</option>
-                </select>
-                </div>
-                <div className="col-span-1 flex flex-col">
-                <label>DATA DE NASCIMENTO</label>
-                <Input
-                    type="date"
-                    disabled={readOnly}
-                    value={form.dataNascimento}
-                    className={errors.dataNascimento ? "border-destructive" : ""}
-                    onChange={(e) =>
-                    setForm({ ...form, dataNascimento: e.target.value })
-                    }
+              <div className="flex items-center gap-2 mr-8">
+                <span className="text-sm text-muted-foreground">
+                  Habilitado
+                </span>
+                <Switch
+                  checked={form.ativo}
+                  onCheckedChange={(v) => setForm({ ...form, ativo: v })}
+                  disabled={readOnly}
                 />
-                </div>
-                <div className="col-span-3 flex flex-col">
-                <label>NOME / RAZÃO SOCIAL</label>
-                <Input
-                    disabled={readOnly}
-                    value={form.nome}
-                    className={errors.nome ? "border-destructive" : ""}
-                    onChange={(e) => setForm({ ...form, nome: e.target.value })}
-                />
-                </div>
-                <div className="col-span-1 flex flex-col">
-                <label>CPF/CNPJ</label>
-                <Input
-                    disabled={readOnly}
-                    value={form.cpfCnpj}
-                    className={errors.cpfCnpj ? "border-destructive" : ""}
-                    onChange={(e) =>
-                    setForm({ ...form, cpfCnpj: e.target.value })
-                    }
-                />
-                </div>
-                <div className="col-span-1 flex flex-col">
-                <label>TELEFONE</label>
-                <Input
-                    disabled={readOnly}
-                    value={form.telefone ?? ""}
-                    className={errors.telefone ? "border-destructive" : ""}
-                    onChange={(e) =>
-                    setForm({ ...form, telefone: e.target.value })
-                    }
-                />
-                </div>
-                <div className="col-span-1 flex flex-col">
-                <label>EMAIL</label>
-                <Input
-                    disabled={readOnly}
-                    value={form.email ?? ""}
-                    className={errors.email ? "border-destructive" : ""}
-                    onChange={(e) =>
-                    setForm({ ...form, email: e.target.value })
-                    }
-                />
-                </div>
-                <div className="col-span-2 flex flex-col">
-                <label>RUA</label>
-                <Input
-                    disabled={readOnly}
-                    value={form.rua ?? ""}
-                    className={errors.rua ? "border-destructive" : ""}
-                    onChange={(e) => setForm({ ...form, rua: e.target.value })}
-                />
-                </div>
-                <div className="col-span-1 flex flex-col">
-                <label>NÚMERO</label>
-                <Input
-                    disabled={readOnly}
-                    value={form.numero ?? ""}
-                    className={errors.numero ? "border-destructive" : ""}
-                    onChange={(e) =>
-                    setForm({ ...form, numero: e.target.value })
-                    }
-                />
-                </div>
-                <div className="col-span-1 flex flex-col">
-                <label>COMPLEMENTO</label>
-                <Input
-                    disabled={readOnly}
-                    value={form.complemento ?? ""}
-                    className={errors.complemento ? "border-destructive" : ""}
-                    onChange={(e) =>
-                    setForm({ ...form, complemento: e.target.value })
-                    }
-                />
-                </div>
-                <div className="col-span-1 flex flex-col">
-                <label>BAIRRO</label>
-                <Input
-                    disabled={readOnly}
-                    value={form.bairro ?? ""}
-                    className={errors.bairro ? "border-destructive" : ""}
-                    onChange={(e) =>
-                    setForm({ ...form, bairro: e.target.value })
-                    }
-                />
-                </div>
-                <div className="col-span-1 flex flex-col">
-                <label>CEP</label>
-                <Input
-                    disabled={readOnly}
-                    value={form.cep ?? ""}
-                    className={errors.cep ? "border-destructive" : ""}
-                    onChange={(e) => setForm({ ...form, cep: e.target.value })}
-                />
-                </div>
-                <div className="col-span-1 flex flex-col">
-                <label>CIDADE</label>
-                <Dialog open={citySelectorOpen} onOpenChange={setCitySelectorOpen}>
-                    <DialogTrigger asChild>
-                    <Button
-                        variant="outline"
-                        disabled={readOnly}
-                        className={`w-full justify-between uppercase font-normal ${errors.idCidade ? "border-destructive" : ""}`}
-                    >
-                        {getCidadeUf(form.idCidade)}
-                        {!readOnly && <ChevronDown className="h-4 w-4" />}
-                    </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-6xl">
-                    <DialogHeader>
-                        <DialogTitle>SELECIONAR CIDADE</DialogTitle>
-                    </DialogHeader>
-                    <div className="flex items-center gap-2 pb-2">
-                        <Input
-                        placeholder="BUSCAR..."
-                        className="w-full"
-                        value={searchCidade}
-                        onChange={(e) => setSearchCidade(e.target.value)}
-                        />
-                    </div>
-                    <div className="space-y-2 max-h-[300px] overflow-auto">
-                        {cidadesFiltradas.map((cid) => (
-                        <Button
-                            key={cid.id}
-                            variant={form.idCidade === cid.id ? "default" : "outline"}
-                            className="w-full justify-start font-normal uppercase"
-                            onDoubleClick={() => {
-                            setForm({ ...form, idCidade: cid.id })
-                            setCitySelectorOpen(false)
-                            }}
-                        >
-                            {getCidadeUf(cid.id)}
-                        </Button>
-                        ))}
-                    </div>
-                    <div className="pt-4 flex justify-end gap-2">
-                        <Button variant="secondary" onClick={() => { setCitySelectorOpen(false); setModalCidadeOpen(true) }}>CADASTRAR NOVA CIDADE</Button>
-                        <Button variant="outline" onClick={() => setCitySelectorOpen(false)}>VOLTAR</Button>
-                    </div>
-                    </DialogContent>
-                </Dialog>
-                </div>
-                <div className="col-span-1 flex flex-col">
-                <label>CONDIÇÃO DE PAGAMENTO</label>
-                <Dialog open={condSelectorOpen} onOpenChange={setCondSelectorOpen}>
-                    <DialogTrigger asChild>
-                    <Button
-                        variant="outline"
-                        disabled={readOnly}
-                        className={`w-full justify-between uppercase font-normal ${errors.idCondicaoPagamento ? "border-destructive" : ""}`}
-                    >
-                        {getNomeCondicao(form.idCondicaoPagamento)}
-                        {!readOnly && <ChevronDown className="h-4 w-4" />}
-                    </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-5xl">
-                    <DialogHeader>
-                        <DialogTitle>SELECIONAR CONDIÇÃO</DialogTitle>
-                    </DialogHeader>
-                    <div className="space-y-2 max-h-[300px] overflow-auto">
-                        {condicoes.map((c) => (
-                        <Button
-                            key={c.id}
-                            variant={form.idCondicaoPagamento === c.id ? "default" : "outline"}
-                            className="w-full justify-start font-normal uppercase"
-                            onDoubleClick={() => {
-                            setForm({ ...form, idCondicaoPagamento: c.id })
-                            setCondSelectorOpen(false)
-                            }}
-                        >
-                            {c.descricao.toUpperCase()}
-                        </Button>
-                        ))}
-                    </div>
-                    <div className="pt-4 flex justify-end gap-2">
-                        <Button variant="secondary" onClick={() => { setCondSelectorOpen(false); setModalCondOpen(true) }}>CADASTRAR NOVA CONDIÇÃO</Button>
-                        <Button variant="outline" onClick={() => setCondSelectorOpen(false)}>VOLTAR</Button>
-                    </div>
-                    </DialogContent>
-                </Dialog>
-                </div>
-                <div className="col-span-1 flex flex-col">
-                <label>LIMITE DE CRÉDITO</label>
-                <Input
-                    type="number"
-                    disabled={readOnly}
-                    value={form.limiteCredito}
-                    className={errors.limiteCredito ? "border-destructive" : ""}
-                    onChange={(e) => setForm({ ...form, limiteCredito: Number(e.target.value) })}
-                />
-                </div>
-                <div className="col-span-1 flex flex-col justify-center">
-                <label>SITUAÇÃO</label>
-                <select
-                    disabled={readOnly}
-                    className="w-full border rounded px-2 py-1"
-                    value={form.ativo ? "habilitado" : "desabilitado"}
-                    onChange={(e) => setForm({ ...form, ativo: e.target.value === "habilitado" })}
-                >
-                    <option value="habilitado">HABILITADO</option>
-                    <option value="desabilitado">DESABILITADO</option>
-                </select>
-                </div>
+              </div>
+            </div>
+          </DialogHeader>
+
+          <div className="overflow-y-auto max-h-[70vh] pr-2 grid grid-cols-4 gap-x-4 gap-y-3 text-sm">
+
+            <div className="col-span-1 flex flex-col gap-1.5">
+              <Label htmlFor="tipoPessoaSelect">
+                Tipo de Pessoa <span className="text-red-500">*</span>
+              </Label>
+              <select
+                id="tipoPessoaSelect"
+                disabled={readOnly}
+                className="w-full border rounded px-2 py-1.5 bg-background"
+                value={form.pf ? "pf" : "pj"}
+                onChange={(e) => setForm({ ...form, pf: e.target.value === "pf" })}
+              >
+                <option value="pf">PESSOA FÍSICA</option>
+                <option value="pj">PESSOA JURÍDICA</option>
+              </select>
             </div>
 
-            <DialogFooter>
-                {!readOnly && <Button onClick={salvar}>{cliente ? "ATUALIZAR" : "SALVAR"}</Button>}
-                <DialogClose asChild>
-                <Button variant="outline">FECHAR</Button>
-                </DialogClose>
-            </DialogFooter>
-            </DialogContent>
-        </Dialog>
-        </>
-    )
-    }
+            <div className="col-span-2 flex flex-col gap-1.5">
+              <Label htmlFor="nomeRazaoSocial">
+                Nome / Razão Social <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="nomeRazaoSocial"
+                placeholder="Digite o nome completo ou a razão social"
+                disabled={readOnly}
+                value={form.nomeRazaoSocial ?? ""}
+                className={`uppercase ${errors.nomeRazaoSocial ? "border-destructive" : ""}`}
+                onChange={(e) => setForm({ ...form, nomeRazaoSocial: e.target.value.toUpperCase() })}
+              />
+              {errors.nomeRazaoSocial && <p className="text-xs text-destructive">{errors.nomeRazaoSocial[0]}</p>}
+            </div>
+
+            <div className="col-span-1 flex flex-col gap-1.5">
+              <Label htmlFor="apelidoNomeFantasia">Apelido / Nome Fantasia</Label>
+              <Input
+                id="apelidoNomeFantasia"
+                placeholder="Digite o apelido ou nome fantasia"
+                disabled={readOnly}
+                value={form.apelidoNomeFantasia ?? ""}
+                className={`uppercase ${errors.apelidoNomeFantasia ? "border-destructive" : ""}`}
+                onChange={(e) => setForm({ ...form, apelidoNomeFantasia: e.target.value.toUpperCase() })}
+              />
+            </div>
+
+            <div className="col-span-1 flex flex-col gap-1.5">
+              <Label htmlFor="cpfCnpj">
+                CPF / CNPJ <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="cpfCnpj"
+                placeholder="Digite o CPF ou CNPJ"
+                disabled={readOnly}
+                value={form.cpfCnpj ?? ""}
+                className={errors.cpfCnpj ? "border-destructive" : ""}
+                onChange={(e) => setForm({ ...form, cpfCnpj: e.target.value })}
+              />
+              {errors.cpfCnpj && <p className="text-xs text-destructive">{errors.cpfCnpj[0]}</p>}
+            </div>
+
+            <div className="col-span-1 flex flex-col gap-1.5">
+              <Label htmlFor="rgInscricaoEstadual">RG / Inscrição Estadual</Label>
+              <Input
+                id="rgInscricaoEstadual"
+                placeholder="Digite o RG ou IE"
+                disabled={readOnly}
+                value={form.rgInscricaoEstadual ?? ""}
+                className={`uppercase ${errors.rgInscricaoEstadual ? "border-destructive" : ""}`}
+                onChange={(e) => setForm({ ...form, rgInscricaoEstadual: e.target.value.toUpperCase() })}
+              />
+            </div>
+
+            <div className="col-span-1 flex flex-col gap-1.5">
+              <Label htmlFor="sexo">
+                Sexo <span className="text-red-500">*</span>
+              </Label>
+              <select
+                id="sexo"
+                disabled={readOnly || !form.pf}
+                className={`w-full border rounded px-2 py-1.5 bg-background ${errors.sexo ? "border-destructive" : ""}`}
+                value={form.sexo}
+                onChange={(e) => setForm({ ...form, sexo: e.target.value as "M" | "F" })}
+              >
+                <option value="M">MASCULINO</option>
+                <option value="F">FEMININO</option>
+              </select>
+            </div>
+
+            <div className="col-span-1 flex flex-col gap-1.5">
+              <Label htmlFor="dataNascimento">Data de Nascimento</Label>
+              <Input
+                id="dataNascimento"
+                type="date"
+                disabled={readOnly || !form.pf}
+                value={form.dataNascimento?.split("T")[0] ?? ""}
+                className={errors.dataNascimento ? "border-destructive" : ""}
+                onChange={(e) => setForm({ ...form, dataNascimento: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-2 flex flex-col gap-1.5">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="exemplo@email.com"
+                disabled={readOnly}
+                value={form.email ?? ""}
+                className={`uppercase ${errors.email ? "border-destructive" : ""}`}
+                onChange={(e) => setForm({ ...form, email: e.target.value.toUpperCase() })}
+              />
+              {errors.email && <p className="text-xs text-destructive">{errors.email[0]}</p>}
+            </div>
+
+            <div className="col-span-2 flex flex-col gap-1.5">
+              <Label htmlFor="telefone">Telefone</Label>
+              <Input
+                id="telefone"
+                placeholder="(XX) XXXXX-XXXX"
+                disabled={readOnly}
+                value={form.telefone ?? ""}
+                className={errors.telefone ? "border-destructive" : ""}
+                onChange={(e) => setForm({ ...form, telefone: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-2 flex flex-col gap-1.5">
+              <Label htmlFor="rua">Rua / Logradouro</Label>
+              <Input
+                id="rua"
+                placeholder="Ex: Rua das Flores"
+                disabled={readOnly}
+                value={form.rua ?? ""}
+                className={`uppercase ${errors.rua ? "border-destructive" : ""}`}
+                onChange={(e) => setForm({ ...form, rua: e.target.value.toUpperCase() })}
+              />
+            </div>
+
+            <div className="col-span-1 flex flex-col gap-1.5">
+              <Label htmlFor="numero">Número</Label>
+              <Input
+                id="numero"
+                placeholder="Ex: 123"
+                disabled={readOnly}
+                value={form.numero ?? ""}
+                className={errors.numero ? "border-destructive" : ""}
+                onChange={(e) => setForm({ ...form, numero: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-1 flex flex-col gap-1.5">
+              <Label htmlFor="cep">CEP</Label>
+              <Input
+                id="cep"
+                placeholder="XXXXX-XXX"
+                disabled={readOnly}
+                value={form.cep ?? ""}
+                className={errors.cep ? "border-destructive" : ""}
+                onChange={(e) => setForm({ ...form, cep: e.target.value })}
+              />
+            </div>
+
+            <div className="col-span-2 flex flex-col gap-1.5">
+              <Label htmlFor="bairro">Bairro</Label>
+              <Input
+                id="bairro"
+                placeholder="Ex: Centro"
+                disabled={readOnly}
+                value={form.bairro ?? ""}
+                className={`uppercase ${errors.bairro ? "border-destructive" : ""}`}
+                onChange={(e) => setForm({ ...form, bairro: e.target.value.toUpperCase() })}
+              />
+            </div>
+
+            <div className="col-span-2 flex flex-col gap-1.5">
+              <Label htmlFor="complemento">Complemento</Label>
+              <Input
+                id="complemento"
+                placeholder="Ex: Apto 101, Bloco B"
+                disabled={readOnly}
+                value={form.complemento ?? ""}
+                className={`uppercase ${errors.complemento ? "border-destructive" : ""}`}
+                onChange={(e) => setForm({ ...form, complemento: e.target.value.toUpperCase() })}
+              />
+            </div>
+
+
+            <div className="col-span-2 flex flex-col gap-1.5">
+              <Label>
+                Cidade <span className="text-red-500">*</span>
+              </Label>
+              <Dialog open={citySelectorOpen} onOpenChange={setCitySelectorOpen}>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    disabled={readOnly}
+                    className={`w-full justify-between uppercase font-normal ${errors.idCidade ? "border-destructive" : ""}`}
+                  >
+                    {getCidadeUf(form.idCidade)}
+                    {!readOnly && <ChevronDown className="h-4 w-4" />}
+                  </Button>
+                </DialogTrigger>
+
+                <DialogContent className="w-[92%] max-w-6xl">
+                  <DialogHeader>
+                    <DialogTitle>Selecionar Cidade</DialogTitle>
+                  </DialogHeader>
+
+                  <div className="flex gap-2 items-center mt-8">
+                    <Input
+                      placeholder="Buscar cidade ou estado..."
+                      className="w-full"
+                      value={searchCidade}
+                      onChange={(e) => setSearchCidade(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="space-y-2 max-h-[300px] overflow-auto">
+                    {cidadesFiltradas.map((cid) => (
+                      <Button
+                        key={cid.id}
+                        variant={form.idCidade === cid.id ? "default" : "outline"}
+                        className="w-full justify-start font-normal uppercase"
+                        onClick={() => handleCidadePicked(cid.id)}
+                      >
+                        {getCidadeUf(cid.id, true)}
+                      </Button>
+                    ))}
+                  </div>
+
+                  <DialogFooter className="gap-2">
+                    <Button
+                      onClick={() => {
+                        setReopenCitySelector(true)
+                        setCitySelectorOpen(false)
+                        setModalCidadeOpen(true)
+                      }}
+                    >
+                      Nova Cidade
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => setCitySelectorOpen(false)}
+                    >
+                      Voltar
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+              {errors.idCidade && <p className="text-xs text-destructive">{errors.idCidade[0]}</p>}
+            </div>
+
+            <div className="col-span-2 flex flex-col gap-1.5">
+              <Label>
+                Condição de Pagamento <span className="text-red-500">*</span>
+              </Label>
+              <Dialog open={condSelectorOpen} onOpenChange={setCondSelectorOpen}>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    disabled={readOnly}
+                    className={`w-full justify-between uppercase font-normal ${errors.idCondicaoPagamento ? "border-destructive" : ""}`}
+                  >
+                    {getNomeCondicao(form.idCondicaoPagamento)}
+                    {!readOnly && <ChevronDown className="h-4 w-4" />}
+                  </Button>
+                </DialogTrigger>
+
+                <DialogContent className="w-[92%] max-w-6xl">
+                  <DialogHeader>
+                    <DialogTitle>Selecionar Condição</DialogTitle>
+                  </DialogHeader>
+
+                  <div className="flex gap-2 items-center mt-8">
+                    <Input
+                      placeholder="Buscar condição..."
+                      className="w-full"
+                      value={searchCond}
+                      onChange={(e) => setSearchCond(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="space-y-2 max-h-[300px] overflow-auto">
+                    {condicoesFiltradas.map((c) => (
+                      <Button
+                        key={c.id}
+                        variant={form.idCondicaoPagamento === c.id ? "default" : "outline"}
+                        className="w-full justify-start font-normal uppercase"
+                        onClick={() => handleCondicaoPicked(c.id)}
+                      >
+                        {getNomeCondicao(c.id, true)}
+                      </Button>
+                    ))}
+                  </div>
+
+                  <DialogFooter className="gap-2">
+                    <Button
+                      onClick={() => {
+                        setReopenCondSelector(true)
+                        setCondSelectorOpen(false)
+                        setModalCondOpen(true)
+                      }}
+                    >
+                      Nova Condição
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => setCondSelectorOpen(false)}
+                    >
+                      Voltar
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+              {errors.idCondicaoPagamento && <p className="text-xs text-destructive">{errors.idCondicaoPagamento[0]}</p>}
+            </div>
+
+            <div className="col-span-2 flex flex-col gap-1.5">
+              <Label htmlFor="limiteCredito">Limite de Crédito</Label>
+              <Input
+                id="limiteCredito"
+                placeholder="R$ 0,00"
+                disabled={readOnly}
+                value={limiteCreditoDisplay}
+                className={`text-right ${errors.limiteCredito ? "border-destructive" : ""}`}
+                onChange={(e) => {
+                  setLimiteCreditoDisplay(e.target.value)
+                  const parsed = parseCurrency(e.target.value)
+                  setForm({ ...form, limiteCredito: parsed })
+                }}
+                onBlur={() => setLimiteCreditoDisplay(formatCurrency(form.limiteCredito))}
+              />
+              {errors.limiteCredito && <p className="text-xs text-destructive">{errors.limiteCredito[0]}</p>}
+            </div>
+          </div>
+
+          <DialogFooter>
+            <div className="text-xs text-muted-foreground mr-auto pl-1 space-y-0.5">
+              {cliente && (
+                <>
+                  <div>Data Criação: {cliente.dataCriacao ? (() => { const d = new Date(cliente.dataCriacao); d.setHours(d.getHours() - 3); return d.toLocaleString("pt-BR"); })() : 'N/A'}</div>
+                  <div>Data Atualização: {cliente.dataAtualizacao ? (() => { const d = new Date(cliente.dataAtualizacao); d.setHours(d.getHours() - 3); return d.toLocaleString("pt-BR"); })() : 'N/A'}</div>
+                </>
+              )}
+            </div>
+
+            <div className="flex gap-2">
+              <DialogClose asChild>
+                <Button variant="outline">Cancelar</Button>
+              </DialogClose>
+              {!readOnly && <Button onClick={salvar}>{cliente ? "Atualizar" : "Salvar"}</Button>}
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
+  )
+}

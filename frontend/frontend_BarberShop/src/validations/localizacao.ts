@@ -9,7 +9,7 @@ export const Paischema = z.object({
 export const CidadeSchema = z.object({
     nome: z.string().nonempty(),
     ddd: z.string().nonempty(),
-    idEstado: z.number().nonnegative(),
+    idEstado: z.number().min(1),
 })
 
 export const EstadoSchema = z.object({
