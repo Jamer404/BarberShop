@@ -1,0 +1,891 @@
+USE [BarberShop]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cargos](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NULL,
+	[SalarioBase] [decimal](18, 2) NOT NULL,
+	[ExigeCnh] [bit] NOT NULL,
+	[Ativo] [bit] NOT NULL,
+	 NOT NULL,
+	 NULL,
+ CONSTRAINT [PK_Cargos] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Categorias](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NULL,
+	[Ativo] [bit] NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cidades](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	[IdEstado] [int] NOT NULL,
+	[DataCriacao] [datetime] NOT NULL,
+	[DataAtualizacao] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Clientes](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	[IdCidade] [int] NOT NULL,
+	[IdCondicaoPagamento] [int] NULL,
+	 NOT NULL,
+	[Pf] [bit] NOT NULL,
+	[DataNascimento] [date] NULL,
+	 NULL,
+	 NOT NULL,
+	[LimiteCredito] [decimal](18, 2) NOT NULL,
+	[Ativo] [bit] NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+ CONSTRAINT [PK_Clientes] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CondicoesPagamento](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	[TaxaJuros] [decimal](18, 2) NOT NULL,
+	[Multa] [decimal](18, 2) NOT NULL,
+	[Desconto] [decimal](18, 2) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ContasPagar](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[NotaCompraId] [bigint] NULL,
+	[FornecedorId] [int] NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	[NumParcela] [int] NOT NULL,
+	[ValorParcela] [decimal](18, 2) NOT NULL,
+	[DataEmissao] [date] NOT NULL,
+	[DataVencimento] [date] NOT NULL,
+	[DataPagamento] [date] NULL,
+	[ValorPago] [decimal](18, 2) NULL,
+	[Juros] [decimal](18, 2) NOT NULL,
+	[Multa] [decimal](18, 2) NOT NULL,
+	[Desconto] [decimal](18, 2) NOT NULL,
+	 NOT NULL,
+	[FormaPagamentoId] [int] NULL,
+	[Observacao] [nvarchar](max) NULL,
+	 NOT NULL,
+	 NULL,
+ CONSTRAINT [PK_ContasPagar] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ContasReceber](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	[ClienteId] [int] NOT NULL,
+	[NumParcela] [int] NOT NULL,
+	[ValorParcela] [decimal](18, 2) NOT NULL,
+	[DataEmissao] [date] NOT NULL,
+	[DataVencimento] [date] NOT NULL,
+	[DataRecebimento] [date] NULL,
+	[ValorRecebido] [decimal](18, 2) NULL,
+	[Juros] [decimal](18, 2) NOT NULL,
+	[Multa] [decimal](18, 2) NOT NULL,
+	[Desconto] [decimal](18, 2) NOT NULL,
+	 NOT NULL,
+	[FormaPagamentoId] [int] NULL,
+	[Observacao] [nvarchar](max) NULL,
+	 NOT NULL,
+	 NULL,
+ CONSTRAINT [PK_ContasReceber] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Estados](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	[IdPais] [int] NOT NULL,
+	[DataCriacao] [datetime] NOT NULL,
+	[DataAtualizacao] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FormasPagamento](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Fornecedores](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	[CondicaoPagamentoId] [int] NOT NULL,
+	[IdCidade] [int] NOT NULL,
+ CONSTRAINT [PK_Fornecedores] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FornecedoresTransportadoras](
+	[FornecedorId] [int] NOT NULL,
+	[TransportadoraId] [int] NOT NULL,
+ CONSTRAINT [PK_FornecedoresTransportadoras] PRIMARY KEY CLUSTERED 
+(
+	[FornecedorId] ASC,
+	[TransportadoraId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Funcionarios](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	[IdCidade] [int] NULL,
+	[IdCargo] [int] NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NOT NULL,
+	 NULL,
+	 NULL,
+	[Salario] [decimal](18, 2) NULL,
+	 NULL,
+	 NULL,
+	[Ativo] [bit] NOT NULL,
+	 NOT NULL,
+	 NULL,
+ CONSTRAINT [PK_Funcionarios] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Marcas](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NULL,
+	[Ativo] [bit] NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[NotaCompra](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[FornecedorId] [int] NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NULL,
+	 NOT NULL,
+	[ValorFrete] [decimal](18, 2) NOT NULL,
+	[ValorSeguro] [decimal](18, 2) NOT NULL,
+	[OutrasDespesas] [decimal](18, 2) NOT NULL,
+	[TotalProdutos] [decimal](18, 2) NOT NULL,
+	[TotalPagar] [decimal](18, 2) NOT NULL,
+	[CondicaoPagamentoId] [int] NULL,
+	[TransportadoraId] [int] NULL,
+	 NULL,
+	[Observacao] [nvarchar](max) NULL,
+	 NULL,
+	 NOT NULL,
+	 NULL,
+ CONSTRAINT [PK_NotaCompra] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[NotaCompraItem](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[NotaCompraId] [bigint] NOT NULL,
+	[ProdutoId] [bigint] NOT NULL,
+	[UnidadeId] [bigint] NOT NULL,
+	[Quantidade] [decimal](18, 4) NOT NULL,
+	[PrecoUnit] [decimal](18, 2) NOT NULL,
+	[DescontoUnit] [decimal](18, 2) NOT NULL,
+	[LiquidoUnit] [decimal](18, 2) NOT NULL,
+	[Total] [decimal](18, 2) NOT NULL,
+	[Rateio] [decimal](18, 2) NOT NULL,
+	[CustoFinalUnit] [decimal](18, 2) NOT NULL,
+	[CustoFinal] [decimal](18, 2) NOT NULL,
+	 NOT NULL,
+ CONSTRAINT [PK_NotaCompraItem] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[NotaVenda](
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	[ClienteId] [int] NOT NULL,
+	[DataEmissao] [date] NOT NULL,
+	[TransportadoraId] [int] NULL,
+	 NULL,
+	 NOT NULL,
+	[ValorFrete] [decimal](18, 2) NOT NULL,
+	[TotalProdutos] [decimal](18, 2) NOT NULL,
+	[TotalPagar] [decimal](18, 2) NOT NULL,
+	[CondicaoPagamentoId] [int] NULL,
+	[Observacao] [nvarchar](max) NULL,
+	 NULL,
+	 NOT NULL,
+	 NULL,
+ CONSTRAINT [PK_NotaVenda] PRIMARY KEY CLUSTERED 
+(
+	[NumeroNota] ASC,
+	[Modelo] ASC,
+	[Serie] ASC,
+	[ClienteId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[NotaVendaProduto](
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	[ClienteId] [int] NOT NULL,
+	[ProdutoId] [int] NOT NULL,
+	[Quantidade] [decimal](18, 4) NOT NULL,
+	[PrecoUnit] [decimal](18, 4) NOT NULL,
+	[Desconto] [decimal](18, 2) NOT NULL,
+	 NOT NULL,
+	 NULL,
+ CONSTRAINT [PK_NotaVendaProduto] PRIMARY KEY CLUSTERED 
+(
+	[NumeroNota] ASC,
+	[Modelo] ASC,
+	[Serie] ASC,
+	[ClienteId] ASC,
+	[ProdutoId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Paises](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	[DataCriacao] [datetime] NOT NULL,
+	[DataAtualizacao] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ParcelasCondicaoPagamento](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Numero] [int] NOT NULL,
+	[Dias] [int] NOT NULL,
+	[Percentual] [decimal](10, 2) NOT NULL,
+	[FormaPagamentoId] [int] NOT NULL,
+	[CondicaoPagamentoId] [int] NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Produtos](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	[UnidadeId] [int] NULL,
+	[MarcaId] [int] NULL,
+	[CategoriaId] [int] NULL,
+	 NULL,
+	 NULL,
+	[CustoCompra] [decimal](18, 2) NOT NULL,
+	[PrecoVenda] [decimal](18, 2) NOT NULL,
+	[LucroPercentual] [decimal](18, 2) NOT NULL,
+	[Estoque] [decimal](18, 2) NOT NULL,
+	[EstoqueMinimo] [decimal](18, 2) NOT NULL,
+	[Ativo] [bit] NOT NULL,
+	 NOT NULL,
+	 NULL,
+ CONSTRAINT [PK_Produtos] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TransportadoraEmails](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[TransportadoraId] [int] NOT NULL,
+	 NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Transportadoras](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	 NULL,
+	[IdCidade] [int] NULL,
+	 NULL,
+	 NULL,
+	[IdCondicaoPagamento] [int] NULL,
+	[Ativo] [bit] NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TransportadoraTelefones](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[TransportadoraId] [int] NOT NULL,
+	 NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TransportadoraVeiculos](
+	[TransportadoraId] [int] NOT NULL,
+	[VeiculoId] [int] NOT NULL,
+ CONSTRAINT [PK_Transp_Veic] PRIMARY KEY CLUSTERED 
+(
+	[TransportadoraId] ASC,
+	[VeiculoId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UnidadesMedida](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NULL,
+	[Ativo] [bit] NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Veiculos](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+	 NULL,
+	[Ativo] [bit] NOT NULL,
+	 NOT NULL,
+	 NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Categorias] ADD  DEFAULT ((1)) FOR [Ativo]
+GO
+ALTER TABLE [dbo].[Clientes] ADD  CONSTRAINT [DF_Clientes_Pf]  DEFAULT ((1)) FOR [Pf]
+GO
+ALTER TABLE [dbo].[Clientes] ADD  CONSTRAINT [DF_Clientes_Sexo]  DEFAULT ('M') FOR [Sexo]
+GO
+ALTER TABLE [dbo].[Clientes] ADD  CONSTRAINT [DF_Clientes_LimiteCredito]  DEFAULT ((0)) FOR [LimiteCredito]
+GO
+ALTER TABLE [dbo].[Clientes] ADD  CONSTRAINT [DF_Clientes_Ativo]  DEFAULT ((1)) FOR [Ativo]
+GO
+ALTER TABLE [dbo].[Clientes] ADD  CONSTRAINT [DF_Clientes_DataCriacao]  DEFAULT (getdate()) FOR [DataCriacao]
+GO
+ALTER TABLE [dbo].[Clientes] ADD  CONSTRAINT [DF_Clientes_DataAtualizacao]  DEFAULT (getdate()) FOR [DataAtualizacao]
+GO
+ALTER TABLE [dbo].[CondicoesPagamento] ADD  DEFAULT (getdate()) FOR [DataCriacao]
+GO
+ALTER TABLE [dbo].[CondicoesPagamento] ADD  DEFAULT (getdate()) FOR [DataAtualizacao]
+GO
+ALTER TABLE [dbo].[CondicoesPagamento] ADD  CONSTRAINT [DF_CondicoesPagamento_Desconto]  DEFAULT ((0)) FOR [Desconto]
+GO
+ALTER TABLE [dbo].[ContasPagar] ADD  CONSTRAINT [DF_ContasPagar_Juros]  DEFAULT ((0)) FOR [Juros]
+GO
+ALTER TABLE [dbo].[ContasPagar] ADD  CONSTRAINT [DF_ContasPagar_Multa]  DEFAULT ((0)) FOR [Multa]
+GO
+ALTER TABLE [dbo].[ContasPagar] ADD  CONSTRAINT [DF_ContasPagar_Desconto]  DEFAULT ((0)) FOR [Desconto]
+GO
+ALTER TABLE [dbo].[ContasPagar] ADD  CONSTRAINT [DF_ContasPagar_Status]  DEFAULT ('ABERTO') FOR [Status]
+GO
+ALTER TABLE [dbo].[ContasPagar] ADD  CONSTRAINT [DF_ContasPagar_CriadoEm]  DEFAULT (sysutcdatetime()) FOR [CriadoEm]
+GO
+ALTER TABLE [dbo].[ContasReceber] ADD  CONSTRAINT [DF_ContasReceber_Juros]  DEFAULT ((0)) FOR [Juros]
+GO
+ALTER TABLE [dbo].[ContasReceber] ADD  CONSTRAINT [DF_ContasReceber_Multa]  DEFAULT ((0)) FOR [Multa]
+GO
+ALTER TABLE [dbo].[ContasReceber] ADD  CONSTRAINT [DF_ContasReceber_Desconto]  DEFAULT ((0)) FOR [Desconto]
+GO
+ALTER TABLE [dbo].[ContasReceber] ADD  CONSTRAINT [DF_ContasReceber_Status]  DEFAULT ('ABERTO') FOR [Status]
+GO
+ALTER TABLE [dbo].[ContasReceber] ADD  CONSTRAINT [DF_ContasReceber_CriadoEm]  DEFAULT (sysutcdatetime()) FOR [CriadoEm]
+GO
+ALTER TABLE [dbo].[FormasPagamento] ADD  DEFAULT (getdate()) FOR [DataCriacao]
+GO
+ALTER TABLE [dbo].[FormasPagamento] ADD  DEFAULT (getdate()) FOR [DataAtualizacao]
+GO
+ALTER TABLE [dbo].[Funcionarios] ADD  CONSTRAINT [DF_Funcionarios_Ativo]  DEFAULT ((1)) FOR [Ativo]
+GO
+ALTER TABLE [dbo].[Marcas] ADD  DEFAULT ((1)) FOR [Ativo]
+GO
+ALTER TABLE [dbo].[NotaCompra] ADD  DEFAULT ((0)) FOR [ValorFrete]
+GO
+ALTER TABLE [dbo].[NotaCompra] ADD  DEFAULT ((0)) FOR [ValorSeguro]
+GO
+ALTER TABLE [dbo].[NotaCompra] ADD  DEFAULT ((0)) FOR [OutrasDespesas]
+GO
+ALTER TABLE [dbo].[NotaCompra] ADD  DEFAULT ((0)) FOR [TotalProdutos]
+GO
+ALTER TABLE [dbo].[NotaCompra] ADD  DEFAULT ((0)) FOR [TotalPagar]
+GO
+ALTER TABLE [dbo].[NotaCompra] ADD  DEFAULT (sysutcdatetime()) FOR [CriadoEm]
+GO
+ALTER TABLE [dbo].[NotaCompraItem] ADD  CONSTRAINT [DF_Item_Desc]  DEFAULT ((0)) FOR [DescontoUnit]
+GO
+ALTER TABLE [dbo].[NotaCompraItem] ADD  CONSTRAINT [DF_Item_Rateio]  DEFAULT ((0)) FOR [Rateio]
+GO
+ALTER TABLE [dbo].[NotaCompraItem] ADD  CONSTRAINT [DF_Item_CriadoEm]  DEFAULT (sysdatetime()) FOR [CriadoEm]
+GO
+ALTER TABLE [dbo].[NotaVenda] ADD  CONSTRAINT [DF_NotaVenda_ValorFrete]  DEFAULT ((0)) FOR [ValorFrete]
+GO
+ALTER TABLE [dbo].[NotaVenda] ADD  CONSTRAINT [DF_NotaVenda_TotalProdutos]  DEFAULT ((0)) FOR [TotalProdutos]
+GO
+ALTER TABLE [dbo].[NotaVenda] ADD  CONSTRAINT [DF_NotaVenda_TotalPagar]  DEFAULT ((0)) FOR [TotalPagar]
+GO
+ALTER TABLE [dbo].[NotaVenda] ADD  CONSTRAINT [DF_NotaVenda_CriadoEm]  DEFAULT (sysutcdatetime()) FOR [CriadoEm]
+GO
+ALTER TABLE [dbo].[NotaVendaProduto] ADD  CONSTRAINT [DF_NotaVendaProduto_Desconto]  DEFAULT ((0)) FOR [Desconto]
+GO
+ALTER TABLE [dbo].[NotaVendaProduto] ADD  CONSTRAINT [DF_NotaVendaProduto_CriadoEm]  DEFAULT (sysutcdatetime()) FOR [CriadoEm]
+GO
+ALTER TABLE [dbo].[ParcelasCondicaoPagamento] ADD  DEFAULT (getdate()) FOR [DataCriacao]
+GO
+ALTER TABLE [dbo].[ParcelasCondicaoPagamento] ADD  DEFAULT (getdate()) FOR [DataAtualizacao]
+GO
+ALTER TABLE [dbo].[Produtos] ADD  CONSTRAINT [DF_Produtos_CustoCompra]  DEFAULT ((0)) FOR [CustoCompra]
+GO
+ALTER TABLE [dbo].[Produtos] ADD  CONSTRAINT [DF_Produtos_PrecoVenda]  DEFAULT ((0)) FOR [PrecoVenda]
+GO
+ALTER TABLE [dbo].[Produtos] ADD  CONSTRAINT [DF_Produtos_Lucro]  DEFAULT ((0)) FOR [LucroPercentual]
+GO
+ALTER TABLE [dbo].[Produtos] ADD  CONSTRAINT [DF_Produtos_Estoque]  DEFAULT ((0)) FOR [Estoque]
+GO
+ALTER TABLE [dbo].[Produtos] ADD  CONSTRAINT [DF_Produtos_EstoqueMin]  DEFAULT ((0)) FOR [EstoqueMinimo]
+GO
+ALTER TABLE [dbo].[Produtos] ADD  CONSTRAINT [DF_Produtos_Ativo]  DEFAULT ((1)) FOR [Ativo]
+GO
+ALTER TABLE [dbo].[Produtos] ADD  CONSTRAINT [DF_Produtos_Criacao]  DEFAULT (sysdatetime()) FOR [DataCriacao]
+GO
+ALTER TABLE [dbo].[Transportadoras] ADD  DEFAULT ((1)) FOR [Ativo]
+GO
+ALTER TABLE [dbo].[Transportadoras] ADD  DEFAULT (sysutcdatetime()) FOR [DataCriacao]
+GO
+ALTER TABLE [dbo].[Transportadoras] ADD  DEFAULT (sysutcdatetime()) FOR [DataAtualizacao]
+GO
+ALTER TABLE [dbo].[UnidadesMedida] ADD  DEFAULT ((1)) FOR [Ativo]
+GO
+ALTER TABLE [dbo].[Veiculos] ADD  DEFAULT ((1)) FOR [Ativo]
+GO
+ALTER TABLE [dbo].[Veiculos] ADD  DEFAULT (sysutcdatetime()) FOR [DataCriacao]
+GO
+ALTER TABLE [dbo].[Veiculos] ADD  DEFAULT (sysutcdatetime()) FOR [DataAtualizacao]
+GO
+
+ALTER TABLE [dbo].[Cidades]  WITH CHECK ADD FOREIGN KEY([IdEstado])
+REFERENCES [dbo].[Estados] ([Id])
+GO
+ALTER TABLE [dbo].[Clientes]  WITH CHECK ADD  CONSTRAINT [FK_Clientes_Cidades] FOREIGN KEY([IdCidade])
+REFERENCES [dbo].[Cidades] ([Id])
+GO
+ALTER TABLE [dbo].[Clientes] CHECK CONSTRAINT [FK_Clientes_Cidades]
+GO
+ALTER TABLE [dbo].[Clientes]  WITH CHECK ADD  CONSTRAINT [FK_Clientes_CondicoesPagamento] FOREIGN KEY([IdCondicaoPagamento])
+REFERENCES [dbo].[CondicoesPagamento] ([Id])
+GO
+ALTER TABLE [dbo].[Clientes] CHECK CONSTRAINT [FK_Clientes_CondicoesPagamento]
+GO
+ALTER TABLE [dbo].[ContasPagar]  WITH CHECK ADD  CONSTRAINT [FK_ContasPagar_FormasPagamento] FOREIGN KEY([FormaPagamentoId])
+REFERENCES [dbo].[FormasPagamento] ([Id])
+GO
+ALTER TABLE [dbo].[ContasPagar] CHECK CONSTRAINT [FK_ContasPagar_FormasPagamento]
+GO
+ALTER TABLE [dbo].[ContasPagar]  WITH CHECK ADD  CONSTRAINT [FK_ContasPagar_Fornecedores] FOREIGN KEY([FornecedorId])
+REFERENCES [dbo].[Fornecedores] ([Id])
+GO
+ALTER TABLE [dbo].[ContasPagar] CHECK CONSTRAINT [FK_ContasPagar_Fornecedores]
+GO
+ALTER TABLE [dbo].[ContasPagar]  WITH CHECK ADD  CONSTRAINT [FK_ContasPagar_NotaCompra] FOREIGN KEY([NotaCompraId])
+REFERENCES [dbo].[NotaCompra] ([Id])
+GO
+ALTER TABLE [dbo].[ContasPagar] CHECK CONSTRAINT [FK_ContasPagar_NotaCompra]
+GO
+ALTER TABLE [dbo].[ContasReceber]  WITH CHECK ADD  CONSTRAINT [FK_ContasReceber_Clientes] FOREIGN KEY([ClienteId])
+REFERENCES [dbo].[Clientes] ([Id])
+GO
+ALTER TABLE [dbo].[ContasReceber] CHECK CONSTRAINT [FK_ContasReceber_Clientes]
+GO
+ALTER TABLE [dbo].[ContasReceber]  WITH CHECK ADD  CONSTRAINT [FK_ContasReceber_FormasPagamento] FOREIGN KEY([FormaPagamentoId])
+REFERENCES [dbo].[FormasPagamento] ([Id])
+GO
+ALTER TABLE [dbo].[ContasReceber] CHECK CONSTRAINT [FK_ContasReceber_FormasPagamento]
+GO
+ALTER TABLE [dbo].[ContasReceber]  WITH CHECK ADD  CONSTRAINT [FK_ContasReceber_NotaVenda] FOREIGN KEY([NumeroNota], [Modelo], [Serie], [ClienteId])
+REFERENCES [dbo].[NotaVenda] ([NumeroNota], [Modelo], [Serie], [ClienteId])
+GO
+ALTER TABLE [dbo].[ContasReceber] CHECK CONSTRAINT [FK_ContasReceber_NotaVenda]
+GO
+ALTER TABLE [dbo].[Estados]  WITH CHECK ADD FOREIGN KEY([IdPais])
+REFERENCES [dbo].[Paises] ([Id])
+GO
+ALTER TABLE [dbo].[Fornecedores]  WITH CHECK ADD  CONSTRAINT [FK_Fornecedores_Cidades] FOREIGN KEY([IdCidade])
+REFERENCES [dbo].[Cidades] ([Id])
+GO
+ALTER TABLE [dbo].[Fornecedores] CHECK CONSTRAINT [FK_Fornecedores_Cidades]
+GO
+ALTER TABLE [dbo].[Fornecedores]  WITH CHECK ADD  CONSTRAINT [FK_Fornecedores_CondicaoPagamento] FOREIGN KEY([CondicaoPagamentoId])
+REFERENCES [dbo].[CondicoesPagamento] ([Id])
+GO
+ALTER TABLE [dbo].[Fornecedores] CHECK CONSTRAINT [FK_Fornecedores_CondicaoPagamento]
+GO
+ALTER TABLE [dbo].[FornecedoresTransportadoras]  WITH CHECK ADD  CONSTRAINT [FK_FornecedoresTransportadoras_Fornecedores] FOREIGN KEY([FornecedorId])
+REFERENCES [dbo].[Fornecedores] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[FornecedoresTransportadoras] CHECK CONSTRAINT [FK_FornecedoresTransportadoras_Fornecedores]
+GO
+ALTER TABLE [dbo].[FornecedoresTransportadoras]  WITH CHECK ADD  CONSTRAINT [FK_FornecedoresTransportadoras_Transportadoras] FOREIGN KEY([TransportadoraId])
+REFERENCES [dbo].[Transportadoras] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[FornecedoresTransportadoras] CHECK CONSTRAINT [FK_FornecedoresTransportadoras_Transportadoras]
+GO
+ALTER TABLE [dbo].[Funcionarios]  WITH CHECK ADD  CONSTRAINT [FK_Funcionarios_Cargos] FOREIGN KEY([IdCargo])
+REFERENCES [dbo].[Cargos] ([Id])
+ON DELETE SET NULL
+GO
+ALTER TABLE [dbo].[Funcionarios] CHECK CONSTRAINT [FK_Funcionarios_Cargos]
+GO
+ALTER TABLE [dbo].[Funcionarios]  WITH CHECK ADD  CONSTRAINT [FK_Funcionarios_Cidades] FOREIGN KEY([IdCidade])
+REFERENCES [dbo].[Cidades] ([Id])
+ON DELETE SET NULL
+GO
+ALTER TABLE [dbo].[Funcionarios] CHECK CONSTRAINT [FK_Funcionarios_Cidades]
+GO
+ALTER TABLE [dbo].[NotaCompra]  WITH CHECK ADD  CONSTRAINT [FK_NotaCompra_CondicaoPagamento] FOREIGN KEY([CondicaoPagamentoId])
+REFERENCES [dbo].[CondicoesPagamento] ([Id])
+GO
+ALTER TABLE [dbo].[NotaCompra] CHECK CONSTRAINT [FK_NotaCompra_CondicaoPagamento]
+GO
+ALTER TABLE [dbo].[NotaCompra]  WITH CHECK ADD  CONSTRAINT [FK_NotaCompra_Fornecedores] FOREIGN KEY([FornecedorId])
+REFERENCES [dbo].[Fornecedores] ([Id])
+GO
+ALTER TABLE [dbo].[NotaCompra] CHECK CONSTRAINT [FK_NotaCompra_Fornecedores]
+GO
+ALTER TABLE [dbo].[NotaCompra]  WITH CHECK ADD  CONSTRAINT [FK_NotaCompra_Transportadoras] FOREIGN KEY([TransportadoraId])
+REFERENCES [dbo].[Transportadoras] ([Id])
+GO
+ALTER TABLE [dbo].[NotaCompra] CHECK CONSTRAINT [FK_NotaCompra_Transportadoras]
+GO
+ALTER TABLE [dbo].[NotaCompraItem]  WITH CHECK ADD  CONSTRAINT [FK_Item_Nota] FOREIGN KEY([NotaCompraId])
+REFERENCES [dbo].[NotaCompra] ([Id])
+GO
+ALTER TABLE [dbo].[NotaCompraItem] CHECK CONSTRAINT [FK_Item_Nota]
+GO
+ALTER TABLE [dbo].[NotaVenda]  WITH CHECK ADD  CONSTRAINT [FK_NotaVenda_Clientes] FOREIGN KEY([ClienteId])
+REFERENCES [dbo].[Clientes] ([Id])
+GO
+ALTER TABLE [dbo].[NotaVenda] CHECK CONSTRAINT [FK_NotaVenda_Clientes]
+GO
+ALTER TABLE [dbo].[NotaVenda]  WITH CHECK ADD  CONSTRAINT [FK_NotaVenda_CondicoesPagamento] FOREIGN KEY([CondicaoPagamentoId])
+REFERENCES [dbo].[CondicoesPagamento] ([Id])
+GO
+ALTER TABLE [dbo].[NotaVenda] CHECK CONSTRAINT [FK_NotaVenda_CondicoesPagamento]
+GO
+ALTER TABLE [dbo].[NotaVenda]  WITH CHECK ADD  CONSTRAINT [FK_NotaVenda_Transportadoras] FOREIGN KEY([TransportadoraId])
+REFERENCES [dbo].[Transportadoras] ([Id])
+GO
+ALTER TABLE [dbo].[NotaVenda] CHECK CONSTRAINT [FK_NotaVenda_Transportadoras]
+GO
+ALTER TABLE [dbo].[NotaVendaProduto]  WITH CHECK ADD  CONSTRAINT [FK_NotaVendaProduto_NotaVenda] FOREIGN KEY([NumeroNota], [Modelo], [Serie], [ClienteId])
+REFERENCES [dbo].[NotaVenda] ([NumeroNota], [Modelo], [Serie], [ClienteId])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[NotaVendaProduto] CHECK CONSTRAINT [FK_NotaVendaProduto_NotaVenda]
+GO
+ALTER TABLE [dbo].[NotaVendaProduto]  WITH CHECK ADD  CONSTRAINT [FK_NotaVendaProduto_Produtos] FOREIGN KEY([ProdutoId])
+REFERENCES [dbo].[Produtos] ([Id])
+GO
+ALTER TABLE [dbo].[NotaVendaProduto] CHECK CONSTRAINT [FK_NotaVendaProduto_Produtos]
+GO
+ALTER TABLE [dbo].[ParcelasCondicaoPagamento]  WITH CHECK ADD  CONSTRAINT [FK_Parcela_Condicao] FOREIGN KEY([CondicaoPagamentoId])
+REFERENCES [dbo].[CondicoesPagamento] ([Id])
+GO
+ALTER TABLE [dbo].[ParcelasCondicaoPagamento] CHECK CONSTRAINT [FK_Parcela_Condicao]
+GO
+ALTER TABLE [dbo].[ParcelasCondicaoPagamento]  WITH CHECK ADD  CONSTRAINT [FK_Parcela_Forma] FOREIGN KEY([FormaPagamentoId])
+REFERENCES [dbo].[FormasPagamento] ([Id])
+GO
+ALTER TABLE [dbo].[ParcelasCondicaoPagamento] CHECK CONSTRAINT [FK_Parcela_Forma]
+GO
+ALTER TABLE [dbo].[Produtos]  WITH CHECK ADD  CONSTRAINT [FK_Produtos_Categoria] FOREIGN KEY([CategoriaId])
+REFERENCES [dbo].[Categorias] ([Id])
+ON DELETE SET NULL
+GO
+ALTER TABLE [dbo].[Produtos] CHECK CONSTRAINT [FK_Produtos_Categoria]
+GO
+ALTER TABLE [dbo].[Produtos]  WITH CHECK ADD  CONSTRAINT [FK_Produtos_Marca] FOREIGN KEY([MarcaId])
+REFERENCES [dbo].[Marcas] ([Id])
+ON DELETE SET NULL
+GO
+ALTER TABLE [dbo].[Produtos] CHECK CONSTRAINT [FK_Produtos_Marca]
+GO
+ALTER TABLE [dbo].[Produtos]  WITH CHECK ADD  CONSTRAINT [FK_Produtos_Unidade] FOREIGN KEY([UnidadeId])
+REFERENCES [dbo].[UnidadesMedida] ([Id])
+ON DELETE SET NULL
+GO
+ALTER TABLE [dbo].[Produtos] CHECK CONSTRAINT [FK_Produtos_Unidade]
+GO
+ALTER TABLE [dbo].[TransportadoraEmails]  WITH CHECK ADD  CONSTRAINT [FK_TranspEmail_Transp] FOREIGN KEY([TransportadoraId])
+REFERENCES [dbo].[Transportadoras] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[TransportadoraEmails] CHECK CONSTRAINT [FK_TranspEmail_Transp]
+GO
+ALTER TABLE [dbo].[TransportadoraTelefones]  WITH CHECK ADD  CONSTRAINT [FK_TranspTel_Transp] FOREIGN KEY([TransportadoraId])
+REFERENCES [dbo].[Transportadoras] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[TransportadoraTelefones] CHECK CONSTRAINT [FK_TranspTel_Transp]
+GO
+ALTER TABLE [dbo].[Funcionarios]  WITH CHECK ADD  CONSTRAINT [CK_Funcionarios_Sexo] CHECK  (([Sexo]='F' OR [Sexo]='M'))
+GO
+ALTER TABLE [dbo].[Funcionarios] CHECK CONSTRAINT [CK_Funcionarios_Sexo]
+GO
+ALTER TABLE [dbo].[NotaCompra]  WITH CHECK ADD CHECK  (([TipoFrete]='FOB' OR [TipoFrete]='CIF'))
+GO
+ALTER TABLE [dbo].[NotaVenda]  WITH CHECK ADD  CONSTRAINT [CK_NotaVenda_TipoFrete] CHECK  (([TipoFrete]='FOB' OR [TipoFrete]='CIF'))
+GO
+ALTER TABLE [dbo].[NotaVenda] CHECK CONSTRAINT [CK_NotaVenda_TipoFrete]
+GO
+ALTER TABLE [dbo].[NotaVendaProduto]  WITH CHECK ADD  CONSTRAINT [CK_NotaVendaProduto_Preco] CHECK  (([PrecoUnit]>=(0)))
+GO
+ALTER TABLE [dbo].[NotaVendaProduto] CHECK CONSTRAINT [CK_NotaVendaProduto_Preco]
+GO
+ALTER TABLE [dbo].[NotaVendaProduto]  WITH CHECK ADD  CONSTRAINT [CK_NotaVendaProduto_Qtd] CHECK  (([Quantidade]>(0)))
+GO
+ALTER TABLE [dbo].[NotaVendaProduto] CHECK CONSTRAINT [CK_NotaVendaProduto_Qtd]
+GO
+ALTER TABLE [dbo].[Transportadoras]  WITH CHECK ADD CHECK  (([TipoPessoa]='J' OR [TipoPessoa]='F'))
+GO
